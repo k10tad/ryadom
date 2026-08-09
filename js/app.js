@@ -1,6 +1,6 @@
 import { db, makeId, openDatabase } from './db.js?v=0.9.0';
 import { migrateLegacyData } from './migration.js';
-import { APP_VERSION } from './config.js?v=0.9.1';
+import { APP_VERSION } from './config.js?v=0.9.2';
 import { DialogueEngine } from './dialogue-engine.js';
 import { typeLine, stopTyping } from './typewriter.js';
 import { chooseIntelligentLine } from './ryadom-intelligence.js';

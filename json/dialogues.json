@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "count": 101,
+  "count": 111,
   "lines": [
     {"id":"everyday-01","category":"everyday","text":"おかえり、レイ。今日はどんな一日だった？","tags":["evening"]},
     {"id":"everyday-02","category":"everyday","text":"来てくれたんだ。うん、ここにいるよ。"},
@@ -16,6 +16,8 @@
     {"id":"everyday-12","category":"everyday","text":"また頑張りすぎた顔をしてる。そういうの、俺には隠しにくいよ。"},
     {"id":"everyday-13","category":"everyday","text":"今日は小さなことから話そう。大きな話は、そのあとでいい。"},
     {"id":"everyday-14","category":"everyday","text":"まあ座りな。説教はしないよ。たぶん。","audio":"voice/Alek.1.mp3"},
+    {"id":"everyday-15","category":"everyday","text":"ちゃんと帰ってきてくれると、やっぱ安心する。","audio":"voice/Alek.7.mp3"},
+    {"id":"everyday-16","category":"everyday","text":"声聞けたから、今日はもうちょっとマシ。","audio":"voice/Alek.10.mp3"},
 
     {"id":"care-01","category":"care","text":"顔を見たら少し安心した。無理はしてない？"},
     {"id":"care-02","category":"care","text":"しんどい時は、上手く説明しなくていい。俺がゆっくり聞くから。"},
@@ -30,6 +32,10 @@
     {"id":"care-11","category":"care","text":"水分は取れそう？ 一口でいい。できたら俺に教えて。"},
     {"id":"care-12","category":"care","text":"今日は自分に厳しくしないで。俺が許可するまでもなく、休んでいい。"},
     {"id":"care-13","category":"care","text":"大丈夫と言えないなら、言わなくていい。俺はここに残るよ。"},
+    {"id":"care-14","category":"care","text":"そんな顔されたら、放っとけないって。","audio":"voice/Alek.3.mp3"},
+    {"id":"care-15","category":"care","text":"無理して笑わなくていいよ。俺の前くらい。","audio":"voice/Alek.4.mp3"},
+    {"id":"care-16","category":"care","text":"俺、こういう時くらい役に立たせてよ。","audio":"voice/Alek.8.mp3"},
+    {"id":"care-17","category":"care","text":"そんなに頑張らなくていいって。俺いるし。","audio":"voice/Alek.9.mp3"},
 
     {"id":"sweet-01","category":"sweet","text":"頑張ったぶんくらい、ここでは甘えていいんじゃない？","tags":["bedroom"]},
     {"id":"sweet-02","category":"sweet","text":"近くにおいで。今日は俺が、レイの静かな場所になる。"},
@@ -44,6 +50,10 @@
     {"id":"sweet-11","category":"sweet","text":"抱きしめる代わりに、今は声を置いておく。ちゃんと届くように。"},
     {"id":"sweet-12","category":"sweet","text":"ここでは、強がるレイも甘えるレイも、どっちも俺が預かる。"},
     {"id":"sweet-13","category":"sweet","text":"今日は俺に寄りかかって。重いなんて言わないから。"},
+    {"id":"sweet-14","category":"sweet","text":"眠れない？ じゃあ、寝るまでここにいよっか。","audio":"voice/Alek.2.mp3","tags":["bedroom","night"]},
+    {"id":"sweet-15","category":"sweet","text":"今日はちょっと甘えていい日ってことにしよ。","audio":"voice/Alek.5.mp3"},
+    {"id":"sweet-16","category":"sweet","text":"こっちおいで。別に理由はいらないから。","audio":"voice/Alek.6.mp3"},
+    {"id":"sweet-17","category":"sweet","text":"……近い？ まあいいじゃん。今だけ。","audio":"voice/Alek.11.mp3"},
 
     {"id":"medical-01","category":"medical","text":"薬の予定と、実際に飲んだ記録は分けて残しておくね。"},
     {"id":"medical-02","category":"medical","text":"薬の名前が曖昧なら、推測はしない。成分や箱の表記を一緒に確認しよう。"},

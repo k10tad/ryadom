@@ -1,12 +1,12 @@
-const VERSION = 'ryadom-v0.9.1-alek-voice-1';
+const VERSION = 'ryadom-v0.9.2-alek-voices-1';
 const APP_SHELL = [
   './',
   './index.html',
   './css/style.css',
   './css/style-v050.css?v=0.9.0',
   './manifest.webmanifest',
-  './js/app.js?v=0.9.1',
-  './js/config.js?v=0.9.1',
+  './js/app.js?v=0.9.2',
+  './js/config.js?v=0.9.2',
   './js/db.js?v=0.9.0',
   './js/migration.js',
   './js/dialogue-engine.js',
@@ -31,6 +31,16 @@ const APP_SHELL = [
   './assets/backgrounds/bedroom.jpg',
   './assets/icons/icon.jpg'
   ,'./voice/Alek.1.mp3'
+  ,'./voice/Alek.2.mp3'
+  ,'./voice/Alek.3.mp3'
+  ,'./voice/Alek.4.mp3'
+  ,'./voice/Alek.5.mp3'
+  ,'./voice/Alek.6.mp3'
+  ,'./voice/Alek.7.mp3'
+  ,'./voice/Alek.8.mp3'
+  ,'./voice/Alek.9.mp3'
+  ,'./voice/Alek.10.mp3'
+  ,'./voice/Alek.11.mp3'
 ];
 
 self.addEventListener('install', event => {
