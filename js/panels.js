@@ -1,6 +1,6 @@
-import { db } from './db.js';
+import { db } from './db.js?v=0.9.0';
 import { getProfileBundle } from './profile-service.js';
-import { dateTimeLabel, emptyState, escapeHtml, localDateTimeValue } from './templates.js';
+import { dateTimeLabel, dateTimeLongLabel, emptyState, escapeHtml, localDateTimeValue } from './templates.js?v=0.9.0';
 
 function profileStatus(item) {
   return item.status === 'identified' ? '' : '（辞書未確認）';
@@ -17,6 +17,16 @@ export async function settingsPanel() {
     <p class="medical-note">薬のプロフィールと実際の服用記録、診断された疾患とその日の症状は、それぞれ別に保存されます。</p>
     <button class="primary" type="submit">プロフィールを保存</button>
   </form>
+  <section class="data-transfer">
+    <h3>データの引き継ぎ</h3>
+    <p>プロフィール、薬・持病、服薬・症状・周期の記録、予定、会話と設定をZIPで持ち運べます。</p>
+    <div class="transfer-actions">
+      <button type="button" data-export-backup>ZIPを書き出す</button>
+      <button type="button" data-import-backup>ZIPを読み込む</button>
+      <input type="file" data-backup-file accept=".zip,application/zip" hidden>
+    </div>
+    <p class="transfer-status" data-transfer-status aria-live="polite"></p>
+  </section>
   <section class="profile-summary">
     <h3>辞書との照合状態</h3>
     <p><strong>薬：</strong>${bundle.medications.length ? bundle.medications.map(item => `${escapeHtml(item.rawName)}${profileStatus(item)}`).join('、') : '登録なし'}</p>
@@ -54,11 +64,17 @@ export async function conditionPanel() {
     <form class="form-grid" data-form="condition">
       <label>いまの調子<select name="level"><option value="good">落ち着いている</option><option value="uneasy">少し気になる</option><option value="bad">つらい</option></select></label>
       <label>症状・気分<textarea name="note" placeholder="頭痛、吐き気、息苦しさ、不安など"></textarea></label>
+      <label class="pain-toggle"><input type="checkbox" name="hasPain" value="yes" data-pain-toggle><span>痛みの程度も記録する</span></label>
+      <div class="pain-scale" data-pain-scale hidden>
+        <div><span>痛みなし</span><output data-pain-output>5 / 10</output><span>最も強い痛み</span></div>
+        <input type="range" name="pain" min="0" max="10" step="1" value="5" disabled data-pain-range aria-label="痛みの程度">
+        <div class="pain-ticks" aria-hidden="true"><span>0</span><span>5</span><span>10</span></div>
+      </div>
       <button class="primary" type="submit">症状として記録</button>
     </form>
     <p class="medical-note">ここへ入れた内容は症状ログです。診断された持病プロフィールには追加されません。</p>
     <section class="log-list">${sortedLogs.length ? sortedLogs.map(item =>
-      `<article class="log-item"><small>${dateTimeLabel(item.at)}</small><p>${escapeHtml(item.note || item.level)}</p></article>`
+      `<article class="log-item"><small>${dateTimeLongLabel(item.at)}</small><p>${escapeHtml(item.note || item.level)}</p>${Number.isInteger(item.pain) ? `<strong class="pain-log">痛み ${item.pain}/10</strong>` : ''}</article>`
     ).join('') : emptyState('症状の記録はまだないよ。')}</section>`;
 }
 

@@ -1,13 +1,13 @@
-const VERSION = 'ryadom-v0.8.0-knowledge-hormones-1';
+const VERSION = 'ryadom-v0.9.1-alek-voice-1';
 const APP_SHELL = [
   './',
   './index.html',
   './css/style.css',
-  './css/style-v050.css?v=0.5.1',
+  './css/style-v050.css?v=0.9.0',
   './manifest.webmanifest',
-  './js/app.js?v=0.5.1',
-  './js/config.js',
-  './js/db.js',
+  './js/app.js?v=0.9.1',
+  './js/config.js?v=0.9.1',
+  './js/db.js?v=0.9.0',
   './js/migration.js',
   './js/dialogue-engine.js',
   './js/typewriter.js',
@@ -17,8 +17,10 @@ const APP_SHELL = [
   './js/medical-service.js',
   './js/memory-service.js',
   './js/profile-service.js',
-  './js/templates.js',
-  './js/panels.js',
+  './js/templates.js?v=0.9.0',
+  './js/panels.js?v=0.9.0',
+  './js/backup-service.js?v=0.9.0',
+  './js/fflate.js',
   './json/dialogues.json',
   './json/drugs.json',
   './json/conditions.json',
@@ -28,6 +30,7 @@ const APP_SHELL = [
   './assets/backgrounds/living.jpg',
   './assets/backgrounds/bedroom.jpg',
   './assets/icons/icon.jpg'
+  ,'./voice/Alek.1.mp3'
 ];
 
 self.addEventListener('install', event => {

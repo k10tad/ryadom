@@ -1,12 +1,13 @@
-import { db, makeId, openDatabase } from './db.js';
+import { db, makeId, openDatabase } from './db.js?v=0.9.0';
 import { migrateLegacyData } from './migration.js';
-import { APP_VERSION } from './config.js';
+import { APP_VERSION } from './config.js?v=0.9.1';
 import { DialogueEngine } from './dialogue-engine.js';
 import { typeLine, stopTyping } from './typewriter.js';
 import { chooseIntelligentLine } from './ryadom-intelligence.js';
 import { evaluateMedication, renderMedicationAssessment } from './medical-service.js';
 import { addMedicationToProfile, getProfileBundle, saveProfile } from './profile-service.js';
-import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js';
+import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=0.9.0';
+import { exportBackup, importBackup } from './backup-service.js?v=0.9.0';
 
 const app = document.querySelector('#app');
 const sheet = document.querySelector('#sheet');
@@ -20,6 +21,8 @@ const speechFlow = document.querySelector('.speech-flow');
 
 let engine;
 let pendingMedication = null;
+let currentLineAudio = null;
+let activeVoice = null;
 
 const panels = {
   rhythm: ['РИТМ · RHYTHM', '身体のリズム'],
@@ -38,8 +41,28 @@ function timeOfDay(date = new Date()) {
   return 'night';
 }
 
-async function showText(text) {
+function playVoice(source, useFallback = false) {
+  if (!source) return;
+  activeVoice?.pause();
+  const audio = new Audio(source);
+  activeVoice = audio;
+  const fallback = () => {
+    if (!useFallback || !('speechSynthesis' in window)) return;
+    speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(alekLine.textContent);
+    utterance.lang = 'ja-JP';
+    utterance.rate = .9;
+    utterance.pitch = .8;
+    speechSynthesis.speak(utterance);
+  };
+  audio.addEventListener('error', fallback, { once: true });
+  audio.play().catch(fallback);
+}
+
+async function showText(text, audio = null, autoplay = false) {
   stopTyping();
+  currentLineAudio = audio;
+  if (autoplay && audio) playVoice(audio);
   await typeLine(alekLine, text, speechFlow);
 }
 
@@ -49,7 +72,7 @@ async function showLine(context = {}) {
     timeOfDay: timeOfDay(),
     ...context
   });
-  await showText(line.text);
+  await showText(line.text, line.audio, true);
   return line;
 }
 
@@ -138,7 +161,8 @@ async function handleSubmit(form) {
     return;
   }
   if (type === 'condition') {
-    await db.put('symptomLogs', { id: makeId('symptom'), kind: '症状', level: values.level, note: values.note.trim(), at: now });
+    const pain = values.hasPain === 'yes' ? Number(values.pain) : null;
+    await db.put('symptomLogs', { id: makeId('symptom'), kind: '症状', level: values.level, note: values.note.trim(), pain: Number.isInteger(pain) && pain >= 0 && pain <= 10 ? pain : null, at: now });
     sheetContent.innerHTML = '<p class="saved-message">うん、症状として残したよ。持病のプロフィールとは分けてある。</p>';
     await showLine({ symptom: values.note.trim() || values.level, level: values.level, distress: values.level === 'bad' });
     return;
@@ -170,28 +194,40 @@ async function handleSubmit(form) {
       distress: /つら|しんど|痛|怖|不安/.test(values.note)
     });
     await db.put('messages', { id: makeId('message'), from: 'alek', text: response.text, at: new Date().toISOString() });
-    await showText(response.text);
+    await showText(response.text, response.audio, true);
     sheetContent.innerHTML = await sayPanel();
   }
 }
 
 function speakCurrentLine() {
+  if (currentLineAudio) {
+    playVoice(currentLineAudio, true);
+    return;
+  }
   const source = app.dataset.room === 'bedroom' ? 'voice/alek-bed-01.mp3' : 'voice/alek-home-01.mp3';
-  const audio = new Audio(source);
-  const fallback = () => {
-    if (!('speechSynthesis' in window)) return;
-    speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(alekLine.textContent);
-    utterance.lang = 'ja-JP';
-    utterance.rate = .9;
-    utterance.pitch = .8;
-    speechSynthesis.speak(utterance);
-  };
-  audio.addEventListener('error', fallback, { once: true });
-  audio.play().catch(fallback);
+  playVoice(source, true);
 }
 
 document.addEventListener('click', async event => {
+  const exportButton = event.target.closest('[data-export-backup]');
+  if (exportButton) {
+    const status = document.querySelector('[data-transfer-status]');
+    exportButton.disabled = true;
+    try {
+      await exportBackup();
+      if (status) status.textContent = '個人データのバックアップZIPを書き出したよ。';
+    } catch (error) {
+      if (status) status.textContent = `書き出せなかったよ。${error.message}`;
+    } finally { exportButton.disabled = false; }
+    return;
+  }
+
+  const importButton = event.target.closest('[data-import-backup]');
+  if (importButton) {
+    document.querySelector('[data-backup-file]')?.click();
+    return;
+  }
+
   const roomButton = event.target.closest('[data-room-button]');
   if (roomButton) {
     setRoom(roomButton.dataset.roomButton);
@@ -241,6 +277,38 @@ document.addEventListener('click', async event => {
   if (home) {
     sheet.close();
     document.querySelectorAll('[data-nav]').forEach(button => button.classList.toggle('is-active', button === home));
+  }
+});
+
+sheetContent.addEventListener('change', async event => {
+  if (event.target.matches('[data-pain-toggle]')) {
+    const scale = document.querySelector('[data-pain-scale]');
+    const range = document.querySelector('[data-pain-range]');
+    if (scale && range) {
+      scale.hidden = !event.target.checked;
+      range.disabled = !event.target.checked;
+    }
+    return;
+  }
+  if (event.target.matches('[data-backup-file]') && event.target.files?.[0]) {
+    const status = document.querySelector('[data-transfer-status]');
+    const confirmed = confirm('現在の個人データをバックアップしてから、ZIP内のデータへ置き換えます。復元しますか？');
+    if (!confirmed) { event.target.value = ''; return; }
+    try {
+      if (status) status.textContent = 'ZIPを検査して復元しています…';
+      const manifest = await importBackup(event.target.files[0]);
+      if (status) status.textContent = `${new Date(manifest.createdAt).toLocaleString('ja-JP')}のバックアップを復元したよ。再読み込みします。`;
+      setTimeout(() => location.reload(), 900);
+    } catch (error) {
+      if (status) status.textContent = error.message;
+    } finally { event.target.value = ''; }
+  }
+});
+
+sheetContent.addEventListener('input', event => {
+  if (event.target.matches('[data-pain-range]')) {
+    const output = document.querySelector('[data-pain-output]');
+    if (output) output.textContent = `${event.target.value} / 10`;
   }
 });
 

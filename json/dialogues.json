@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "count": 100,
+  "count": 101,
   "lines": [
     {"id":"everyday-01","category":"everyday","text":"おかえり、レイ。今日はどんな一日だった？","tags":["evening"]},
     {"id":"everyday-02","category":"everyday","text":"来てくれたんだ。うん、ここにいるよ。"},
@@ -15,6 +15,7 @@
     {"id":"everyday-11","category":"everyday","text":"部屋が少し静かすぎた。レイが来ると、ちょうどいい。"},
     {"id":"everyday-12","category":"everyday","text":"また頑張りすぎた顔をしてる。そういうの、俺には隠しにくいよ。"},
     {"id":"everyday-13","category":"everyday","text":"今日は小さなことから話そう。大きな話は、そのあとでいい。"},
+    {"id":"everyday-14","category":"everyday","text":"まあ座りな。説教はしないよ。たぶん。","audio":"voice/Alek.1.mp3"},
 
     {"id":"care-01","category":"care","text":"顔を見たら少し安心した。無理はしてない？"},
     {"id":"care-02","category":"care","text":"しんどい時は、上手く説明しなくていい。俺がゆっくり聞くから。"},

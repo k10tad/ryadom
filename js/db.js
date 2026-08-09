@@ -1,7 +1,7 @@
 const DB_NAME = 'ryadom';
 const DB_VERSION = 2;
 
-const STORES = [
+export const DATA_STORES = Object.freeze([
   'profile',
   'userMedications',
   'userConditions',
@@ -12,7 +12,7 @@ const STORES = [
   'messages',
   'memory',
   'meta'
-];
+]);
 
 let connection;
 
@@ -29,7 +29,7 @@ export function openDatabase() {
     const request = indexedDB.open(DB_NAME, DB_VERSION);
     request.onupgradeneeded = () => {
       const database = request.result;
-      for (const name of STORES) {
+      for (const name of DATA_STORES) {
         if (!database.objectStoreNames.contains(name)) {
           database.createObjectStore(name, { keyPath: 'id' });
         }
@@ -66,4 +66,3 @@ export function makeId(prefix = 'item') {
     : Math.random().toString(16).slice(2);
   return `${prefix}-${Date.now()}-${random}`;
 }
-

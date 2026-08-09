@@ -47,3 +47,19 @@
 .profile-choice input { width: 17px !important; height: 17px; margin: 0; accent-color: var(--lilac-2); }
 .profile-choice span { color: var(--paper); font-size: 10px; line-height: 1.5; }
 
+.pain-toggle { display: flex !important; align-items: center; gap: 9px !important; }
+.pain-toggle input { width: 18px !important; height: 18px; margin: 0; accent-color: var(--lilac-2); }
+.pain-scale { border: 1px solid var(--line); border-radius: 14px; background: rgba(217, 202, 242, .055); padding: 12px; }
+.pain-scale[hidden] { display: none; }
+.pain-scale > div:first-child { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--muted); font-size: 8px; }
+.pain-scale output { min-width: 62px; color: var(--paper); font: 600 14px Georgia, serif; text-align: center; }
+.pain-scale input { width: 100%; margin: 11px 0 5px; accent-color: var(--lilac-2); }
+.pain-ticks { display: flex; justify-content: space-between; color: var(--muted); font-size: 8px; }
+.pain-log { display: inline-block; margin-top: 6px; border: 1px solid rgba(217, 202, 242, .28); border-radius: 999px; padding: 4px 8px; color: var(--lilac); font-size: 9px; font-weight: 500; }
+.data-transfer { margin-top: 16px; border: 1px solid var(--line); border-radius: 15px; background: rgba(255, 255, 255, .025); padding: 12px; }
+.data-transfer h3 { margin: 0 0 6px; color: var(--lilac); font-size: 11px; }
+.data-transfer p { margin: 0; color: var(--muted); font-size: 9px; line-height: 1.65; }
+.transfer-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+.transfer-actions button { border: 1px solid var(--line); border-radius: 11px; background: rgba(217, 202, 242, .09); color: var(--paper); padding: 10px 8px; font-size: 9px; }
+.transfer-actions button:disabled { opacity: .55; }
+.transfer-status { min-height: 1.5em; margin-top: 8px !important; color: var(--lilac) !important; }
