@@ -23,11 +23,11 @@ const dialogue = [
 ];
 
 const panels = {
-  condition: ['Приём', '体調を伝える'],
-  medicine: ['Лекарства', '薬の記録'],
-  diary: ['Дневник', '今日の記録'],
-  dialog: ['Диалог', 'アレクと話す'],
-  settings: ['Настройки', 'Рядомの設定']
+  rhythm: ['РИТМ · RHYTHM', '身体のリズム'],
+  say: ['СКАЖИ · MESSAGE', '何でも話して'],
+  condition: ['ПРИЁМ · CHECK-IN', '体調を伝える'],
+  medicine: ['ЛЕКАРСТВА · LOG', '服薬を記録'],
+  settings: ['НАСТРОЙКИ', 'Рядомの設定']
 };
 
 function escapeHtml(value = '') {
@@ -38,17 +38,22 @@ function nowLabel(date = new Date()) {
   return date.toLocaleString('ja-JP', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 }
 
+function dateLabel(value) {
+  if (!value) return '未登録';
+  return new Date(`${value}T00:00:00`).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function nextCycleDate(start, length) {
+  if (!start) return null;
+  const date = new Date(`${start}T00:00:00`);
+  date.setDate(date.getDate() + Number(length || 28));
+  return date;
+}
+
 function updateClock() {
   const now = new Date();
   document.querySelector('#clock-time').textContent = now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
   document.querySelector('#clock-date').textContent = now.toLocaleDateString('ja-JP', { month: 'long', day: 'numeric', weekday: 'short' });
-}
-
-function updateMedicineSummary() {
-  const logs = store.get('medicineLogs', []);
-  const today = new Date().toDateString();
-  const todayLogs = logs.filter(log => new Date(log.at).toDateString() === today);
-  document.querySelector('#medicine-summary').textContent = todayLogs.length ? `${todayLogs.length}件 記録済み` : '今日はまだ未記録';
 }
 
 function setRoom(room) {
@@ -61,34 +66,90 @@ function setRoom(room) {
   store.set('room', app.dataset.room);
 }
 
-function formTemplate(type) {
-  if (type === 'medicine') return `
-    <form class="form-grid" data-save="medicine">
-      <label>薬の名前<input name="name" autocomplete="off" placeholder="例：ロメリジン" required></label>
-      <label>服用量<input name="dose" autocomplete="off" placeholder="任意"></label>
-      <button class="primary" type="submit">服薬を記録する</button>
+function cyclePane() {
+  const cycle = store.get('cycleProfile', { lastStart: '', length: 28 });
+  const estimate = nextCycleDate(cycle.lastStart, cycle.length);
+  return `
+    <div class="summary-card">
+      <small>NEXT ESTIMATE</small>
+      <strong>${estimate ? estimate.toLocaleDateString('ja-JP', { month: 'long', day: 'numeric' }) + 'ごろ' : 'まだ計算できません'}</strong>
+      <p>${cycle.lastStart ? `最終開始日 ${escapeHtml(dateLabel(cycle.lastStart))}・周期 ${Number(cycle.length)}日` : '開始日を登録すると、次回の目安を表示します。'}</p>
+    </div>
+    <form class="form-grid" data-save="cycle">
+      <label>今回／直近の開始日<input type="date" name="lastStart" value="${escapeHtml(cycle.lastStart)}" required></label>
+      <label>平均周期（日）<input type="number" name="length" min="15" max="60" value="${Number(cycle.length || 28)}" required></label>
+      <button class="primary" type="submit">周期を記録する</button>
     </form>
-    <p class="medical-note">この試作版は服用記録のみです。薬剤同定・相互作用・禁忌判定はまだ行いません。</p>`;
-  if (type === 'condition') return `
-    <form class="form-grid" data-save="condition">
-      <label>今の調子
-        <select name="level"><option>落ち着いている</option><option>少し気になる</option><option>つらい</option></select>
-      </label>
-      <label>症状や気分<textarea name="note" placeholder="アレクに話すように書いてね" required></textarea></label>
-      <button class="primary" type="submit">アレクに伝える</button>
-    </form>`;
-  if (type === 'diary') {
-    const logs = store.get('dailyLogs', []).slice().reverse().slice(0, 6);
-    return `<form class="form-grid" data-save="diary">
-      <label>今日の記録<textarea name="note" placeholder="体調や出来事を残す" required></textarea></label>
-      <button class="primary" type="submit">記録を残す</button>
-    </form>${logs.length ? `<div class="log-list">${logs.map(log => `<article class="log-item"><small>${escapeHtml(nowLabel(new Date(log.at)))}</small><p>${escapeHtml(log.note)}</p></article>`).join('')}</div>` : ''}`;
-  }
-  if (type === 'dialog') return `
-    <form class="form-grid" data-save="dialog">
-      <label>メッセージ<textarea name="note" placeholder="アレクに話しかける" required></textarea></label>
+    <p class="medical-note">予測日は目安です。診断や避妊の判断には使用しないでください。</p>`;
+}
+
+function schedulePane() {
+  const schedules = store.get('medicineSchedules', []);
+  const list = schedules.length ? `<div class="schedule-list">${schedules.map(item => `
+    <article class="schedule-item">
+      <span class="schedule-time">${escapeHtml(item.time)}</span>
+      <div><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.dose || '用量未登録')}</small></div>
+      <button type="button" data-delete-schedule="${escapeHtml(item.id)}" aria-label="${escapeHtml(item.name)}の予定を削除">×</button>
+    </article>`).join('')}</div>` : '<p class="empty-state">服薬予定はまだありません。</p>';
+  return `
+    <form class="form-grid" data-save="schedule">
+      <label>薬の名前<input name="name" autocomplete="off" placeholder="例：ロメリジン" required></label>
+      <label>予定時刻<input type="time" name="time" required></label>
+      <label>服用量<input name="dose" autocomplete="off" placeholder="例：5mg"></label>
+      <button class="primary" type="submit">予定を追加する</button>
+    </form>
+    ${list}
+    <p class="medical-note">ここに保存するのは服薬の予定です。「実際に飲んだ記録」とは別に管理されます。</p>`;
+}
+
+function recordsPane() {
+  const medicine = store.get('medicineLogs', []).map(item => ({ ...item, kind: '服薬' }));
+  const condition = store.get('conditionLogs', []).map(item => ({ ...item, name: item.level, dose: item.note, kind: '体調' }));
+  const cycle = store.get('cycleLogs', []).map(item => ({ ...item, name: '生理開始', dose: dateLabel(item.date), kind: '周期' }));
+  const records = [...medicine, ...condition, ...cycle].sort((a, b) => new Date(b.at) - new Date(a.at)).slice(0, 12);
+  return records.length ? `<div class="log-list">${records.map(item => `
+    <article class="log-item"><small>${escapeHtml(item.kind)} · ${escapeHtml(nowLabel(new Date(item.at)))}</small><p>${escapeHtml(item.name)}${item.dose ? ` · ${escapeHtml(item.dose)}` : ''}</p></article>`).join('')}</div>` : '<p class="empty-state">記録はまだありません。</p>';
+}
+
+function rhythmTemplate(active = 'cycle') {
+  const pane = active === 'schedule' ? schedulePane() : active === 'records' ? recordsPane() : cyclePane();
+  return `
+    <div class="rhythm-tabs" role="tablist" aria-label="身体のリズム">
+      <button class="${active === 'cycle' ? 'is-active' : ''}" type="button" data-rhythm-tab="cycle">Цикл<br>周期</button>
+      <button class="${active === 'schedule' ? 'is-active' : ''}" type="button" data-rhythm-tab="schedule">Лекарства<br>服薬予定</button>
+      <button class="${active === 'records' ? 'is-active' : ''}" type="button" data-rhythm-tab="records">Записи<br>記録</button>
+    </div>
+    <section class="rhythm-pane">${pane}</section>`;
+}
+
+function sayTemplate() {
+  const messages = store.get('messages', []);
+  const history = messages.length ? messages.map(item => `<div class="chat-bubble ${item.from === 'user' ? 'user' : ''}">${escapeHtml(item.text)}<small>${escapeHtml(nowLabel(new Date(item.at)))}</small></div>`).join('') : '<div class="chat-bubble">来てくれたんだ。今日は何を話す？</div>';
+  return `
+    <div class="chat-history" id="chat-history">${history}</div>
+    <form class="form-grid" data-save="say">
+      <label>アレクに伝える<textarea name="note" placeholder="体調のことでも、今日あったことでも" required></textarea></label>
       <button class="primary" type="submit">送る</button>
     </form>`;
+}
+
+function formTemplate(type) {
+  if (type === 'rhythm') return rhythmTemplate();
+  if (type === 'say') return sayTemplate();
+  if (type === 'medicine') {
+    const schedules = store.get('medicineSchedules', []);
+    const options = schedules.map(item => `<option value="${escapeHtml(item.name)}" data-dose="${escapeHtml(item.dose || '')}">${escapeHtml(item.name)} ${escapeHtml(item.time)}</option>`).join('');
+    return `<form class="form-grid" data-save="medicine">
+      <label>薬の名前<input name="name" list="scheduled-medicines" autocomplete="off" placeholder="例：ロメリジン" required><datalist id="scheduled-medicines">${options}</datalist></label>
+      <label>服用量<input name="dose" autocomplete="off" placeholder="任意"></label>
+      <button class="primary" type="submit">今飲んだ記録を残す</button>
+    </form><p class="medical-note">この試作版は服用記録のみです。薬剤同定・相互作用・禁忌判定はまだ行いません。</p>`;
+  }
+  if (type === 'condition') return `<form class="form-grid" data-save="condition">
+    <label>今の調子<select name="level"><option>落ち着いている</option><option>少し気になる</option><option>つらい</option></select></label>
+    <label>症状や気分<textarea name="note" placeholder="アレクに話すように書いてね" required></textarea></label>
+    <button class="primary" type="submit">アレクに伝える</button>
+  </form>`;
   const profile = store.get('profile', { name: 'レイ', region: '' });
   return `<form class="form-grid" data-save="settings">
     <label>呼び名<input name="name" value="${escapeHtml(profile.name)}" required></label>
@@ -97,36 +158,73 @@ function formTemplate(type) {
   </form>`;
 }
 
+function bindSheetActions(type) {
+  sheetContent.querySelectorAll('[data-rhythm-tab]').forEach(button => button.addEventListener('click', () => {
+    sheetContent.innerHTML = rhythmTemplate(button.dataset.rhythmTab);
+    bindSheetActions('rhythm');
+  }));
+  sheetContent.querySelectorAll('[data-delete-schedule]').forEach(button => button.addEventListener('click', () => {
+    const schedules = store.get('medicineSchedules', []).filter(item => item.id !== button.dataset.deleteSchedule);
+    store.set('medicineSchedules', schedules);
+    sheetContent.innerHTML = rhythmTemplate('schedule');
+    bindSheetActions('rhythm');
+  }));
+  sheetContent.querySelector('form')?.addEventListener('submit', event => savePanel(event, event.currentTarget.dataset.save || type));
+}
+
 function openPanel(type) {
   if (!panels[type]) return;
   document.querySelector('#sheet-kicker').textContent = panels[type][0];
   document.querySelector('#sheet-title').textContent = panels[type][1];
   sheetContent.innerHTML = formTemplate(type);
   sheet.showModal();
-  sheetContent.querySelector('form')?.addEventListener('submit', event => savePanel(event, type));
+  bindSheetActions(type);
 }
 
 function savePanel(event, type) {
   event.preventDefault();
   const data = Object.fromEntries(new FormData(event.currentTarget));
+  if (type === 'cycle') {
+    const profile = { lastStart: data.lastStart, length: Number(data.length) };
+    store.set('cycleProfile', profile);
+    const logs = store.get('cycleLogs', []);
+    if (!logs.some(item => item.date === data.lastStart)) logs.push({ date: data.lastStart, at: new Date().toISOString() });
+    store.set('cycleLogs', logs);
+    alekLine.textContent = '周期を記録したよ。予定日は目安にして、変化があったらまた教えて。';
+    sheetContent.innerHTML = rhythmTemplate('cycle');
+    bindSheetActions('rhythm');
+    return;
+  }
+  if (type === 'schedule') {
+    const schedules = store.get('medicineSchedules', []);
+    schedules.push({ id: `${Date.now()}`, name: data.name.trim(), time: data.time, dose: data.dose.trim() });
+    store.set('medicineSchedules', schedules);
+    alekLine.textContent = `${data.name.trim()}は${data.time}だね。予定として覚えておくよ。`;
+    sheetContent.innerHTML = rhythmTemplate('schedule');
+    bindSheetActions('rhythm');
+    return;
+  }
   if (type === 'medicine') {
     const logs = store.get('medicineLogs', []);
     logs.push({ name: data.name.trim(), dose: data.dose.trim(), at: new Date().toISOString() });
     store.set('medicineLogs', logs);
-    updateMedicineSummary();
-    alekLine.textContent = `${data.name.trim()}、記録したよ。教えてくれてありがとう。`;
+    alekLine.textContent = `${data.name.trim()}、今飲んだ記録を残したよ。教えてくれてありがとう。`;
   } else if (type === 'condition') {
     const logs = store.get('conditionLogs', []);
     logs.push({ level: data.level, note: data.note.trim(), at: new Date().toISOString() });
     store.set('conditionLogs', logs);
     alekLine.textContent = 'うん、聞いたよ。今は無理に平気な顔をしなくていいからね。';
-  } else if (type === 'diary') {
-    const logs = store.get('dailyLogs', []);
-    logs.push({ note: data.note.trim(), at: new Date().toISOString() });
-    store.set('dailyLogs', logs);
-    alekLine.textContent = '今日のこと、ちゃんと預かったよ。お疲れさま。';
-  } else if (type === 'dialog') {
-    alekLine.textContent = dialogue[Math.floor(Math.random() * dialogue.length)];
+  } else if (type === 'say') {
+    const messages = store.get('messages', []);
+    const response = dialogue[Math.floor(Math.random() * dialogue.length)];
+    const at = new Date().toISOString();
+    messages.push({ from: 'user', text: data.note.trim(), at }, { from: 'alek', text: response, at: new Date().toISOString() });
+    store.set('messages', messages);
+    alekLine.textContent = response;
+    sheetContent.innerHTML = sayTemplate();
+    bindSheetActions('say');
+    requestAnimationFrame(() => { const history = document.querySelector('#chat-history'); if (history) history.scrollTop = history.scrollHeight; });
+    return;
   } else {
     store.set('profile', { name: data.name.trim() || 'レイ', region: data.region.trim() });
     alekLine.textContent = `分かった。これからも、${data.name.trim() || 'レイ'}って呼ぶね。`;
@@ -154,11 +252,6 @@ function speakCurrentLine() {
 
 document.querySelectorAll('[data-room-button]').forEach(button => button.addEventListener('click', () => setRoom(button.dataset.roomButton)));
 document.querySelectorAll('[data-open]').forEach(button => button.addEventListener('click', () => openPanel(button.dataset.open)));
-document.querySelectorAll('[data-tab]').forEach(button => button.addEventListener('click', () => {
-  document.querySelectorAll('[data-tab]').forEach(item => item.classList.toggle('is-active', item === button));
-  if (button.dataset.tab === 'home') return;
-  openPanel(button.dataset.tab);
-}));
 document.querySelector('#close-sheet').addEventListener('click', () => sheet.close());
 sheet.addEventListener('click', event => { if (event.target === sheet) sheet.close(); });
 document.querySelector('#next-line').addEventListener('click', () => { alekLine.textContent = dialogue[Math.floor(Math.random() * dialogue.length)]; });
@@ -168,5 +261,4 @@ document.querySelector('#leave-quiet').addEventListener('click', () => { app.cla
 
 updateClock();
 setInterval(updateClock, 30000);
-updateMedicineSummary();
 setRoom(store.get('room', 'living'));
