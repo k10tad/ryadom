@@ -1,4 +1,4 @@
-import { DATA_PATHS } from '../core/config.js';
+import { DATA_PATHS } from './config.js';
 
 let knowledgePromise;
 
@@ -51,4 +51,3 @@ export async function resolveCondition(value) {
   const { conditions } = await loadKnowledge();
   return resolveName(value, conditions.items || []);
 }
-

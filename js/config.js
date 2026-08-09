@@ -1,4 +1,4 @@
-export const APP_VERSION = '0.5.0';
+export const APP_VERSION = '0.5.1';
 
 export const DATA_PATHS = Object.freeze({
   dialogues: './json/dialogues.json',
@@ -8,4 +8,3 @@ export const DATA_PATHS = Object.freeze({
 });
 
 export const CURRENT_PROFILE_ID = 'current';
-

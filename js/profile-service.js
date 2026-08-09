@@ -1,4 +1,4 @@
-import { db, makeId } from '../core/db.js';
+import { db, makeId } from './db.js';
 import { resolveCondition, resolveDrug } from './knowledge-service.js';
 
 export function splitList(value = '') {

@@ -1,5 +1,5 @@
-import { db } from '../core/db.js';
-import { getProfileBundle } from '../services/profile-service.js';
+import { db } from './db.js';
+import { getProfileBundle } from './profile-service.js';
 import { dateTimeLabel, emptyState, escapeHtml, localDateTimeValue } from './templates.js';
 
 function profileStatus(item) {
@@ -109,4 +109,3 @@ export async function sayPanel() {
     `<article class="chat-bubble ${item.from === 'user' ? 'user' : ''}">${escapeHtml(item.text)}<small>${dateTimeLabel(item.at)}</small></article>`
   ).join('')}</div><form class="form-grid" data-form="say"><label>アレクに話す<textarea name="note" required placeholder="今日はちょっと疲れた、など"></textarea></label><button class="primary" type="submit">送る</button></form>`;
 }
-

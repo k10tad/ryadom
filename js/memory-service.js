@@ -1,4 +1,4 @@
-import { db } from '../core/db.js';
+import { db } from './db.js';
 
 const MEMORY_ID = 'dialogue-memory';
 
@@ -17,4 +17,3 @@ export async function rememberLine(line, category) {
     updatedAt: new Date().toISOString()
   });
 }
-

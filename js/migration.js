@@ -1,5 +1,5 @@
 import { db, makeId } from './db.js';
-import { resolveCondition, resolveDrug } from '../services/knowledge-service.js';
+import { resolveCondition, resolveDrug } from './knowledge-service.js';
 
 function legacyValue(key) {
   try { return JSON.parse(localStorage.getItem(`ryadom:${key}`)); }
@@ -77,4 +77,3 @@ export async function migrateLegacyData() {
   if (cycle) await db.put('meta', { id: 'cycle-profile', ...cycle });
   await db.put('meta', { id: 'migration-v2', done: true, migratedAt: new Date().toISOString() });
 }
-

@@ -1,12 +1,12 @@
-import { db, makeId, openDatabase } from './core/db.js';
-import { migrateLegacyData } from './core/migration.js';
-import { APP_VERSION } from './core/config.js';
-import { DialogueEngine } from './dialogue/dialogue-engine.js';
-import { typeLine, stopTyping } from './dialogue/typewriter.js';
-import { chooseIntelligentLine } from './intelligence/ryadom-intelligence.js';
-import { evaluateMedication, renderMedicationAssessment } from './services/medical-service.js';
-import { addMedicationToProfile, getProfileBundle, saveProfile } from './services/profile-service.js';
-import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './ui/panels.js';
+import { db, makeId, openDatabase } from './db.js';
+import { migrateLegacyData } from './migration.js';
+import { APP_VERSION } from './config.js';
+import { DialogueEngine } from './dialogue-engine.js';
+import { typeLine, stopTyping } from './typewriter.js';
+import { chooseIntelligentLine } from './ryadom-intelligence.js';
+import { evaluateMedication, renderMedicationAssessment } from './medical-service.js';
+import { addMedicationToProfile, getProfileBundle, saveProfile } from './profile-service.js';
+import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js';
 
 const app = document.querySelector('#app');
 const sheet = document.querySelector('#sheet');

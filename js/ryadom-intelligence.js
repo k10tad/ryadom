@@ -1,4 +1,4 @@
-import { getMemory, rememberLine } from '../services/memory-service.js';
+import { getMemory, rememberLine } from './memory-service.js';
 import { inferCategories, isCoolingDown } from './reasoning.js';
 
 export async function chooseIntelligentLine(engine, context = {}) {
@@ -10,4 +10,3 @@ export async function chooseIntelligentLine(engine, context = {}) {
   await rememberLine(line, category);
   return line;
 }
-
