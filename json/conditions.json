@@ -1,42 +1,320 @@
 {
-  "schemaVersion": 2,
-  "knowledgeVersion": "2026.08.09",
-  "lastReviewed": "2026-08-09",
+  "schemaVersion": 3,
+  "knowledgeVersion": "2026.08.10-general-1",
+  "lastReviewed": "2026-08-10",
   "items": [
     {
       "id": "atrial_fibrillation",
       "name": "心房細動",
-      "aliases": ["AF", "afib", "atrial fibrillation"],
-      "source": { "label": "ICD-11 疾患分類", "url": "https://icd.who.int/browse/2026-01/mms/en" },
+      "aliases": [
+        "AF",
+        "afib",
+        "atrial fibrillation"
+      ],
+      "source": {
+        "label": "ICD-11 疾患分類",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
       "lastReviewed": "2026-08-09"
     },
     {
       "id": "heart_failure",
       "name": "心不全",
-      "aliases": ["心機能不全", "うっ血性心不全", "heart failure"],
-      "source": { "label": "ICD-11 疾患分類", "url": "https://icd.who.int/browse/2026-01/mms/en" },
+      "aliases": [
+        "心機能不全",
+        "うっ血性心不全",
+        "heart failure"
+      ],
+      "source": {
+        "label": "ICD-11 疾患分類",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
       "lastReviewed": "2026-08-09"
     },
     {
       "id": "peptic_ulcer",
       "name": "消化性潰瘍",
-      "aliases": ["胃潰瘍", "十二指腸潰瘍", "peptic ulcer"],
-      "source": { "label": "ICD-11 疾患分類", "url": "https://icd.who.int/browse/2026-01/mms/en" },
+      "aliases": [
+        "胃潰瘍",
+        "十二指腸潰瘍",
+        "peptic ulcer"
+      ],
+      "source": {
+        "label": "ICD-11 疾患分類",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
       "lastReviewed": "2026-08-09"
     },
     {
       "id": "aspirin_asthma",
       "name": "アスピリン喘息",
-      "aliases": ["NSAIDs過敏喘息", "N-ERD", "AERD"],
-      "source": { "label": "厚生労働省 重篤副作用疾患別対応マニュアル", "url": "https://www.mhlw.go.jp/topics/2006/11/tp1122-1.html" },
+      "aliases": [
+        "NSAIDs過敏喘息",
+        "N-ERD",
+        "AERD"
+      ],
+      "source": {
+        "label": "厚生労働省 重篤副作用疾患別対応マニュアル",
+        "url": "https://www.mhlw.go.jp/topics/2006/11/tp1122-1.html"
+      },
       "lastReviewed": "2026-08-09"
     },
     {
       "id": "migraine",
       "name": "片頭痛",
-      "aliases": ["偏頭痛", "migraine"],
-      "source": { "label": "ICD-11 疾患分類", "url": "https://icd.who.int/browse/2026-01/mms/en" },
+      "aliases": [
+        "偏頭痛",
+        "migraine"
+      ],
+      "source": {
+        "label": "ICD-11 疾患分類",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
       "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "hypertension",
+      "name": "高血圧症",
+      "aliases": [
+        "高血圧",
+        "hypertension"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "ischemic_heart_disease",
+      "name": "虚血性心疾患",
+      "aliases": [
+        "冠動脈疾患",
+        "狭心症",
+        "心筋梗塞"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "arrhythmia",
+      "name": "不整脈",
+      "aliases": [
+        "arrhythmia",
+        "頻脈",
+        "徐脈"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "long_qt_syndrome",
+      "name": "QT延長症候群",
+      "aliases": [
+        "QT延長",
+        "LQTS"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "stroke_history",
+      "name": "脳卒中の既往",
+      "aliases": [
+        "脳梗塞",
+        "脳出血"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "epilepsy",
+      "name": "てんかん",
+      "aliases": [
+        "癲癇",
+        "epilepsy"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "depression",
+      "name": "うつ病",
+      "aliases": [
+        "鬱病",
+        "大うつ病性障害"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "bipolar_disorder",
+      "name": "双極症",
+      "aliases": [
+        "双極性障害",
+        "躁うつ病"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "asthma",
+      "name": "気管支喘息",
+      "aliases": [
+        "喘息",
+        "asthma"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "severe_liver_disease",
+      "name": "重篤な肝障害",
+      "aliases": [
+        "重度肝障害",
+        "肝不全"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "severe_renal_disease",
+      "name": "重篤な腎障害",
+      "aliases": [
+        "重度腎障害",
+        "腎不全"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "type_1_diabetes",
+      "name": "1型糖尿病",
+      "aliases": [
+        "T1DM"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "type_2_diabetes",
+      "name": "2型糖尿病",
+      "aliases": [
+        "T2DM"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "hyperkalemia",
+      "name": "高カリウム血症",
+      "aliases": [
+        "高K血症"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "glaucoma",
+      "name": "緑内障",
+      "aliases": [
+        "閉塞隅角緑内障"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "myasthenia_gravis",
+      "name": "重症筋無力症",
+      "aliases": [
+        "MG"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "pregnancy",
+      "name": "妊娠",
+      "aliases": [
+        "妊婦",
+        "妊娠中"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "penicillin_allergy",
+      "name": "ペニシリン系抗菌薬アレルギー",
+      "aliases": [
+        "ペニシリンアレルギー"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "bleeding_disorder",
+      "name": "出血性疾患・出血傾向",
+      "aliases": [
+        "出血傾向",
+        "凝固障害",
+        "血友病"
+      ],
+      "source": {
+        "label": "厚生労働省 重篤副作用疾患別対応マニュアル",
+        "url": "https://www.mhlw.go.jp/topics/2006/11/tp1122-1f.html"
+      },
+      "lastReviewed": "2026-08-10"
     }
   ]
 }

@@ -1,60 +1,581 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 3,
   "reviewedAt": "2026-08-09",
   "items": [
     {
       "id": "lomerizine",
       "name": "ロメリジン",
-      "aliases": ["ロメリジン塩酸塩", "ミグシス", "テラナス", "lomerizine"],
-      "importantWarnings": ["眠気、めまい、ふらつきが現れることがあります。", "動悸など普段と異なる症状があれば処方元へ相談してください。"],
+      "aliases": [
+        "ロメリジン塩酸塩",
+        "ミグシス",
+        "テラナス",
+        "lomerizine"
+      ],
+      "importantWarnings": [
+        "眠気、めまい、ふらつきが現れることがあります。",
+        "動悸など普段と異なる症状があれば処方元へ相談してください。"
+      ],
       "conditionWarnings": [],
-      "source": { "label": "PMDA ロメリジン塩酸塩 添付文書", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/672212_2190023F1037_5_03" },
+      "source": {
+        "label": "PMDA ロメリジン塩酸塩 添付文書",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/672212_2190023F1037_5_03"
+      },
       "reviewedAt": "2026-08-09"
     },
     {
       "id": "lasmiditan",
       "name": "ラスミジタン",
-      "aliases": ["レイボー", "レイボー錠", "lasmiditan", "REYVOW"],
-      "importantWarnings": ["めまい、傾眠などが現れることがあります。", "服用後少なくとも8時間は運転や危険を伴う機械操作を避けます。"],
+      "aliases": [
+        "レイボー",
+        "レイボー錠",
+        "lasmiditan",
+        "REYVOW"
+      ],
+      "importantWarnings": [
+        "めまい、傾眠などが現れることがあります。",
+        "服用後少なくとも8時間は運転や危険を伴う機械操作を避けます。"
+      ],
       "conditionWarnings": [],
-      "source": { "label": "PMDA レイボー錠 添付文書", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/530471_1190030F1024_1_03" },
+      "source": {
+        "label": "PMDA レイボー錠 添付文書",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/530471_1190030F1024_1_03"
+      },
       "reviewedAt": "2026-08-09"
     },
     {
       "id": "ibuprofen",
       "name": "イブプロフェン",
-      "aliases": ["ibuprofen", "イブ", "イブ錠"],
-      "importantWarnings": ["消化管出血、腎機能障害、喘息発作などの重大な副作用に注意が必要です。", "他の解熱鎮痛薬との成分重複を確認してください。"],
-      "conditionWarnings": [
-        { "conditionId": "heart_failure", "level": "contraindication", "message": "重篤な心機能不全では禁忌です。心不全歴がある場合は自己判断で追加せず確認してください。" },
-        { "conditionId": "peptic_ulcer", "level": "contraindication", "message": "消化性潰瘍がある場合は禁忌に該当し得ます。" },
-        { "conditionId": "aspirin_asthma", "level": "contraindication", "message": "アスピリン喘息またはその既往では禁忌です。" }
+      "aliases": [
+        "ibuprofen",
+        "イブ",
+        "イブ錠"
       ],
-      "source": { "label": "PMDA イブプロフェン添付文書", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/581120_1149001F1501_1_04" },
+      "importantWarnings": [
+        "消化管出血、腎機能障害、喘息発作などの重大な副作用に注意が必要です。",
+        "他の解熱鎮痛薬との成分重複を確認してください。"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "heart_failure",
+          "level": "contraindication",
+          "message": "重篤な心機能不全では禁忌です。心不全歴がある場合は自己判断で追加せず確認してください。"
+        },
+        {
+          "conditionId": "peptic_ulcer",
+          "level": "contraindication",
+          "message": "消化性潰瘍がある場合は禁忌に該当し得ます。"
+        },
+        {
+          "conditionId": "aspirin_asthma",
+          "level": "contraindication",
+          "message": "アスピリン喘息またはその既往では禁忌です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA イブプロフェン添付文書",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/581120_1149001F1501_1_04"
+      },
       "reviewedAt": "2026-08-09"
     },
     {
       "id": "elpain_kowa_alpha",
       "name": "エルペインコーワα",
-      "aliases": ["エルペイン", "エルペインコーワ", "エルペインコーワアルファ"],
-      "components": ["ibuprofen", "butylscopolamine"],
-      "importantWarnings": ["イブプロフェンとブチルスコポラミン臭化物を含みます。", "他の解熱鎮痛薬、鎮静薬、胃腸鎮痛鎮痙薬、乗物酔い薬とは併用しないよう公式に案内されています。"],
-      "conditionWarnings": [
-        { "conditionId": "heart_failure", "level": "caution", "message": "イブプロフェンを含むため、心機能に問題がある場合は服用前に確認が必要です。" },
-        { "conditionId": "peptic_ulcer", "level": "caution", "message": "イブプロフェンを含むため、消化性潰瘍歴がある場合は確認が必要です。" }
+      "aliases": [
+        "エルペイン",
+        "エルペインコーワ",
+        "エルペインコーワアルファ"
       ],
-      "source": { "label": "興和 エルペインコーワα 公式情報", "url": "https://hc.kowa.co.jp/lpain/" },
+      "components": [
+        "ibuprofen",
+        "butylscopolamine"
+      ],
+      "importantWarnings": [
+        "イブプロフェンとブチルスコポラミン臭化物を含みます。",
+        "他の解熱鎮痛薬、鎮静薬、胃腸鎮痛鎮痙薬、乗物酔い薬とは併用しないよう公式に案内されています。"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "heart_failure",
+          "level": "caution",
+          "message": "イブプロフェンを含むため、心機能に問題がある場合は服用前に確認が必要です。"
+        },
+        {
+          "conditionId": "peptic_ulcer",
+          "level": "caution",
+          "message": "イブプロフェンを含むため、消化性潰瘍歴がある場合は確認が必要です。"
+        }
+      ],
+      "source": {
+        "label": "興和 エルペインコーワα 公式情報",
+        "url": "https://hc.kowa.co.jp/lpain/"
+      },
       "reviewedAt": "2026-08-09"
     },
     {
       "id": "travelmin_combination",
       "name": "トラベルミン配合錠",
-      "aliases": ["トラベルミン", "ジフェンヒドラミンサリチル酸塩・ジプロフィリン"],
-      "components": ["diphenhydramine_salicylate", "diprophylline"],
-      "importantWarnings": ["眠気、注意力低下が現れることがあります。", "服用後は運転や危険を伴う機械操作を避けてください。"],
+      "aliases": [
+        "トラベルミン",
+        "ジフェンヒドラミンサリチル酸塩・ジプロフィリン"
+      ],
+      "components": [
+        "diphenhydramine_salicylate",
+        "diprophylline"
+      ],
+      "importantWarnings": [
+        "眠気、注意力低下が現れることがあります。",
+        "服用後は運転や危険を伴う機械操作を避けてください。"
+      ],
       "conditionWarnings": [],
-      "source": { "label": "PMDA トラベルミン配合錠 添付文書", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/530258_1339100F1038_3_01" },
+      "source": {
+        "label": "PMDA トラベルミン配合錠 添付文書",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/530258_1339100F1038_3_01"
+      },
       "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "acetaminophen",
+      "name": "アセトアミノフェン",
+      "aliases": [
+        "カロナール",
+        "タイレノール",
+        "acetaminophen",
+        "paracetamol"
+      ],
+      "seriousAdverseEffects": [
+        "アナフィラキシー",
+        "重篤な皮膚障害",
+        "劇症肝炎・肝機能障害",
+        "急性腎障害"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "severe_liver_disease",
+          "level": "contraindication",
+          "message": "重篤な肝障害では禁忌です。含有薬の重複にも注意してください。"
+        }
+      ],
+      "source": {
+        "label": "PMDA カロナール錠 添付文書",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/172190_1141007F1063_5_06"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "loxoprofen",
+      "name": "ロキソプロフェン",
+      "aliases": [
+        "ロキソニン",
+        "ロキソプロフェンナトリウム",
+        "loxoprofen"
+      ],
+      "seriousAdverseEffects": [
+        "アナフィラキシー",
+        "消化管出血",
+        "急性腎障害",
+        "喘息発作"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "heart_failure",
+          "level": "contraindication",
+          "message": "重篤な心機能不全では禁忌です。"
+        },
+        {
+          "conditionId": "peptic_ulcer",
+          "level": "contraindication",
+          "message": "消化性潰瘍では禁忌に該当し得ます。"
+        },
+        {
+          "conditionId": "aspirin_asthma",
+          "level": "contraindication",
+          "message": "アスピリン喘息では禁忌です。"
+        },
+        {
+          "conditionId": "severe_renal_disease",
+          "level": "contraindication",
+          "message": "重篤な腎障害では禁忌です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "sumatriptan",
+      "name": "スマトリプタン",
+      "aliases": [
+        "イミグラン",
+        "sumatriptan"
+      ],
+      "seriousAdverseEffects": [
+        "アナフィラキシー",
+        "虚血性心疾患様症状",
+        "てんかん様発作"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "ischemic_heart_disease",
+          "level": "contraindication",
+          "message": "虚血性心疾患または既往では禁忌です。"
+        },
+        {
+          "conditionId": "stroke_history",
+          "level": "contraindication",
+          "message": "脳血管障害の既往では禁忌です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "warfarin",
+      "name": "ワルファリン",
+      "aliases": [
+        "ワーファリン",
+        "ワルファリンカリウム",
+        "warfarin"
+      ],
+      "seriousAdverseEffects": [
+        "重大な出血",
+        "皮膚壊死",
+        "肝機能障害"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "bleeding_disorder",
+          "level": "contraindication",
+          "message": "出血中または出血傾向では禁忌です。"
+        },
+        {
+          "conditionId": "peptic_ulcer",
+          "level": "contraindication",
+          "message": "活動性消化管潰瘍では禁忌です。"
+        },
+        {
+          "conditionId": "pregnancy",
+          "level": "contraindication",
+          "message": "妊娠中は原則禁忌です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA ワルファリン 添付文書",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/300119_3332001D1023_2_01"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "edoxaban",
+      "name": "エドキサバン",
+      "aliases": [
+        "リクシアナ",
+        "edoxaban"
+      ],
+      "seriousAdverseEffects": [
+        "重大な出血",
+        "肝機能障害",
+        "間質性肺疾患"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "bleeding_disorder",
+          "level": "contraindication",
+          "message": "出血している場合は禁忌です。"
+        },
+        {
+          "conditionId": "severe_renal_disease",
+          "level": "caution",
+          "message": "腎機能に応じた禁忌・減量判断が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA リクシアナ錠 添付文書",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/430574_3339002F1020_1_19"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "enalapril",
+      "name": "エナラプリル",
+      "aliases": [
+        "レニベース",
+        "enalapril"
+      ],
+      "seriousAdverseEffects": [
+        "血管浮腫",
+        "急性腎障害",
+        "高カリウム血症"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "pregnancy",
+          "level": "contraindication",
+          "message": "妊娠中は禁忌です。"
+        },
+        {
+          "conditionId": "hyperkalemia",
+          "level": "caution",
+          "message": "高カリウム血症を悪化させる可能性があります。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "bisoprolol",
+      "name": "ビソプロロール",
+      "aliases": [
+        "メインテート",
+        "bisoprolol"
+      ],
+      "seriousAdverseEffects": [
+        "心不全",
+        "完全房室ブロック・高度徐脈"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "asthma",
+          "level": "caution",
+          "message": "喘息では気管支収縮を悪化させる可能性があります。"
+        },
+        {
+          "conditionId": "arrhythmia",
+          "level": "caution",
+          "message": "徐脈や房室ブロックでは確認が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "spironolactone",
+      "name": "スピロノラクトン",
+      "aliases": [
+        "アルダクトンA",
+        "spironolactone"
+      ],
+      "seriousAdverseEffects": [
+        "高カリウム血症",
+        "急性腎障害",
+        "重篤な皮膚障害"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "hyperkalemia",
+          "level": "contraindication",
+          "message": "高カリウム血症では禁忌です。"
+        },
+        {
+          "conditionId": "severe_renal_disease",
+          "level": "contraindication",
+          "message": "重篤な腎障害では禁忌です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "metformin",
+      "name": "メトホルミン",
+      "aliases": [
+        "メトグルコ",
+        "グリコラン",
+        "metformin"
+      ],
+      "seriousAdverseEffects": [
+        "乳酸アシドーシス",
+        "低血糖",
+        "肝機能障害"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "severe_renal_disease",
+          "level": "contraindication",
+          "message": "重度腎機能障害では禁忌です。"
+        },
+        {
+          "conditionId": "severe_liver_disease",
+          "level": "contraindication",
+          "message": "重度肝機能障害では禁忌です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "semaglutide_oral",
+      "name": "セマグルチド（経口）",
+      "aliases": [
+        "リベルサス",
+        "セマグルチド錠"
+      ],
+      "seriousAdverseEffects": [
+        "低血糖",
+        "急性膵炎",
+        "胆嚢炎・胆管炎",
+        "イレウス"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA リベルサス錠 添付文書",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/620023_2499014F1021_1_07"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "sertraline",
+      "name": "セルトラリン",
+      "aliases": [
+        "ジェイゾロフト",
+        "sertraline"
+      ],
+      "seriousAdverseEffects": [
+        "セロトニン症候群",
+        "悪性症候群",
+        "痙攣",
+        "低ナトリウム血症"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "bipolar_disorder",
+          "level": "caution",
+          "message": "躁転や病相変化の確認が必要です。"
+        },
+        {
+          "conditionId": "epilepsy",
+          "level": "caution",
+          "message": "発作リスクの確認が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "escitalopram",
+      "name": "エスシタロプラム",
+      "aliases": [
+        "レクサプロ",
+        "escitalopram"
+      ],
+      "seriousAdverseEffects": [
+        "痙攣",
+        "セロトニン症候群",
+        "QT延長・心室頻拍"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "long_qt_syndrome",
+          "level": "contraindication",
+          "message": "QT延長がある場合は禁忌です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "diazepam",
+      "name": "ジアゼパム",
+      "aliases": [
+        "セルシン",
+        "ホリゾン",
+        "diazepam"
+      ],
+      "seriousAdverseEffects": [
+        "依存性",
+        "錯乱",
+        "呼吸抑制"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "myasthenia_gravis",
+          "level": "contraindication",
+          "message": "重症筋無力症では禁忌です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "amoxicillin",
+      "name": "アモキシシリン",
+      "aliases": [
+        "サワシリン",
+        "パセトシン",
+        "amoxicillin"
+      ],
+      "seriousAdverseEffects": [
+        "アナフィラキシー",
+        "重篤な皮膚障害",
+        "急性腎障害",
+        "偽膜性大腸炎"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "penicillin_allergy",
+          "level": "contraindication",
+          "message": "ペニシリン系抗菌薬アレルギーでは禁忌です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "clarithromycin",
+      "name": "クラリスロマイシン",
+      "aliases": [
+        "クラリス",
+        "クラリシッド",
+        "clarithromycin"
+      ],
+      "seriousAdverseEffects": [
+        "アナフィラキシー",
+        "QT延長・心室頻拍",
+        "劇症肝炎",
+        "重篤な皮膚障害"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "long_qt_syndrome",
+          "level": "caution",
+          "message": "QT延長や致死性不整脈のリスク確認が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA クラリスロマイシン 添付文書",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/530169_6149003F2143_1_29"
+      },
+      "lastReviewed": "2026-08-10"
     }
-  ]
+  ],
+  "knowledgeVersion": "2026.08.10-general-1",
+  "lastReviewed": "2026-08-10"
 }

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 3,
   "reviewedAt": "2026-08-09",
   "items": [
     {
@@ -28,6 +28,88 @@
       "label": "一般用医薬品の併用禁止案内",
       "message": "興和の公式案内では、エルペインコーワαと乗物酔い薬を一緒に服用しないよう示されています。",
       "source": "https://hc.kowa.co.jp/lpain/qa.html"
+    },
+    {
+      "id": "loxoprofen-ibuprofen",
+      "a": "loxoprofen",
+      "b": "ibuprofen",
+      "severity": "major-caution",
+      "label": "NSAIDsの重複",
+      "message": "消化管出血・腎障害のリスクが上がるため自己判断で併用しないでください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "warfarin-ibuprofen",
+      "a": "warfarin",
+      "b": "ibuprofen",
+      "severity": "major-caution",
+      "label": "出血リスクの増加",
+      "message": "鎮痛薬を追加する前に処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "edoxaban-ibuprofen",
+      "a": "edoxaban",
+      "b": "ibuprofen",
+      "severity": "major-caution",
+      "label": "出血リスクの増加",
+      "message": "抗凝固薬とNSAIDsが重なります。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "enalapril-spironolactone",
+      "a": "enalapril",
+      "b": "spironolactone",
+      "severity": "major-caution",
+      "label": "高カリウム血症",
+      "message": "腎機能と血清カリウムの管理が必要です。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "sertraline-lasmiditan",
+      "a": "sertraline",
+      "b": "lasmiditan",
+      "severity": "major-caution",
+      "label": "セロトニン症候群",
+      "message": "発熱、発汗、振戦、筋強剛、意識変容などに注意してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "escitalopram-lasmiditan",
+      "a": "escitalopram",
+      "b": "lasmiditan",
+      "severity": "major-caution",
+      "label": "セロトニン症候群",
+      "message": "発熱、発汗、振戦、筋強剛、意識変容などに注意してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "sertraline-sumatriptan",
+      "a": "sertraline",
+      "b": "sumatriptan",
+      "severity": "major-caution",
+      "label": "セロトニン症候群",
+      "message": "異常があれば服用を続けず医療機関へ相談してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "clarithromycin-warfarin",
+      "a": "clarithromycin",
+      "b": "warfarin",
+      "severity": "major-caution",
+      "label": "抗凝固作用の増強",
+      "message": "出血リスクが上がる可能性がありINRを含む管理が必要です。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
     }
-  ]
+  ],
+  "knowledgeVersion": "2026.08.10-general-1",
+  "lastReviewed": "2026-08-10"
 }
