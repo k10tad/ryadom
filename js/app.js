@@ -4,6 +4,8 @@ const sheetContent = document.querySelector('#sheet-content');
 const alekLine = document.querySelector('#alek-line');
 const alekImage = document.querySelector('#alek-image');
 const nowAction = document.querySelector('#now-action');
+const speechCard = document.querySelector('.speech-card');
+let typewriterTimer = null;
 
 const store = {
   get(key, fallback = null) {
@@ -21,6 +23,35 @@ const dialogue = [
   'しんどい時は、上手く説明しなくていい。俺がゆっくり聞くから。',
   '頑張ったぶんくらい、ここでは甘えていいんじゃない？'
 ];
+
+function characterDelay(character) {
+  if ('。！？!?'.includes(character)) return 300;
+  if ('、，,；;：:'.includes(character)) return 150;
+  if ('…'.includes(character)) return 220;
+  return 72;
+}
+
+function setAlekLine(value, { instant = false } = {}) {
+  const text = String(value ?? '');
+  window.clearTimeout(typewriterTimer);
+  speechCard.classList.remove('is-typing');
+
+  if (instant || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    alekLine.textContent = text;
+    return;
+  }
+
+  alekLine.textContent = '';
+  speechCard.classList.add('is-typing');
+  let index = 0;
+  const writeNext = () => {
+    alekLine.textContent += text[index] || '';
+    index += 1;
+    if (index < text.length) typewriterTimer = window.setTimeout(writeNext, characterDelay(text[index - 1]));
+    else speechCard.classList.remove('is-typing');
+  };
+  writeNext();
+}
 
 const panels = {
   rhythm: ['РИТМ · RHYTHM', '身体のリズム'],
@@ -190,7 +221,7 @@ function savePanel(event, type) {
     const logs = store.get('cycleLogs', []);
     if (!logs.some(item => item.date === data.lastStart)) logs.push({ date: data.lastStart, at: new Date().toISOString() });
     store.set('cycleLogs', logs);
-    alekLine.textContent = '周期を記録したよ。予定日は目安にして、変化があったらまた教えて。';
+    setAlekLine('周期を記録したよ。予定日は目安にして、変化があったらまた教えて。');
     sheetContent.innerHTML = rhythmTemplate('cycle');
     bindSheetActions('rhythm');
     return;
@@ -199,7 +230,7 @@ function savePanel(event, type) {
     const schedules = store.get('medicineSchedules', []);
     schedules.push({ id: `${Date.now()}`, name: data.name.trim(), time: data.time, dose: data.dose.trim() });
     store.set('medicineSchedules', schedules);
-    alekLine.textContent = `${data.name.trim()}は${data.time}だね。予定として覚えておくよ。`;
+    setAlekLine(`${data.name.trim()}は${data.time}だね。予定として覚えておくよ。`);
     sheetContent.innerHTML = rhythmTemplate('schedule');
     bindSheetActions('rhythm');
     return;
@@ -208,26 +239,26 @@ function savePanel(event, type) {
     const logs = store.get('medicineLogs', []);
     logs.push({ name: data.name.trim(), dose: data.dose.trim(), at: new Date().toISOString() });
     store.set('medicineLogs', logs);
-    alekLine.textContent = `${data.name.trim()}、今飲んだ記録を残したよ。教えてくれてありがとう。`;
+    setAlekLine(`${data.name.trim()}、今飲んだ記録を残したよ。教えてくれてありがとう。`);
   } else if (type === 'condition') {
     const logs = store.get('conditionLogs', []);
     logs.push({ level: data.level, note: data.note.trim(), at: new Date().toISOString() });
     store.set('conditionLogs', logs);
-    alekLine.textContent = 'うん、聞いたよ。今は無理に平気な顔をしなくていいからね。';
+    setAlekLine('うん、聞いたよ。今は無理に平気な顔をしなくていいからね。');
   } else if (type === 'say') {
     const messages = store.get('messages', []);
     const response = dialogue[Math.floor(Math.random() * dialogue.length)];
     const at = new Date().toISOString();
     messages.push({ from: 'user', text: data.note.trim(), at }, { from: 'alek', text: response, at: new Date().toISOString() });
     store.set('messages', messages);
-    alekLine.textContent = response;
+    setAlekLine(response);
     sheetContent.innerHTML = sayTemplate();
     bindSheetActions('say');
     requestAnimationFrame(() => { const history = document.querySelector('#chat-history'); if (history) history.scrollTop = history.scrollHeight; });
     return;
   } else {
     store.set('profile', { name: data.name.trim() || 'レイ', region: data.region.trim() });
-    alekLine.textContent = `分かった。これからも、${data.name.trim() || 'レイ'}って呼ぶね。`;
+    setAlekLine(`分かった。これからも、${data.name.trim() || 'レイ'}って呼ぶね。`);
   }
   sheetContent.innerHTML = '<p class="saved-message">うん、受け取ったよ。<br>教えてくれてありがとう。</p>';
 }
@@ -254,11 +285,16 @@ document.querySelectorAll('[data-room-button]').forEach(button => button.addEven
 document.querySelectorAll('[data-open]').forEach(button => button.addEventListener('click', () => openPanel(button.dataset.open)));
 document.querySelector('#close-sheet').addEventListener('click', () => sheet.close());
 sheet.addEventListener('click', event => { if (event.target === sheet) sheet.close(); });
-document.querySelector('#next-line').addEventListener('click', () => { alekLine.textContent = dialogue[Math.floor(Math.random() * dialogue.length)]; });
+document.querySelector('#next-line').addEventListener('click', () => setAlekLine(dialogue[Math.floor(Math.random() * dialogue.length)]));
 document.querySelector('#voice-button').addEventListener('click', speakCurrentLine);
 document.querySelector('#beside-button').addEventListener('click', () => { app.classList.add('is-quiet'); document.querySelector('#quiet-mode').setAttribute('aria-hidden', 'false'); });
 document.querySelector('#leave-quiet').addEventListener('click', () => { app.classList.remove('is-quiet'); document.querySelector('#quiet-mode').setAttribute('aria-hidden', 'true'); });
+document.querySelectorAll('[data-nav]').forEach(button => button.addEventListener('click', () => {
+  document.querySelectorAll('[data-nav]').forEach(item => item.classList.toggle('is-active', item === button));
+  if (button.dataset.nav === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
+}));
 
 updateClock();
 setInterval(updateClock, 30000);
 setRoom(store.get('room', 'living'));
+setAlekLine(alekLine.textContent);
