@@ -1,0 +1,13 @@
+{
+  "name": "Рядом — Alek",
+  "short_name": "Рядом",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0d0e15",
+  "theme_color": "#171723",
+  "icons": [
+    { "src": "assets/icons/icon.jpg", "sizes": "512x512", "type": "image/jpeg", "purpose": "any" }
+  ]
+}

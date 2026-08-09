@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-08-09",
+  "items": [
+    {
+      "id": "ibuprofen-elpain",
+      "a": "ibuprofen",
+      "b": "elpain_kowa_alpha",
+      "severity": "avoid",
+      "label": "イブプロフェン成分の重複",
+      "message": "エルペインコーワαはイブプロフェンを含みます。追加のイブプロフェンを同時に扱わず、服用間隔と一日総量を薬剤師・処方元へ確認してください。",
+      "source": "https://hc.kowa.co.jp/lpain/qa.html"
+    },
+    {
+      "id": "lasmiditan-travelmin",
+      "a": "lasmiditan",
+      "b": "travelmin_combination",
+      "severity": "major-caution",
+      "label": "眠気・中枢神経抑制の増強",
+      "message": "ラスミジタンは他の中枢神経抑制薬との併用で鎮静などが相加的に現れる可能性があります。トラベルミン配合錠も眠気を起こすため、同日使用は自己判断せず確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/530471_1190030F1024_1_03"
+    },
+    {
+      "id": "elpain-travelmin",
+      "a": "elpain_kowa_alpha",
+      "b": "travelmin_combination",
+      "severity": "avoid",
+      "label": "一般用医薬品の併用禁止案内",
+      "message": "興和の公式案内では、エルペインコーワαと乗物酔い薬を一緒に服用しないよう示されています。",
+      "source": "https://hc.kowa.co.jp/lpain/qa.html"
+    }
+  ]
+}

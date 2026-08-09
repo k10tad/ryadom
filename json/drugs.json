@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-08-09",
+  "items": [
+    {
+      "id": "lomerizine",
+      "name": "ロメリジン",
+      "aliases": ["ロメリジン塩酸塩", "ミグシス", "テラナス", "lomerizine"],
+      "importantWarnings": ["眠気、めまい、ふらつきが現れることがあります。", "動悸など普段と異なる症状があれば処方元へ相談してください。"],
+      "conditionWarnings": [],
+      "source": { "label": "PMDA ロメリジン塩酸塩 添付文書", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/672212_2190023F1037_5_03" },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "lasmiditan",
+      "name": "ラスミジタン",
+      "aliases": ["レイボー", "レイボー錠", "lasmiditan", "REYVOW"],
+      "importantWarnings": ["めまい、傾眠などが現れることがあります。", "服用後少なくとも8時間は運転や危険を伴う機械操作を避けます。"],
+      "conditionWarnings": [],
+      "source": { "label": "PMDA レイボー錠 添付文書", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/530471_1190030F1024_1_03" },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "ibuprofen",
+      "name": "イブプロフェン",
+      "aliases": ["ibuprofen", "イブ", "イブ錠"],
+      "importantWarnings": ["消化管出血、腎機能障害、喘息発作などの重大な副作用に注意が必要です。", "他の解熱鎮痛薬との成分重複を確認してください。"],
+      "conditionWarnings": [
+        { "conditionId": "heart_failure", "level": "contraindication", "message": "重篤な心機能不全では禁忌です。心不全歴がある場合は自己判断で追加せず確認してください。" },
+        { "conditionId": "peptic_ulcer", "level": "contraindication", "message": "消化性潰瘍がある場合は禁忌に該当し得ます。" },
+        { "conditionId": "aspirin_asthma", "level": "contraindication", "message": "アスピリン喘息またはその既往では禁忌です。" }
+      ],
+      "source": { "label": "PMDA イブプロフェン添付文書", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/581120_1149001F1501_1_04" },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "elpain_kowa_alpha",
+      "name": "エルペインコーワα",
+      "aliases": ["エルペイン", "エルペインコーワ", "エルペインコーワアルファ"],
+      "components": ["ibuprofen", "butylscopolamine"],
+      "importantWarnings": ["イブプロフェンとブチルスコポラミン臭化物を含みます。", "他の解熱鎮痛薬、鎮静薬、胃腸鎮痛鎮痙薬、乗物酔い薬とは併用しないよう公式に案内されています。"],
+      "conditionWarnings": [
+        { "conditionId": "heart_failure", "level": "caution", "message": "イブプロフェンを含むため、心機能に問題がある場合は服用前に確認が必要です。" },
+        { "conditionId": "peptic_ulcer", "level": "caution", "message": "イブプロフェンを含むため、消化性潰瘍歴がある場合は確認が必要です。" }
+      ],
+      "source": { "label": "興和 エルペインコーワα 公式情報", "url": "https://hc.kowa.co.jp/lpain/" },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "travelmin_combination",
+      "name": "トラベルミン配合錠",
+      "aliases": ["トラベルミン", "ジフェンヒドラミンサリチル酸塩・ジプロフィリン"],
+      "components": ["diphenhydramine_salicylate", "diprophylline"],
+      "importantWarnings": ["眠気、注意力低下が現れることがあります。", "服用後は運転や危険を伴う機械操作を避けてください。"],
+      "conditionWarnings": [],
+      "source": { "label": "PMDA トラベルミン配合錠 添付文書", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/530258_1339100F1038_3_01" },
+      "reviewedAt": "2026-08-09"
+    }
+  ]
+}

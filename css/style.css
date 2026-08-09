@@ -109,23 +109,22 @@ button { color: inherit; -webkit-tap-highlight-color: transparent; }
 .now-pill span { color: var(--lilac); letter-spacing: .12em; }
 .now-pill strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 400; }
 
-.speech-card {
+.speech-flow {
   position: relative;
   z-index: 2;
   width: min(100%, 480px);
-  margin-top: 10px;
-  padding: 14px 16px 12px;
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  background: var(--glass);
-  backdrop-filter: blur(18px);
-  box-shadow: var(--shadow);
+  min-height: 94px;
+  margin-top: 7px;
+  padding: 14px 8px 8px;
+  border: 0;
+  background: transparent;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, .9);
 }
 .speech-label { display: flex; align-items: center; justify-content: space-between; }
 .speech-label span { color: var(--lilac); font: 9px Georgia, serif; letter-spacing: .22em; }
 .speech-label button, .next-line { border: 0; background: none; color: var(--lilac); padding: 0; font-size: 9px; letter-spacing: .08em; }
-.speech-card p { min-height: 42px; margin: 7px 0 8px; font-size: 14px; line-height: 1.65; }
-.speech-card p::after {
+.speech-flow p { min-height: 46px; margin: 7px 0 8px; font-size: 14px; line-height: 1.75; }
+.speech-flow p::after {
   content: "";
   display: inline-block;
   width: 1px;
@@ -135,7 +134,7 @@ button { color: inherit; -webkit-tap-highlight-color: transparent; }
   background: var(--lilac);
   opacity: 0;
 }
-.speech-card.is-typing p::after { opacity: .9; animation: caretBlink .8s steps(1) infinite; }
+.speech-flow.is-typing p::after { opacity: .9; animation: caretBlink .8s steps(1) infinite; }
 @keyframes caretBlink { 50% { opacity: .15; } }
 .next-line { opacity: .82; }
 
@@ -184,7 +183,7 @@ button { color: inherit; -webkit-tap-highlight-color: transparent; }
   width: min(calc(100% - 16px), 620px);
   min-height: var(--nav-height);
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: center;
   padding: 7px 5px;
   border: 1px solid var(--line);
@@ -230,6 +229,14 @@ button { color: inherit; -webkit-tap-highlight-color: transparent; }
 .log-item small { color: var(--lilac); }
 .log-item p { margin: 4px 0 0; font-size: 12px; }
 .saved-message { padding: 22px 8px; text-align: center; color: var(--lilac); line-height: 1.7; }
+.assessment { margin-top: 12px; border-left: 2px solid var(--lilac-2); background: rgba(217, 202, 242, .07); padding: 10px 12px; }
+.assessment.caution { border-left-color: #d8b46b; }
+.assessment.danger { border-left-color: #d67c86; }
+.assessment h3 { margin: 0 0 7px; font-size: 12px; font-weight: 600; }
+.assessment p, .assessment li { margin: 5px 0; color: #d5d1dc; font-size: 10px; line-height: 1.65; }
+.assessment ul { margin: 0; padding-left: 18px; }
+.source-note { color: var(--muted); font-size: 8px; line-height: 1.5; }
+.confirm-log { width: 100%; margin-top: 10px; border: 0; border-radius: 14px; background: linear-gradient(135deg, #dfd3f2, #9884bd); color: #282034; padding: 12px; font-weight: 700; }
 .rhythm-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; padding: 14px 0 2px; }
 .rhythm-tabs button { border: 1px solid var(--line); border-radius: 999px; background: rgba(255, 255, 255, .035); color: var(--muted); padding: 9px 5px; font-size: 9px; }
 .rhythm-tabs button.is-active { border-color: transparent; background: linear-gradient(135deg, #dfd3f2, #9884bd); color: #282034; }
@@ -267,7 +274,7 @@ button { color: inherit; -webkit-tap-highlight-color: transparent; }
   .home { grid-template-columns: minmax(320px, 1.1fr) minmax(300px, .9fr); align-items: center; }
   .character-area { grid-row: 1 / span 2; }
   .alek-portrait { width: min(42vw, 480px); }
-  .speech-card { width: min(90%, 480px); }
+  .speech-flow { width: min(90%, 480px); }
   .quick-actions { grid-column: 2; grid-template-columns: 1fr; }
   .quick-actions button { min-height: 66px; justify-content: flex-start; padding-inline: 18px; }
   .beside-button { grid-column: 2; }
@@ -276,8 +283,8 @@ button { color: inherit; -webkit-tap-highlight-color: transparent; }
 @media (max-height: 720px) and (max-width: 719px) {
   .topbar { min-height: 52px; }
   .room-tabs { padding-block: 6px; }
-  .speech-card { padding-block: 10px; }
-  .speech-card p { min-height: 34px; margin-block: 5px; font-size: 12px; }
+  .speech-flow { padding-block: 10px; }
+  .speech-flow p { min-height: 34px; margin-block: 5px; font-size: 12px; }
   .quick-actions button { min-height: 45px; }
   .beside-button { min-height: 41px; }
   .vine-nav b { width: 27px; height: 27px; }
