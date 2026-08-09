@@ -1,4 +1,4 @@
-const VERSION = 'ryadom-v0.6.0-knowledge-general-1';
+const VERSION = 'ryadom-v0.8.0-knowledge-hormones-1';
 const APP_SHELL = [
   './',
   './index.html',

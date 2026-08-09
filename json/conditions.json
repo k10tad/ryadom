@@ -1,7 +1,7 @@
 {
-  "schemaVersion": 3,
-  "knowledgeVersion": "2026.08.10-general-1",
-  "lastReviewed": "2026-08-10",
+  "schemaVersion": 5,
+  "knowledgeVersion": "2026.08.09-hormones-1",
+  "lastReviewed": "2026-08-09",
   "items": [
     {
       "id": "atrial_fibrillation",
@@ -315,6 +315,327 @@
         "url": "https://www.mhlw.go.jp/topics/2006/11/tp1122-1f.html"
       },
       "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "hypotension",
+      "name": "低血圧症",
+      "aliases": [
+        "低血圧",
+        "hypotension"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "bradycardia",
+      "name": "徐脈",
+      "aliases": [
+        "洞性徐脈",
+        "bradycardia"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "av_block",
+      "name": "房室ブロック",
+      "aliases": [
+        "AVブロック",
+        "atrioventricular block"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "renal_artery_stenosis",
+      "name": "腎動脈狭窄症",
+      "aliases": [
+        "両側性腎動脈狭窄"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "angioedema_history",
+      "name": "血管浮腫の既往",
+      "aliases": [
+        "血管神経性浮腫"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "venous_thromboembolism",
+      "name": "静脈血栓塞栓症",
+      "aliases": [
+        "深部静脈血栓症",
+        "肺塞栓症",
+        "VTE"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "breast_cancer",
+      "name": "乳癌",
+      "aliases": [
+        "乳がん",
+        "乳腺悪性腫瘍"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "thyrotoxicosis",
+      "name": "甲状腺中毒症",
+      "aliases": [
+        "甲状腺機能亢進症",
+        "バセドウ病"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "adrenal_insufficiency",
+      "name": "副腎皮質機能不全",
+      "aliases": [
+        "副腎不全",
+        "アジソン病"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "osteoporosis",
+      "name": "骨粗鬆症",
+      "aliases": [
+        "osteoporosis"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "active_infection",
+      "name": "活動性感染症",
+      "aliases": [
+        "重症感染症",
+        "全身性感染症"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "urinary_retention",
+      "name": "尿閉・排尿障害",
+      "aliases": [
+        "前立腺肥大による排尿障害",
+        "尿閉"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "copd",
+      "name": "慢性閉塞性肺疾患",
+      "aliases": [
+        "COPD",
+        "肺気腫"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "status_epilepticus_history",
+      "name": "てんかん重積状態の既往",
+      "aliases": [
+        "重積発作"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "urea_cycle_disorder",
+      "name": "尿素サイクル異常症",
+      "aliases": [
+        "尿素回路異常症"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "pancreatitis",
+      "name": "膵炎",
+      "aliases": [
+        "急性膵炎",
+        "慢性膵炎"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "intestinal_obstruction",
+      "name": "腸閉塞",
+      "aliases": [
+        "イレウス"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "inflammatory_bowel_disease",
+      "name": "炎症性腸疾患",
+      "aliases": [
+        "潰瘍性大腸炎",
+        "クローン病",
+        "IBD"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "migraine_with_aura",
+      "name": "前兆のある片頭痛",
+      "aliases": [
+        "閃輝暗点を伴う片頭痛",
+        "migraine with aura"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "unexplained_genital_bleeding",
+      "name": "原因不明の性器出血",
+      "aliases": [
+        "診断未確定の異常性器出血",
+        "不正性器出血（原因未確認）"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "endometrial_cancer",
+      "name": "子宮内膜癌",
+      "aliases": [
+        "子宮体癌",
+        "endometrial cancer"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "endometrial_hyperplasia",
+      "name": "子宮内膜増殖症",
+      "aliases": [
+        "未治療の子宮内膜増殖症",
+        "endometrial hyperplasia"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "uterine_fibroid",
+      "name": "子宮筋腫",
+      "aliases": [
+        "子宮平滑筋腫",
+        "uterine fibroid"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "endometriosis",
+      "name": "子宮内膜症",
+      "aliases": [
+        "endometriosis"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "breast_fibroadenoma",
+      "name": "乳腺線維腺腫",
+      "aliases": [
+        "乳房線維腺腫",
+        "線維腺腫",
+        "fibroadenoma of breast"
+      ],
+      "source": {
+        "label": "日本乳癌学会 患者さんのための乳癌診療ガイドライン（良性乳腺疾患）",
+        "url": "https://jbcs.xsrv.jp/guideline/p2023/"
+      },
+      "lastReviewed": "2026-08-09"
     }
   ]
 }

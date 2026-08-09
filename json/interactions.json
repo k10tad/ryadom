@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 5,
   "reviewedAt": "2026-08-09",
   "items": [
     {
@@ -108,8 +108,528 @@
       "message": "出血リスクが上がる可能性がありINRを含む管理が必要です。",
       "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
       "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "losartan-spironolactone",
+      "a": "losartan",
+      "b": "spironolactone",
+      "severity": "major-caution",
+      "label": "高カリウム血症",
+      "message": "ARBとカリウム保持性利尿薬が重なります。腎機能と血清カリウムの管理が必要です。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "telmisartan-spironolactone",
+      "a": "telmisartan",
+      "b": "spironolactone",
+      "severity": "major-caution",
+      "label": "高カリウム血症",
+      "message": "ARBとカリウム保持性利尿薬が重なります。腎機能と血清カリウムの管理が必要です。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "carvedilol-bisoprolol",
+      "a": "carvedilol",
+      "b": "bisoprolol",
+      "severity": "major-caution",
+      "label": "β遮断薬の重複",
+      "message": "高度徐脈、低血圧、心不全悪化のリスクがあるため併用意図を確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "ethinylestradiol-drospirenone-tranexamic",
+      "a": "ethinylestradiol_drospirenone",
+      "b": "tranexamic_acid",
+      "severity": "major-caution",
+      "label": "血栓症リスク",
+      "message": "血栓症リスクが重なる可能性があり、自己判断で併用せず確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "prednisolone-ibuprofen",
+      "a": "prednisolone",
+      "b": "ibuprofen",
+      "severity": "major-caution",
+      "label": "消化管障害・出血",
+      "message": "ステロイドとNSAIDsが重なり、消化管潰瘍や出血のリスクが上がります。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "prednisolone-loxoprofen",
+      "a": "prednisolone",
+      "b": "loxoprofen",
+      "severity": "major-caution",
+      "label": "消化管障害・出血",
+      "message": "ステロイドとNSAIDsが重なり、消化管潰瘍や出血のリスクが上がります。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "theophylline-clarithromycin",
+      "a": "theophylline",
+      "b": "clarithromycin",
+      "severity": "major-caution",
+      "label": "テオフィリン中毒",
+      "message": "テオフィリン濃度が上昇し、悪心、頻脈、痙攣などのリスクがあります。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "valproate-lamotrigine",
+      "a": "valproate",
+      "b": "lamotrigine",
+      "severity": "major-caution",
+      "label": "ラモトリギン濃度上昇・重篤皮膚障害",
+      "message": "用量調整が必要な組み合わせです。発疹や粘膜症状があれば直ちに受診してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "valproate-carbapenem",
+      "a": "valproate",
+      "b": "meropenem",
+      "severity": "contraindicated",
+      "label": "バルプロ酸濃度の著明低下",
+      "message": "カルバペネム系抗菌薬との併用は禁忌です。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "carbamazepine-ethinylestradiol",
+      "a": "carbamazepine",
+      "b": "ethinylestradiol_drospirenone",
+      "severity": "major-caution",
+      "label": "避妊効果の低下",
+      "message": "酵素誘導によりホルモン剤の効果が低下する可能性があります。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "dextromethorphan-sertraline",
+      "a": "dextromethorphan",
+      "b": "sertraline",
+      "severity": "major-caution",
+      "label": "セロトニン症候群",
+      "message": "発熱、発汗、振戦、筋強剛、意識変容などに注意してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "dextromethorphan-escitalopram",
+      "a": "dextromethorphan",
+      "b": "escitalopram",
+      "severity": "major-caution",
+      "label": "セロトニン症候群",
+      "message": "発熱、発汗、振戦、筋強剛、意識変容などに注意してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "dihydrocodeine-diazepam",
+      "a": "dihydrocodeine",
+      "b": "diazepam",
+      "severity": "major-caution",
+      "label": "呼吸抑制・強い鎮静",
+      "message": "中枢抑制が重なり、呼吸抑制や意識低下の危険があります。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "chlorpheniramine-travelmin",
+      "a": "chlorpheniramine",
+      "b": "travelmin_combination",
+      "severity": "major-caution",
+      "label": "抗ヒスタミン作用・眠気の重複",
+      "message": "強い眠気や抗コリン作用が重なるため併用前に確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "omeprazole-warfarin",
+      "a": "omeprazole",
+      "b": "warfarin",
+      "severity": "major-caution",
+      "label": "抗凝固作用の変動",
+      "message": "出血徴候に注意し、必要に応じてINR管理が必要です。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "magnesium-levothyroxine",
+      "a": "magnesium_oxide",
+      "b": "levothyroxine",
+      "severity": "major-caution",
+      "label": "レボチロキシン吸収低下",
+      "message": "同時服用で吸収が低下するため、服用間隔を処方元・薬剤師に確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "metoclopramide-antipsychotic",
+      "a": "metoclopramide",
+      "b": "sertraline",
+      "severity": "major-caution",
+      "label": "錐体外路症状・悪性症候群",
+      "message": "神経症状のリスクが上がる可能性があり、異常があれば服用を続けず相談してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "domperidone-clarithromycin",
+      "a": "domperidone",
+      "b": "clarithromycin",
+      "severity": "contraindicated",
+      "label": "QT延長・重篤な不整脈",
+      "message": "QT延長作用と代謝阻害が重なるため併用前に確認が必要です。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "carbamazepine-ethinylestradiol_drospirenone",
+      "a": "carbamazepine",
+      "b": "ethinylestradiol_drospirenone",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "carbamazepine-ethinylestradiol_desogestrel",
+      "a": "carbamazepine",
+      "b": "ethinylestradiol_desogestrel",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "carbamazepine-ethinylestradiol_levonorgestrel",
+      "a": "carbamazepine",
+      "b": "ethinylestradiol_levonorgestrel",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "carbamazepine-ethinylestradiol_norethisterone",
+      "a": "carbamazepine",
+      "b": "ethinylestradiol_norethisterone",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "carbamazepine-ethinylestradiol_levonorgestrel_lep",
+      "a": "carbamazepine",
+      "b": "ethinylestradiol_levonorgestrel_lep",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "carbamazepine-estradiol_oral",
+      "a": "carbamazepine",
+      "b": "estradiol_oral",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "carbamazepine-estradiol_patch",
+      "a": "carbamazepine",
+      "b": "estradiol_patch",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "carbamazepine-estradiol_gel",
+      "a": "carbamazepine",
+      "b": "estradiol_gel",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "carbamazepine-conjugated_estrogens",
+      "a": "carbamazepine",
+      "b": "conjugated_estrogens",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "carbamazepine-estradiol_norethisterone_patch",
+      "a": "carbamazepine",
+      "b": "estradiol_norethisterone_patch",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "carbamazepine-estradiol_levonorgestrel_hrt",
+      "a": "carbamazepine",
+      "b": "estradiol_levonorgestrel_hrt",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "phenytoin-ethinylestradiol_drospirenone",
+      "a": "phenytoin",
+      "b": "ethinylestradiol_drospirenone",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "phenytoin-ethinylestradiol_desogestrel",
+      "a": "phenytoin",
+      "b": "ethinylestradiol_desogestrel",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "phenytoin-ethinylestradiol_levonorgestrel",
+      "a": "phenytoin",
+      "b": "ethinylestradiol_levonorgestrel",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "phenytoin-ethinylestradiol_norethisterone",
+      "a": "phenytoin",
+      "b": "ethinylestradiol_norethisterone",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "phenytoin-ethinylestradiol_levonorgestrel_lep",
+      "a": "phenytoin",
+      "b": "ethinylestradiol_levonorgestrel_lep",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "phenytoin-estradiol_oral",
+      "a": "phenytoin",
+      "b": "estradiol_oral",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "phenytoin-estradiol_patch",
+      "a": "phenytoin",
+      "b": "estradiol_patch",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "phenytoin-estradiol_gel",
+      "a": "phenytoin",
+      "b": "estradiol_gel",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "phenytoin-conjugated_estrogens",
+      "a": "phenytoin",
+      "b": "conjugated_estrogens",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "phenytoin-estradiol_norethisterone_patch",
+      "a": "phenytoin",
+      "b": "estradiol_norethisterone_patch",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "phenytoin-estradiol_levonorgestrel_hrt",
+      "a": "phenytoin",
+      "b": "estradiol_levonorgestrel_hrt",
+      "severity": "major-caution",
+      "label": "ホルモン剤の効果低下",
+      "message": "酵素誘導によりホルモン剤の血中濃度と効果が低下する可能性があります。避妊目的なら代替・追加避妊法を含め処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "ethinylestradiol_desogestrel-lamotrigine",
+      "a": "ethinylestradiol_desogestrel",
+      "b": "lamotrigine",
+      "severity": "major-caution",
+      "label": "ラモトリギン濃度低下",
+      "message": "エストロゲン配合剤によりラモトリギン濃度が低下し、開始・中止時に作用が変動する可能性があります。用量調整を処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "ethinylestradiol_desogestrel-tranexamic",
+      "a": "ethinylestradiol_desogestrel",
+      "b": "tranexamic_acid",
+      "severity": "major-caution",
+      "label": "血栓症リスク",
+      "message": "血栓症リスクが重なる可能性があるため、自己判断で併用せず確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "ethinylestradiol_levonorgestrel-lamotrigine",
+      "a": "ethinylestradiol_levonorgestrel",
+      "b": "lamotrigine",
+      "severity": "major-caution",
+      "label": "ラモトリギン濃度低下",
+      "message": "エストロゲン配合剤によりラモトリギン濃度が低下し、開始・中止時に作用が変動する可能性があります。用量調整を処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "ethinylestradiol_levonorgestrel-tranexamic",
+      "a": "ethinylestradiol_levonorgestrel",
+      "b": "tranexamic_acid",
+      "severity": "major-caution",
+      "label": "血栓症リスク",
+      "message": "血栓症リスクが重なる可能性があるため、自己判断で併用せず確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "ethinylestradiol_norethisterone-lamotrigine",
+      "a": "ethinylestradiol_norethisterone",
+      "b": "lamotrigine",
+      "severity": "major-caution",
+      "label": "ラモトリギン濃度低下",
+      "message": "エストロゲン配合剤によりラモトリギン濃度が低下し、開始・中止時に作用が変動する可能性があります。用量調整を処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "ethinylestradiol_norethisterone-tranexamic",
+      "a": "ethinylestradiol_norethisterone",
+      "b": "tranexamic_acid",
+      "severity": "major-caution",
+      "label": "血栓症リスク",
+      "message": "血栓症リスクが重なる可能性があるため、自己判断で併用せず確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "ethinylestradiol_levonorgestrel_lep-lamotrigine",
+      "a": "ethinylestradiol_levonorgestrel_lep",
+      "b": "lamotrigine",
+      "severity": "major-caution",
+      "label": "ラモトリギン濃度低下",
+      "message": "エストロゲン配合剤によりラモトリギン濃度が低下し、開始・中止時に作用が変動する可能性があります。用量調整を処方元へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "ethinylestradiol_levonorgestrel_lep-tranexamic",
+      "a": "ethinylestradiol_levonorgestrel_lep",
+      "b": "tranexamic_acid",
+      "severity": "major-caution",
+      "label": "血栓症リスク",
+      "message": "血栓症リスクが重なる可能性があるため、自己判断で併用せず確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "carbamazepine-levonorgestrel-emergency",
+      "a": "carbamazepine",
+      "b": "levonorgestrel_emergency",
+      "severity": "major-caution",
+      "label": "緊急避妊薬の効果低下",
+      "message": "酵素誘導薬により緊急避妊効果が低下する可能性があります。服用方法や別の選択肢を速やかに医療者へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "carbamazepine-dienogest",
+      "a": "carbamazepine",
+      "b": "dienogest",
+      "severity": "major-caution",
+      "label": "ジエノゲストの効果低下",
+      "message": "酵素誘導によりジエノゲスト濃度が低下し、効果が弱まる可能性があります。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "phenytoin-levonorgestrel-emergency",
+      "a": "phenytoin",
+      "b": "levonorgestrel_emergency",
+      "severity": "major-caution",
+      "label": "緊急避妊薬の効果低下",
+      "message": "酵素誘導薬により緊急避妊効果が低下する可能性があります。服用方法や別の選択肢を速やかに医療者へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "phenytoin-dienogest",
+      "a": "phenytoin",
+      "b": "dienogest",
+      "severity": "major-caution",
+      "label": "ジエノゲストの効果低下",
+      "message": "酵素誘導によりジエノゲスト濃度が低下し、効果が弱まる可能性があります。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-09"
     }
   ],
-  "knowledgeVersion": "2026.08.10-general-1",
-  "lastReviewed": "2026-08-10"
+  "knowledgeVersion": "2026.08.09-hormones-1",
+  "lastReviewed": "2026-08-09"
 }

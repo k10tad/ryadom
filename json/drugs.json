@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 5,
   "reviewedAt": "2026-08-09",
   "items": [
     {
@@ -574,8 +574,2056 @@
         "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/530169_6149003F2143_1_29"
       },
       "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "amlodipine",
+      "name": "アムロジピン",
+      "aliases": [
+        "ノルバスク",
+        "アムロジン",
+        "amlodipine"
+      ],
+      "importantWarnings": [
+        "劇症肝炎・肝機能障害",
+        "無顆粒球症",
+        "房室ブロック",
+        "横紋筋融解症"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "hypotension",
+          "level": "caution",
+          "message": "低血圧がある場合は過度の血圧低下に注意が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA アムロジピン添付文書",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/730869_2171022F1487_1_04"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "nifedipine",
+      "name": "ニフェジピン",
+      "aliases": [
+        "アダラート",
+        "nifedipine"
+      ],
+      "importantWarnings": [
+        "過度の血圧低下",
+        "肝機能障害・黄疸",
+        "無顆粒球症",
+        "血小板減少"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "hypotension",
+          "level": "caution",
+          "message": "低血圧では症状を悪化させるおそれがあります。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "losartan",
+      "name": "ロサルタン",
+      "aliases": [
+        "ニューロタン",
+        "losartan"
+      ],
+      "importantWarnings": [
+        "血管浮腫",
+        "高カリウム血症",
+        "急性腎障害",
+        "ショック・失神"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "pregnancy",
+          "level": "contraindication",
+          "message": "妊娠中は禁忌です。"
+        },
+        {
+          "conditionId": "hyperkalemia",
+          "level": "caution",
+          "message": "高カリウム血症を悪化させる可能性があります。"
+        },
+        {
+          "conditionId": "renal_artery_stenosis",
+          "level": "caution",
+          "message": "腎機能を急速に悪化させるおそれがあります。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "telmisartan",
+      "name": "テルミサルタン",
+      "aliases": [
+        "ミカルディス",
+        "telmisartan"
+      ],
+      "importantWarnings": [
+        "血管浮腫",
+        "高カリウム血症",
+        "急性腎障害",
+        "ショック・失神"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "pregnancy",
+          "level": "contraindication",
+          "message": "妊娠中は禁忌です。"
+        },
+        {
+          "conditionId": "severe_liver_disease",
+          "level": "contraindication",
+          "message": "胆汁排泄障害または重篤な肝障害では禁忌です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "hydrochlorothiazide",
+      "name": "ヒドロクロロチアジド",
+      "aliases": [
+        "HCTZ",
+        "hydrochlorothiazide"
+      ],
+      "importantWarnings": [
+        "低ナトリウム血症",
+        "低カリウム血症",
+        "急性近視・閉塞隅角緑内障",
+        "間質性肺炎"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "severe_renal_disease",
+          "level": "caution",
+          "message": "腎機能が重度に低下している場合は効果と電解質管理の確認が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "carvedilol",
+      "name": "カルベジロール",
+      "aliases": [
+        "アーチスト",
+        "carvedilol"
+      ],
+      "importantWarnings": [
+        "高度徐脈",
+        "完全房室ブロック",
+        "心不全",
+        "アナフィラキシー"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "asthma",
+          "level": "contraindication",
+          "message": "気管支喘息では気管支収縮を誘発するため禁忌です。"
+        },
+        {
+          "conditionId": "bradycardia",
+          "level": "contraindication",
+          "message": "著しい徐脈では禁忌です。"
+        },
+        {
+          "conditionId": "av_block",
+          "level": "contraindication",
+          "message": "高度房室ブロックでは禁忌です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "ethinylestradiol_drospirenone",
+      "name": "ドロスピレノン・エチニルエストラジオール",
+      "aliases": [
+        "ヤーズ",
+        "ヤーズフレックス",
+        "drospirenone ethinylestradiol"
+      ],
+      "importantWarnings": [
+        "血栓症",
+        "アナフィラキシー"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "venous_thromboembolism",
+          "level": "contraindication",
+          "message": "血栓症またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "stroke_history",
+          "level": "contraindication",
+          "message": "脳血管障害またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "breast_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍では禁忌です。"
+        },
+        {
+          "conditionId": "severe_liver_disease",
+          "level": "contraindication",
+          "message": "重篤な肝障害では禁忌です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "norethisterone",
+      "name": "ノルエチステロン",
+      "aliases": [
+        "ノアルテン",
+        "norethisterone"
+      ],
+      "importantWarnings": [
+        "血栓症",
+        "アナフィラキシー"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "venous_thromboembolism",
+          "level": "contraindication",
+          "message": "血栓性疾患またはその既往では禁忌に該当します。"
+        },
+        {
+          "conditionId": "breast_cancer",
+          "level": "contraindication",
+          "message": "ホルモン依存性悪性腫瘍では禁忌に該当します。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "medroxyprogesterone",
+      "name": "メドロキシプロゲステロン酢酸エステル",
+      "aliases": [
+        "ヒスロン",
+        "プロベラ",
+        "medroxyprogesterone"
+      ],
+      "importantWarnings": [
+        "血栓症",
+        "うっ血性心不全",
+        "アナフィラキシー"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "venous_thromboembolism",
+          "level": "caution",
+          "message": "血栓症の既往がある場合は適応とリスクの確認が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "levothyroxine",
+      "name": "レボチロキシンナトリウム",
+      "aliases": [
+        "チラーヂンS",
+        "チラージン",
+        "levothyroxine"
+      ],
+      "importantWarnings": [
+        "狭心症",
+        "肝機能障害",
+        "副腎クリーゼ"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "thyrotoxicosis",
+          "level": "contraindication",
+          "message": "甲状腺中毒症では禁忌です。"
+        },
+        {
+          "conditionId": "adrenal_insufficiency",
+          "level": "caution",
+          "message": "未治療の副腎不全がある場合は副腎クリーゼに注意が必要です。"
+        },
+        {
+          "conditionId": "ischemic_heart_disease",
+          "level": "caution",
+          "message": "心筋虚血を悪化させる可能性があり慎重な調整が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "prednisolone",
+      "name": "プレドニゾロン",
+      "aliases": [
+        "プレドニン",
+        "prednisolone"
+      ],
+      "importantWarnings": [
+        "誘発感染症・感染症増悪",
+        "続発性副腎皮質機能不全",
+        "消化管潰瘍・穿孔",
+        "血栓症",
+        "精神変調・痙攣"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "active_infection",
+          "level": "caution",
+          "message": "感染症を増悪させることがあるため確認が必要です。"
+        },
+        {
+          "conditionId": "peptic_ulcer",
+          "level": "caution",
+          "message": "消化性潰瘍を悪化させる可能性があります。"
+        },
+        {
+          "conditionId": "osteoporosis",
+          "level": "caution",
+          "message": "長期使用で骨粗鬆症を悪化させる可能性があります。"
+        },
+        {
+          "conditionId": "type_2_diabetes",
+          "level": "caution",
+          "message": "血糖を上昇させる可能性があります。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "salbutamol_inhaled",
+      "name": "サルブタモール吸入",
+      "aliases": [
+        "サルタノール",
+        "ベネトリン",
+        "salbutamol",
+        "albuterol"
+      ],
+      "importantWarnings": [
+        "重篤な血清カリウム低下",
+        "ショック・アナフィラキシー"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "arrhythmia",
+          "level": "caution",
+          "message": "頻脈や不整脈を悪化させる可能性があります。"
+        },
+        {
+          "conditionId": "thyrotoxicosis",
+          "level": "caution",
+          "message": "甲状腺機能亢進症では動悸や振戦が強くなることがあります。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "budesonide_formoterol",
+      "name": "ブデソニド・ホルモテロール吸入",
+      "aliases": [
+        "シムビコート",
+        "ブデホル",
+        "budesonide formoterol"
+      ],
+      "importantWarnings": [
+        "重篤な血清カリウム低下",
+        "アナフィラキシー"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "arrhythmia",
+          "level": "caution",
+          "message": "頻脈性不整脈がある場合は確認が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "fluticasone_vilanterol",
+      "name": "フルチカゾンフランカルボン酸・ビランテロール吸入",
+      "aliases": [
+        "レルベア",
+        "fluticasone vilanterol"
+      ],
+      "importantWarnings": [
+        "アナフィラキシー",
+        "肺炎"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "arrhythmia",
+          "level": "caution",
+          "message": "心血管系への作用に注意が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "montelukast",
+      "name": "モンテルカスト",
+      "aliases": [
+        "キプレス",
+        "シングレア",
+        "montelukast"
+      ],
+      "importantWarnings": [
+        "アナフィラキシー",
+        "劇症肝炎・肝機能障害",
+        "血小板減少"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "theophylline",
+      "name": "テオフィリン",
+      "aliases": [
+        "テオドール",
+        "ユニフィル",
+        "theophylline"
+      ],
+      "importantWarnings": [
+        "痙攣",
+        "意識障害",
+        "急性脳症",
+        "横紋筋融解症",
+        "消化管出血"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "epilepsy",
+          "level": "caution",
+          "message": "痙攣を誘発することがあり、発作歴がある場合は血中濃度を含む確認が必要です。"
+        },
+        {
+          "conditionId": "arrhythmia",
+          "level": "caution",
+          "message": "頻脈性不整脈を悪化させる可能性があります。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "levetiracetam",
+      "name": "レベチラセタム",
+      "aliases": [
+        "イーケプラ",
+        "levetiracetam"
+      ],
+      "importantWarnings": [
+        "中毒性表皮壊死融解症・Stevens-Johnson症候群",
+        "薬剤性過敏症症候群",
+        "汎血球減少・無顆粒球症",
+        "急性腎障害",
+        "攻撃性・自殺企図"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "severe_renal_disease",
+          "level": "caution",
+          "message": "腎機能に応じた用量調整が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA レベチラセタム添付文書",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/480235_1139010F1091_3_06"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "valproate",
+      "name": "バルプロ酸ナトリウム",
+      "aliases": [
+        "デパケン",
+        "セレニカ",
+        "valproate",
+        "sodium valproate"
+      ],
+      "importantWarnings": [
+        "劇症肝炎・肝機能障害",
+        "高アンモニア血症を伴う意識障害",
+        "膵炎",
+        "血小板減少",
+        "中毒性表皮壊死融解症・Stevens-Johnson症候群"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "severe_liver_disease",
+          "level": "contraindication",
+          "message": "重篤な肝障害では禁忌です。"
+        },
+        {
+          "conditionId": "urea_cycle_disorder",
+          "level": "contraindication",
+          "message": "尿素サイクル異常症では禁忌です。"
+        },
+        {
+          "conditionId": "pregnancy",
+          "level": "caution",
+          "message": "妊娠中は適応により禁忌または厳格なリスク評価が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA デパケンR添付文書",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/581120_1139004G1040_2_03"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "carbamazepine",
+      "name": "カルバマゼピン",
+      "aliases": [
+        "テグレトール",
+        "carbamazepine"
+      ],
+      "importantWarnings": [
+        "再生不良性貧血・無顆粒球症",
+        "中毒性表皮壊死融解症・Stevens-Johnson症候群",
+        "薬剤性過敏症症候群",
+        "低ナトリウム血症",
+        "肝機能障害"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "av_block",
+          "level": "contraindication",
+          "message": "高度房室ブロックでは禁忌です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "lamotrigine",
+      "name": "ラモトリギン",
+      "aliases": [
+        "ラミクタール",
+        "lamotrigine"
+      ],
+      "importantWarnings": [
+        "中毒性表皮壊死融解症・Stevens-Johnson症候群",
+        "薬剤性過敏症症候群",
+        "再生不良性貧血・汎血球減少",
+        "肝炎・肝機能障害",
+        "無菌性髄膜炎"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "phenytoin",
+      "name": "フェニトイン",
+      "aliases": [
+        "アレビアチン",
+        "ヒダントール",
+        "phenytoin"
+      ],
+      "importantWarnings": [
+        "中毒性表皮壊死融解症・Stevens-Johnson症候群",
+        "薬剤性過敏症症候群",
+        "再生不良性貧血・無顆粒球症",
+        "肝機能障害",
+        "間質性肺炎"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "bradycardia",
+          "level": "caution",
+          "message": "静注製剤では徐脈・心停止等のリスクがあり、剤形確認が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "dextromethorphan",
+      "name": "デキストロメトルファン",
+      "aliases": [
+        "メジコン",
+        "dextromethorphan"
+      ],
+      "importantWarnings": [
+        "呼吸抑制",
+        "ショック・アナフィラキシー",
+        "セロトニン症候群"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "chlorpheniramine",
+      "name": "クロルフェニラミン",
+      "aliases": [
+        "ポララミン",
+        "クロルフェニラミンマレイン酸塩",
+        "chlorpheniramine"
+      ],
+      "importantWarnings": [
+        "ショック",
+        "痙攣",
+        "再生不良性貧血・無顆粒球症"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "glaucoma",
+          "level": "contraindication",
+          "message": "閉塞隅角緑内障では抗コリン作用により悪化させるおそれがあります。"
+        },
+        {
+          "conditionId": "urinary_retention",
+          "level": "contraindication",
+          "message": "前立腺肥大等による下部尿路閉塞では悪化させるおそれがあります。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "pseudoephedrine",
+      "name": "プソイドエフェドリン",
+      "aliases": [
+        "pseudoephedrine",
+        "塩酸プソイドエフェドリン"
+      ],
+      "importantWarnings": [
+        "急性汎発性発疹性膿疱症",
+        "可逆性後頭葉白質脳症症候群",
+        "可逆性脳血管収縮症候群"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "hypertension",
+          "level": "caution",
+          "message": "血圧上昇を起こす可能性があり、高血圧では確認が必要です。"
+        },
+        {
+          "conditionId": "ischemic_heart_disease",
+          "level": "caution",
+          "message": "心血管疾患では動悸や血圧上昇に注意が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "dihydrocodeine",
+      "name": "ジヒドロコデイン",
+      "aliases": [
+        "ジヒドロコデインリン酸塩",
+        "dihydrocodeine"
+      ],
+      "importantWarnings": [
+        "呼吸抑制",
+        "依存性",
+        "錯乱・せん妄",
+        "無気肺・気管支痙攣"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "asthma",
+          "level": "caution",
+          "message": "喘息発作中は呼吸抑制の危険があり使用を避ける必要があります。"
+        },
+        {
+          "conditionId": "copd",
+          "level": "caution",
+          "message": "呼吸機能低下がある場合は呼吸抑制に注意が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "tranexamic_acid",
+      "name": "トラネキサム酸",
+      "aliases": [
+        "トランサミン",
+        "tranexamic acid"
+      ],
+      "importantWarnings": [
+        "痙攣",
+        "血栓症"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "venous_thromboembolism",
+          "level": "caution",
+          "message": "血栓症またはそのリスクがある場合は確認が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "famotidine",
+      "name": "ファモチジン",
+      "aliases": [
+        "ガスター",
+        "famotidine"
+      ],
+      "importantWarnings": [
+        "ショック・アナフィラキシー",
+        "再生不良性貧血・汎血球減少",
+        "Stevens-Johnson症候群",
+        "肝機能障害",
+        "QT延長"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "severe_renal_disease",
+          "level": "caution",
+          "message": "腎機能に応じた減量または投与間隔調整が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "vonoprazan",
+      "name": "ボノプラザン",
+      "aliases": [
+        "タケキャブ",
+        "vonoprazan"
+      ],
+      "importantWarnings": [
+        "ショック・アナフィラキシー",
+        "汎血球減少・無顆粒球症",
+        "肝機能障害",
+        "中毒性表皮壊死融解症・Stevens-Johnson症候群"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "omeprazole",
+      "name": "オメプラゾール",
+      "aliases": [
+        "オメプラール",
+        "オメプラゾン",
+        "omeprazole"
+      ],
+      "importantWarnings": [
+        "ショック・アナフィラキシー",
+        "汎血球減少・無顆粒球症",
+        "肝機能障害",
+        "間質性肺炎",
+        "低ナトリウム血症"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "mosapride",
+      "name": "モサプリド",
+      "aliases": [
+        "ガスモチン",
+        "mosapride"
+      ],
+      "importantWarnings": [
+        "劇症肝炎・肝機能障害・黄疸"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "metoclopramide",
+      "name": "メトクロプラミド",
+      "aliases": [
+        "プリンペラン",
+        "metoclopramide"
+      ],
+      "importantWarnings": [
+        "悪性症候群",
+        "意識障害",
+        "痙攣",
+        "遅発性ジスキネジア"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "epilepsy",
+          "level": "contraindication",
+          "message": "痙攣閾値を低下させる可能性があり、てんかんでは禁忌です。"
+        },
+        {
+          "conditionId": "intestinal_obstruction",
+          "level": "contraindication",
+          "message": "消化管の閉塞・穿孔・出血では悪化させるおそれがあり禁忌です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "domperidone",
+      "name": "ドンペリドン",
+      "aliases": [
+        "ナウゼリン",
+        "domperidone"
+      ],
+      "importantWarnings": [
+        "ショック・アナフィラキシー",
+        "錐体外路症状",
+        "意識障害・痙攣",
+        "肝機能障害"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "intestinal_obstruction",
+          "level": "contraindication",
+          "message": "消化管閉塞・穿孔・出血では禁忌です。"
+        },
+        {
+          "conditionId": "pregnancy",
+          "level": "contraindication",
+          "message": "妊娠中または妊娠の可能性がある場合は禁忌です。"
+        },
+        {
+          "conditionId": "long_qt_syndrome",
+          "level": "caution",
+          "message": "QT延長や心室性不整脈のリスク確認が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "rebamipide",
+      "name": "レバミピド",
+      "aliases": [
+        "ムコスタ",
+        "rebamipide"
+      ],
+      "importantWarnings": [
+        "ショック・アナフィラキシー",
+        "白血球減少・血小板減少",
+        "肝機能障害・黄疸"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "magnesium_oxide",
+      "name": "酸化マグネシウム",
+      "aliases": [
+        "マグミット",
+        "magnesium oxide",
+        "カマ"
+      ],
+      "importantWarnings": [
+        "高マグネシウム血症"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "severe_renal_disease",
+          "level": "caution",
+          "message": "腎機能低下では高マグネシウム血症のリスクが上がります。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "sennoside",
+      "name": "センノシド",
+      "aliases": [
+        "プルゼニド",
+        "センノシドA・B",
+        "sennoside"
+      ],
+      "importantWarnings": [
+        "重度の下痢・脱水・電解質異常"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "intestinal_obstruction",
+          "level": "contraindication",
+          "message": "腸閉塞が疑われる場合は使用できません。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "loperamide",
+      "name": "ロペラミド",
+      "aliases": [
+        "ロペミン",
+        "loperamide"
+      ],
+      "importantWarnings": [
+        "イレウス",
+        "巨大結腸",
+        "ショック・アナフィラキシー",
+        "中毒性表皮壊死融解症・Stevens-Johnson症候群"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "intestinal_obstruction",
+          "level": "contraindication",
+          "message": "腸閉塞では症状を悪化させるため禁忌です。"
+        },
+        {
+          "conditionId": "inflammatory_bowel_disease",
+          "level": "caution",
+          "message": "重症の潰瘍性大腸炎等では中毒性巨大結腸のリスクがあります。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "ursodeoxycholic_acid",
+      "name": "ウルソデオキシコール酸",
+      "aliases": [
+        "ウルソ",
+        "ursodeoxycholic acid"
+      ],
+      "importantWarnings": [
+        "間質性肺炎"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "meropenem",
+      "name": "メロペネム",
+      "aliases": [
+        "メロペン",
+        "meropenem"
+      ],
+      "importantWarnings": [
+        "ショック・アナフィラキシー",
+        "痙攣・意識障害",
+        "偽膜性大腸炎",
+        "重篤な肝障害"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "epilepsy",
+          "level": "caution",
+          "message": "痙攣を誘発することがあり、発作歴では注意が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "ethinylestradiol_desogestrel",
+      "name": "デソゲストレル・エチニルエストラジオール",
+      "aliases": [
+        "マーベロン",
+        "マーベロン21",
+        "マーベロン28",
+        "ファボワール",
+        "ファボワール21",
+        "ファボワール28",
+        "desogestrel ethinylestradiol"
+      ],
+      "importantWarnings": [
+        "血栓症（四肢・肺・心・脳・網膜など）"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "venous_thromboembolism",
+          "level": "contraindication",
+          "message": "血栓症またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "stroke_history",
+          "level": "contraindication",
+          "message": "脳血管障害またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "ischemic_heart_disease",
+          "level": "contraindication",
+          "message": "冠動脈疾患またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "breast_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "endometrial_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍では禁忌です。"
+        },
+        {
+          "conditionId": "unexplained_genital_bleeding",
+          "level": "contraindication",
+          "message": "診断の確定していない異常性器出血では禁忌です。"
+        },
+        {
+          "conditionId": "severe_liver_disease",
+          "level": "contraindication",
+          "message": "重篤な肝障害では禁忌です。"
+        },
+        {
+          "conditionId": "pregnancy",
+          "level": "contraindication",
+          "message": "妊娠中または妊娠の可能性がある場合は使用できません。"
+        },
+        {
+          "conditionId": "breast_fibroadenoma",
+          "level": "caution",
+          "message": "良性病変ですが乳房結節として、開始前と使用中の乳房評価を処方元に確認してください。"
+        },
+        {
+          "conditionId": "migraine_with_aura",
+          "level": "contraindication",
+          "message": "前兆のある片頭痛では脳血管障害リスクのため禁忌です。"
+        },
+        {
+          "conditionId": "hypertension",
+          "level": "caution",
+          "message": "高血圧では重症度により禁忌または慎重投与となるため、血圧と処方可否の確認が必要です。"
+        },
+        {
+          "conditionId": "atrial_fibrillation",
+          "level": "caution",
+          "message": "心房細動を伴う心臓弁膜症などでは禁忌となるため、心疾患の内容を処方元へ確認してください。"
+        }
+      ],
+      "source": {
+        "label": "PMDA ファボワール錠28 添付文書",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/670109_254910CF2030_1_01"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "ethinylestradiol_levonorgestrel",
+      "name": "レボノルゲストレル・エチニルエストラジオール",
+      "aliases": [
+        "トリキュラー",
+        "トリキュラー21",
+        "トリキュラー28",
+        "アンジュ",
+        "アンジュ21",
+        "アンジュ28",
+        "ラベルフィーユ",
+        "levonorgestrel ethinylestradiol"
+      ],
+      "importantWarnings": [
+        "血栓症（四肢・肺・心・脳・網膜など）"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "venous_thromboembolism",
+          "level": "contraindication",
+          "message": "血栓症またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "stroke_history",
+          "level": "contraindication",
+          "message": "脳血管障害またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "ischemic_heart_disease",
+          "level": "contraindication",
+          "message": "冠動脈疾患またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "breast_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "endometrial_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍では禁忌です。"
+        },
+        {
+          "conditionId": "unexplained_genital_bleeding",
+          "level": "contraindication",
+          "message": "診断の確定していない異常性器出血では禁忌です。"
+        },
+        {
+          "conditionId": "severe_liver_disease",
+          "level": "contraindication",
+          "message": "重篤な肝障害では禁忌です。"
+        },
+        {
+          "conditionId": "pregnancy",
+          "level": "contraindication",
+          "message": "妊娠中または妊娠の可能性がある場合は使用できません。"
+        },
+        {
+          "conditionId": "breast_fibroadenoma",
+          "level": "caution",
+          "message": "良性病変ですが乳房結節として、開始前と使用中の乳房評価を処方元に確認してください。"
+        },
+        {
+          "conditionId": "migraine_with_aura",
+          "level": "contraindication",
+          "message": "前兆のある片頭痛では脳血管障害リスクのため禁忌です。"
+        },
+        {
+          "conditionId": "hypertension",
+          "level": "caution",
+          "message": "高血圧では重症度により禁忌または慎重投与となるため、血圧と処方可否の確認が必要です。"
+        },
+        {
+          "conditionId": "atrial_fibrillation",
+          "level": "caution",
+          "message": "心房細動を伴う心臓弁膜症などでは禁忌となるため、心疾患の内容を処方元へ確認してください。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "ethinylestradiol_norethisterone",
+      "name": "ノルエチステロン・エチニルエストラジオール",
+      "aliases": [
+        "ルナベルLD",
+        "ルナベルULD",
+        "フリウェルLD",
+        "フリウェルULD",
+        "norethisterone ethinylestradiol"
+      ],
+      "importantWarnings": [
+        "血栓症（四肢・肺・心・脳・網膜など）",
+        "アナフィラキシー"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "venous_thromboembolism",
+          "level": "contraindication",
+          "message": "血栓症またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "stroke_history",
+          "level": "contraindication",
+          "message": "脳血管障害またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "ischemic_heart_disease",
+          "level": "contraindication",
+          "message": "冠動脈疾患またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "breast_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "endometrial_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍では禁忌です。"
+        },
+        {
+          "conditionId": "unexplained_genital_bleeding",
+          "level": "contraindication",
+          "message": "診断の確定していない異常性器出血では禁忌です。"
+        },
+        {
+          "conditionId": "severe_liver_disease",
+          "level": "contraindication",
+          "message": "重篤な肝障害では禁忌です。"
+        },
+        {
+          "conditionId": "pregnancy",
+          "level": "contraindication",
+          "message": "妊娠中または妊娠の可能性がある場合は使用できません。"
+        },
+        {
+          "conditionId": "breast_fibroadenoma",
+          "level": "caution",
+          "message": "良性病変ですが乳房結節として、開始前と使用中の乳房評価を処方元に確認してください。"
+        },
+        {
+          "conditionId": "migraine_with_aura",
+          "level": "contraindication",
+          "message": "前兆のある片頭痛では脳血管障害リスクのため禁忌です。"
+        },
+        {
+          "conditionId": "hypertension",
+          "level": "caution",
+          "message": "高血圧では重症度により禁忌または慎重投与となるため、血圧と処方可否の確認が必要です。"
+        },
+        {
+          "conditionId": "atrial_fibrillation",
+          "level": "caution",
+          "message": "心房細動を伴う心臓弁膜症などでは禁忌となるため、心疾患の内容を処方元へ確認してください。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "ethinylestradiol_levonorgestrel_lep",
+      "name": "レボノルゲストレル・エチニルエストラジオール（連続投与型LEP）",
+      "aliases": [
+        "ジェミーナ",
+        "ジェミーナ配合錠"
+      ],
+      "importantWarnings": [
+        "血栓症（四肢・肺・心・脳・網膜など）"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "venous_thromboembolism",
+          "level": "contraindication",
+          "message": "血栓症またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "stroke_history",
+          "level": "contraindication",
+          "message": "脳血管障害またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "ischemic_heart_disease",
+          "level": "contraindication",
+          "message": "冠動脈疾患またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "breast_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "endometrial_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍では禁忌です。"
+        },
+        {
+          "conditionId": "unexplained_genital_bleeding",
+          "level": "contraindication",
+          "message": "診断の確定していない異常性器出血では禁忌です。"
+        },
+        {
+          "conditionId": "severe_liver_disease",
+          "level": "contraindication",
+          "message": "重篤な肝障害では禁忌です。"
+        },
+        {
+          "conditionId": "pregnancy",
+          "level": "contraindication",
+          "message": "妊娠中または妊娠の可能性がある場合は使用できません。"
+        },
+        {
+          "conditionId": "breast_fibroadenoma",
+          "level": "caution",
+          "message": "良性病変ですが乳房結節として、開始前と使用中の乳房評価を処方元に確認してください。"
+        },
+        {
+          "conditionId": "migraine_with_aura",
+          "level": "contraindication",
+          "message": "前兆のある片頭痛では脳血管障害リスクのため禁忌です。"
+        },
+        {
+          "conditionId": "hypertension",
+          "level": "caution",
+          "message": "高血圧では重症度により禁忌または慎重投与となるため、血圧と処方可否の確認が必要です。"
+        },
+        {
+          "conditionId": "atrial_fibrillation",
+          "level": "caution",
+          "message": "心房細動を伴う心臓弁膜症などでは禁忌となるため、心疾患の内容を処方元へ確認してください。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "dienogest",
+      "name": "ジエノゲスト",
+      "aliases": [
+        "ディナゲスト",
+        "ディナゲスト錠1mg",
+        "ディナゲスト錠0.5mg",
+        "ジエノゲスト錠1mg",
+        "ジエノゲスト錠0.5mg",
+        "dienogest"
+      ],
+      "importantWarnings": [
+        "重篤な不正子宮出血",
+        "重度の貧血",
+        "アナフィラキシー"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "pregnancy",
+          "level": "contraindication",
+          "message": "妊娠中または妊娠の可能性がある場合は使用できません。"
+        },
+        {
+          "conditionId": "unexplained_genital_bleeding",
+          "level": "contraindication",
+          "message": "診断未確定の異常性器出血では使用できません。"
+        },
+        {
+          "conditionId": "breast_cancer",
+          "level": "contraindication",
+          "message": "ホルモン依存性悪性腫瘍またはその疑いでは使用できません。"
+        },
+        {
+          "conditionId": "breast_fibroadenoma",
+          "level": "caution",
+          "message": "乳房結節として、治療中の変化を含め処方元へ共有してください。"
+        }
+      ],
+      "source": {
+        "label": "PMDA ジエノゲスト錠1mg 添付文書",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/340269_2499010F1082_1_08"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "levonorgestrel_emergency",
+      "name": "レボノルゲストレル（緊急避妊薬）",
+      "aliases": [
+        "ノルレボ",
+        "ノルレボ錠1.5mg",
+        "レボノルゲストレル錠1.5mg",
+        "アフターピル",
+        "緊急避妊薬",
+        "levonorgestrel emergency contraception"
+      ],
+      "importantWarnings": [
+        "重篤な肝障害がある場合は使用可否の確認が必要です。",
+        "服用後の出血だけで妊娠を否定せず、指示された時期に確認が必要です。"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "severe_liver_disease",
+          "level": "contraindication",
+          "message": "重篤な肝障害では使用できません。"
+        },
+        {
+          "conditionId": "pregnancy",
+          "level": "caution",
+          "message": "成立した妊娠を中断する薬ではありません。妊娠の可能性と服用時期を確認してください。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "estradiol_oral",
+      "name": "エストラジオール（経口）",
+      "aliases": [
+        "ジュリナ",
+        "ジュリナ錠0.5mg",
+        "estradiol oral"
+      ],
+      "importantWarnings": [
+        "血栓症",
+        "アナフィラキシー"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "venous_thromboembolism",
+          "level": "contraindication",
+          "message": "血栓症またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "stroke_history",
+          "level": "contraindication",
+          "message": "脳血管障害またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "ischemic_heart_disease",
+          "level": "contraindication",
+          "message": "冠動脈疾患またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "breast_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "endometrial_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍では禁忌です。"
+        },
+        {
+          "conditionId": "unexplained_genital_bleeding",
+          "level": "contraindication",
+          "message": "診断の確定していない異常性器出血では禁忌です。"
+        },
+        {
+          "conditionId": "severe_liver_disease",
+          "level": "contraindication",
+          "message": "重篤な肝障害では禁忌です。"
+        },
+        {
+          "conditionId": "pregnancy",
+          "level": "contraindication",
+          "message": "妊娠中または妊娠の可能性がある場合は使用できません。"
+        },
+        {
+          "conditionId": "breast_fibroadenoma",
+          "level": "caution",
+          "message": "良性病変ですが乳房結節として、開始前と使用中の乳房評価を処方元に確認してください。"
+        },
+        {
+          "conditionId": "endometrial_hyperplasia",
+          "level": "contraindication",
+          "message": "未治療の子宮内膜増殖症では禁忌です。"
+        },
+        {
+          "conditionId": "uterine_fibroid",
+          "level": "caution",
+          "message": "子宮筋腫を増大させる可能性があり、定期評価が必要です。"
+        },
+        {
+          "conditionId": "migraine",
+          "level": "caution",
+          "message": "片頭痛が増悪することがあるため、症状変化の確認が必要です。"
+        },
+        {
+          "conditionId": "hypertension",
+          "level": "caution",
+          "message": "体液貯留などで高血圧が悪化する可能性があります。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "estradiol_patch",
+      "name": "エストラジオール（貼付）",
+      "aliases": [
+        "エストラーナ",
+        "エストラーナテープ",
+        "estradiol patch"
+      ],
+      "importantWarnings": [
+        "静脈血栓塞栓症・血栓性静脈炎",
+        "アナフィラキシー"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "venous_thromboembolism",
+          "level": "contraindication",
+          "message": "血栓症またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "stroke_history",
+          "level": "contraindication",
+          "message": "脳血管障害またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "ischemic_heart_disease",
+          "level": "contraindication",
+          "message": "冠動脈疾患またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "breast_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "endometrial_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍では禁忌です。"
+        },
+        {
+          "conditionId": "unexplained_genital_bleeding",
+          "level": "contraindication",
+          "message": "診断の確定していない異常性器出血では禁忌です。"
+        },
+        {
+          "conditionId": "severe_liver_disease",
+          "level": "contraindication",
+          "message": "重篤な肝障害では禁忌です。"
+        },
+        {
+          "conditionId": "pregnancy",
+          "level": "contraindication",
+          "message": "妊娠中または妊娠の可能性がある場合は使用できません。"
+        },
+        {
+          "conditionId": "breast_fibroadenoma",
+          "level": "caution",
+          "message": "良性病変ですが乳房結節として、開始前と使用中の乳房評価を処方元に確認してください。"
+        },
+        {
+          "conditionId": "endometrial_hyperplasia",
+          "level": "contraindication",
+          "message": "未治療の子宮内膜増殖症では禁忌です。"
+        },
+        {
+          "conditionId": "uterine_fibroid",
+          "level": "caution",
+          "message": "子宮筋腫を増大させる可能性があり、定期評価が必要です。"
+        },
+        {
+          "conditionId": "migraine",
+          "level": "caution",
+          "message": "片頭痛が増悪することがあるため、症状変化の確認が必要です。"
+        },
+        {
+          "conditionId": "hypertension",
+          "level": "caution",
+          "message": "体液貯留などで高血圧が悪化する可能性があります。"
+        }
+      ],
+      "source": {
+        "label": "PMDA エストラーナテープ 添付文書",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/650034_2473700S2076_1_23"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "estradiol_gel",
+      "name": "エストラジオール（経皮ゲル）",
+      "aliases": [
+        "ディビゲル",
+        "ル・エストロジェル",
+        "エストロジェル",
+        "estradiol gel"
+      ],
+      "importantWarnings": [
+        "血栓症",
+        "アナフィラキシー"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "venous_thromboembolism",
+          "level": "contraindication",
+          "message": "血栓症またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "stroke_history",
+          "level": "contraindication",
+          "message": "脳血管障害またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "ischemic_heart_disease",
+          "level": "contraindication",
+          "message": "冠動脈疾患またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "breast_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "endometrial_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍では禁忌です。"
+        },
+        {
+          "conditionId": "unexplained_genital_bleeding",
+          "level": "contraindication",
+          "message": "診断の確定していない異常性器出血では禁忌です。"
+        },
+        {
+          "conditionId": "severe_liver_disease",
+          "level": "contraindication",
+          "message": "重篤な肝障害では禁忌です。"
+        },
+        {
+          "conditionId": "pregnancy",
+          "level": "contraindication",
+          "message": "妊娠中または妊娠の可能性がある場合は使用できません。"
+        },
+        {
+          "conditionId": "breast_fibroadenoma",
+          "level": "caution",
+          "message": "良性病変ですが乳房結節として、開始前と使用中の乳房評価を処方元に確認してください。"
+        },
+        {
+          "conditionId": "endometrial_hyperplasia",
+          "level": "contraindication",
+          "message": "未治療の子宮内膜増殖症では禁忌です。"
+        },
+        {
+          "conditionId": "uterine_fibroid",
+          "level": "caution",
+          "message": "子宮筋腫を増大させる可能性があり、定期評価が必要です。"
+        },
+        {
+          "conditionId": "migraine",
+          "level": "caution",
+          "message": "片頭痛が増悪することがあるため、症状変化の確認が必要です。"
+        },
+        {
+          "conditionId": "hypertension",
+          "level": "caution",
+          "message": "体液貯留などで高血圧が悪化する可能性があります。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "conjugated_estrogens",
+      "name": "結合型エストロゲン",
+      "aliases": [
+        "プレマリン",
+        "プレマリン錠0.625mg",
+        "conjugated estrogens"
+      ],
+      "importantWarnings": [
+        "血栓症・血栓塞栓症",
+        "アナフィラキシー"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "venous_thromboembolism",
+          "level": "contraindication",
+          "message": "血栓症またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "stroke_history",
+          "level": "contraindication",
+          "message": "脳血管障害またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "ischemic_heart_disease",
+          "level": "contraindication",
+          "message": "冠動脈疾患またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "breast_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "endometrial_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍では禁忌です。"
+        },
+        {
+          "conditionId": "unexplained_genital_bleeding",
+          "level": "contraindication",
+          "message": "診断の確定していない異常性器出血では禁忌です。"
+        },
+        {
+          "conditionId": "severe_liver_disease",
+          "level": "contraindication",
+          "message": "重篤な肝障害では禁忌です。"
+        },
+        {
+          "conditionId": "pregnancy",
+          "level": "contraindication",
+          "message": "妊娠中または妊娠の可能性がある場合は使用できません。"
+        },
+        {
+          "conditionId": "breast_fibroadenoma",
+          "level": "caution",
+          "message": "良性病変ですが乳房結節として、開始前と使用中の乳房評価を処方元に確認してください。"
+        },
+        {
+          "conditionId": "endometrial_hyperplasia",
+          "level": "contraindication",
+          "message": "未治療の子宮内膜増殖症では禁忌です。"
+        },
+        {
+          "conditionId": "uterine_fibroid",
+          "level": "caution",
+          "message": "子宮筋腫を増大させる可能性があり、定期評価が必要です。"
+        },
+        {
+          "conditionId": "migraine",
+          "level": "caution",
+          "message": "片頭痛が増悪することがあるため、症状変化の確認が必要です。"
+        },
+        {
+          "conditionId": "hypertension",
+          "level": "caution",
+          "message": "体液貯留などで高血圧が悪化する可能性があります。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "micronized_progesterone",
+      "name": "天然型黄体ホルモン（プロゲステロン）",
+      "aliases": [
+        "エフメノ",
+        "エフメノカプセル",
+        "micronized progesterone"
+      ],
+      "importantWarnings": [
+        "血栓症",
+        "アナフィラキシー"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "breast_cancer",
+          "level": "contraindication",
+          "message": "乳癌または生殖器癌では使用できません。"
+        },
+        {
+          "conditionId": "unexplained_genital_bleeding",
+          "level": "contraindication",
+          "message": "診断未確定の異常性器出血では使用できません。"
+        },
+        {
+          "conditionId": "severe_liver_disease",
+          "level": "contraindication",
+          "message": "重篤な肝障害では使用できません。"
+        },
+        {
+          "conditionId": "breast_fibroadenoma",
+          "level": "caution",
+          "message": "乳房結節として、開始前と使用中の乳房評価を処方元へ確認してください。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "dydrogesterone",
+      "name": "ジドロゲステロン",
+      "aliases": [
+        "デュファストン",
+        "dydrogesterone"
+      ],
+      "importantWarnings": [
+        "血栓症",
+        "肝機能障害"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "severe_liver_disease",
+          "level": "caution",
+          "message": "肝障害がある場合は症状悪化に注意が必要です。"
+        },
+        {
+          "conditionId": "breast_cancer",
+          "level": "caution",
+          "message": "ホルモン依存性腫瘍では適応とリスクの確認が必要です。"
+        },
+        {
+          "conditionId": "breast_fibroadenoma",
+          "level": "caution",
+          "message": "乳房結節として治療中の変化を処方元へ共有してください。"
+        }
+      ],
+      "source": {
+        "label": "PMDA 医療用医薬品情報",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "estradiol_norethisterone_patch",
+      "name": "エストラジオール・酢酸ノルエチステロン貼付剤",
+      "aliases": [
+        "メノエイドコンビパッチ",
+        "メノエイド",
+        "estradiol norethisterone patch"
+      ],
+      "importantWarnings": [
+        "静脈血栓塞栓症・血栓性静脈炎",
+        "アナフィラキシー"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "venous_thromboembolism",
+          "level": "contraindication",
+          "message": "血栓症またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "stroke_history",
+          "level": "contraindication",
+          "message": "脳血管障害またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "ischemic_heart_disease",
+          "level": "contraindication",
+          "message": "冠動脈疾患またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "breast_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "endometrial_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍では禁忌です。"
+        },
+        {
+          "conditionId": "unexplained_genital_bleeding",
+          "level": "contraindication",
+          "message": "診断の確定していない異常性器出血では禁忌です。"
+        },
+        {
+          "conditionId": "severe_liver_disease",
+          "level": "contraindication",
+          "message": "重篤な肝障害では禁忌です。"
+        },
+        {
+          "conditionId": "pregnancy",
+          "level": "contraindication",
+          "message": "妊娠中または妊娠の可能性がある場合は使用できません。"
+        },
+        {
+          "conditionId": "breast_fibroadenoma",
+          "level": "caution",
+          "message": "良性病変ですが乳房結節として、開始前と使用中の乳房評価を処方元に確認してください。"
+        },
+        {
+          "conditionId": "endometrial_hyperplasia",
+          "level": "contraindication",
+          "message": "未治療の子宮内膜増殖症では禁忌です。"
+        },
+        {
+          "conditionId": "uterine_fibroid",
+          "level": "caution",
+          "message": "子宮筋腫を増大させる可能性があり、定期評価が必要です。"
+        },
+        {
+          "conditionId": "migraine",
+          "level": "caution",
+          "message": "片頭痛が増悪することがあるため、症状変化の確認が必要です。"
+        },
+        {
+          "conditionId": "hypertension",
+          "level": "caution",
+          "message": "体液貯留などで高血圧が悪化する可能性があります。"
+        }
+      ],
+      "source": {
+        "label": "PMDA メノエイドコンビパッチ 添付文書",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/650034_2482800S1026_2_04"
+      },
+      "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "estradiol_levonorgestrel_hrt",
+      "name": "エストラジオール・レボノルゲストレル配合HRT",
+      "aliases": [
+        "ウェールナラ",
+        "ウェールナラ配合錠",
+        "estradiol levonorgestrel HRT"
+      ],
+      "importantWarnings": [
+        "血栓症",
+        "アナフィラキシー"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "venous_thromboembolism",
+          "level": "contraindication",
+          "message": "血栓症またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "stroke_history",
+          "level": "contraindication",
+          "message": "脳血管障害またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "ischemic_heart_disease",
+          "level": "contraindication",
+          "message": "冠動脈疾患またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "breast_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍またはその既往では禁忌です。"
+        },
+        {
+          "conditionId": "endometrial_cancer",
+          "level": "contraindication",
+          "message": "エストロゲン依存性悪性腫瘍では禁忌です。"
+        },
+        {
+          "conditionId": "unexplained_genital_bleeding",
+          "level": "contraindication",
+          "message": "診断の確定していない異常性器出血では禁忌です。"
+        },
+        {
+          "conditionId": "severe_liver_disease",
+          "level": "contraindication",
+          "message": "重篤な肝障害では禁忌です。"
+        },
+        {
+          "conditionId": "pregnancy",
+          "level": "contraindication",
+          "message": "妊娠中または妊娠の可能性がある場合は使用できません。"
+        },
+        {
+          "conditionId": "breast_fibroadenoma",
+          "level": "caution",
+          "message": "良性病変ですが乳房結節として、開始前と使用中の乳房評価を処方元に確認してください。"
+        },
+        {
+          "conditionId": "endometrial_hyperplasia",
+          "level": "contraindication",
+          "message": "未治療の子宮内膜増殖症では禁忌です。"
+        },
+        {
+          "conditionId": "uterine_fibroid",
+          "level": "caution",
+          "message": "子宮筋腫を増大させる可能性があり、定期評価が必要です。"
+        },
+        {
+          "conditionId": "migraine",
+          "level": "caution",
+          "message": "片頭痛が増悪することがあるため、症状変化の確認が必要です。"
+        },
+        {
+          "conditionId": "hypertension",
+          "level": "caution",
+          "message": "体液貯留などで高血圧が悪化する可能性があります。"
+        }
+      ],
+      "source": {
+        "label": "PMDA ウェールナラ配合錠 添付文書",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/630004_2482010F1026_1_17"
+      },
+      "reviewedAt": "2026-08-09"
     }
   ],
-  "knowledgeVersion": "2026.08.10-general-1",
-  "lastReviewed": "2026-08-10"
+  "knowledgeVersion": "2026.08.09-hormones-1",
+  "lastReviewed": "2026-08-09"
 }
