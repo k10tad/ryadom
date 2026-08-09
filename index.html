@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#171723">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Рядом</title>
+  <link rel="icon" href="assets/icons/icon.jpg">
+  <link rel="apple-touch-icon" href="assets/icons/icon.jpg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="app" id="app" data-room="living">
+    <div class="room-background" aria-hidden="true"></div>
+    <div class="room-shade" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <button class="brand" type="button" data-open="settings" aria-label="設定を開く">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span><strong>Рядом</strong><small>いつも、そばに</small></span>
+      </button>
+      <div class="clock" aria-label="現在日時">
+        <strong id="clock-time">--:--</strong>
+        <small id="clock-date">----</small>
+      </div>
+    </header>
+
+    <section class="room-tabs" aria-label="部屋の切り替え">
+      <button class="is-active" type="button" data-room-button="living">Living</button>
+      <button type="button" data-room-button="bedroom">Bedroom</button>
+    </section>
+
+    <section class="home" id="home-view">
+      <div class="today-card">
+        <div><small>MEDICINE</small><strong id="medicine-summary">今日はまだ未記録</strong></div>
+        <button type="button" data-open="medicine">記録する</button>
+      </div>
+
+      <div class="character-area">
+        <figure class="alek-portrait">
+          <img id="alek-image" src="assets/alek/alek-home.jpg" alt="こちらを見つめるアレク">
+          <figcaption class="now-pill"><i></i><span>NOW</span><strong id="now-action">レイを待ってる</strong></figcaption>
+        </figure>
+
+        <article class="speech-card">
+          <div class="speech-label"><span>ALEK</span><button id="voice-button" type="button">VOICE</button></div>
+          <p id="alek-line">おかえり、レイ。今日はどんな一日だった？</p>
+          <button class="next-line" id="next-line" type="button" aria-label="次の言葉">もう一度、話す</button>
+        </article>
+      </div>
+
+      <section class="quick-actions" aria-label="よく使う操作">
+        <button type="button" data-open="medicine"><b>＋</b><span>薬を記録<small>Medication</small></span></button>
+        <button type="button" data-open="condition"><b>≈</b><span>体調を伝える<small>Condition</small></span></button>
+        <button type="button" data-open="dialog"><b>···</b><span>アレクと話す<small>Dialogue</small></span></button>
+      </section>
+
+      <button class="beside-button" id="beside-button" type="button">
+        <span class="bud" aria-hidden="true"></span>
+        <span><strong>そばにいて</strong><small>静かな寄り添いモード</small></span>
+      </button>
+    </section>
+
+    <nav class="vine-nav" aria-label="メインナビゲーション">
+      <div class="vine" aria-hidden="true"></div>
+      <button class="is-active" type="button" data-tab="home"><b>R</b><span>Рядом<small>ホーム</small></span></button>
+      <button type="button" data-tab="condition"><b>П</b><span>Приём<small>体調</small></span></button>
+      <button type="button" data-tab="medicine"><b>Л</b><span>Лекарства<small>薬</small></span></button>
+      <button type="button" data-tab="diary"><b>Д</b><span>Дневник<small>記録</small></span></button>
+      <button type="button" data-tab="dialog"><b>Д</b><span>Диалог<small>会話</small></span></button>
+    </nav>
+
+    <dialog class="sheet" id="sheet">
+      <div class="sheet-grip" aria-hidden="true"></div>
+      <header class="sheet-header">
+        <div><small id="sheet-kicker"></small><h2 id="sheet-title"></h2></div>
+        <button type="button" id="close-sheet" aria-label="閉じる">×</button>
+      </header>
+      <div id="sheet-content"></div>
+    </dialog>
+
+    <section class="quiet-mode" id="quiet-mode" aria-hidden="true">
+      <div class="quiet-copy"><small>РЯДОМ</small><p id="quiet-line">何もしなくていいよ。ここにいるから。</p></div>
+      <button type="button" id="leave-quiet">戻る</button>
+    </section>
+  </main>
+  <script src="js/app.js"></script>
+</body>
+</html>
