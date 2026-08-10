@@ -1,6 +1,6 @@
 import { db, makeId, openDatabase } from './db.js?v=0.9.0';
 import { migrateLegacyData } from './migration.js';
-import { APP_VERSION } from './config.js?v=1.7.0';
+import { APP_VERSION } from './config.js?v=1.7.1';
 import { DialogueEngine } from './dialogue-engine.js';
 import { typeLine, stopTyping } from './typewriter.js';
 import { chooseIntelligentLine } from './ryadom-intelligence.js';
@@ -13,7 +13,7 @@ import { adviseFromMessage } from './symptom-advisor.js?v=1.4.0';
 import { emotionalSupportFromMessage } from './emotional-support.js?v=1.3.0';
 import { cycleActionLine, deleteCycleRecord, getCycleCarePrompt, saveCycleRecord, saveCycleSettings, saveSelectedBoundary } from './menstrual-service.js?v=1.6.0';
 import { cycleTrackerPanel } from './cycle-panel.js?v=1.6.0';
-import { AmbientAudio } from './ambient-audio.js?v=1.7.0';
+import { AmbientAudio } from './ambient-audio.js?v=1.7.1';
 
 const app = document.querySelector('#app');
 const sheet = document.querySelector('#sheet');
@@ -90,17 +90,27 @@ function playVoice(source, useFallback = false) {
       startAudio();
       return;
     }
-    if (!useFallback || !('speechSynthesis' in window)) return;
+    if (!useFallback || !('speechSynthesis' in window)) {
+      ambientAudio.setVoiceActive(false);
+      return;
+    }
     speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(alekLine.textContent);
     utterance.lang = 'ja-JP';
     utterance.rate = .9;
     utterance.pitch = .8;
+    utterance.addEventListener('end', () => ambientAudio.setVoiceActive(false), { once: true });
+    utterance.addEventListener('error', () => ambientAudio.setVoiceActive(false), { once: true });
     speechSynthesis.speak(utterance);
   };
   function startAudio() {
     const audio = new Audio(sources[sourceIndex]);
     activeVoice = audio;
+    ambientAudio.setVoiceActive(true);
+    const restoreSound = () => {
+      if (activeVoice === audio) ambientAudio.setVoiceActive(false);
+    };
+    audio.addEventListener('ended', restoreSound, { once: true });
     audio.addEventListener('error', fallback, { once: true });
     audio.play().catch(fallback);
   }
@@ -549,9 +559,6 @@ document.querySelector('#leave-quiet').addEventListener('click', () => {
 });
 
 document.addEventListener('pointerdown', () => ambientAudio.unlock(), { once: true });
-document.addEventListener('click', event => {
-  if (event.target.closest('button') && !event.target.closest('#music-box')) ambientAudio.playEffect();
-});
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) ambientAudio.suspend();
   else ambientAudio.resume();

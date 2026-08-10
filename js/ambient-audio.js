@@ -8,31 +8,15 @@ const TRACKS = [
 ];
 
 const SCENES = {
-  home: [
-    { src: 'sound/paper.mp3', volume: .2 },
-    { src: 'sound/phone.mp3', volume: .15 },
-    { src: 'sound/vibe.mp3', volume: .12 }
-  ],
-  work: [
-    { src: 'sound/keyboard.mp3', volume: .18 },
-    { src: 'sound/paper.mp3', volume: .2 },
-    { src: 'sound/printer.mp3', volume: .14 },
-    { src: 'sound/phone.mp3', volume: .13 },
-    { src: 'sound/vibe.mp3', volume: .1 }
-  ],
+  home: [],
+  work: [{ src: 'sound/keyboard.mp3', volume: .13 }],
   shower: [
-    { src: 'sound/shower.mp3', volume: .2 },
-    { src: 'sound/bathtub.mp3', volume: .16 }
+    { src: 'sound/shower.mp3', volume: .12 },
+    { src: 'sound/bathtub.mp3', volume: .1 }
   ],
-  asleep: [{ src: 'sound/heartbeat.mp3', volume: .1 }],
-  bedroom: [
-    { src: 'sound/heartbeat.mp3', volume: .09 },
-    { src: 'sound/paper.mp3', volume: .12 }
-  ],
-  quiet: [
-    { src: 'sound/heartbeat.mp3', volume: .08 },
-    { src: 'sound/paper.mp3', volume: .1 }
-  ]
+  asleep: [{ src: 'sound/heartbeat.mp3', volume: .065 }],
+  bedroom: [{ src: 'sound/heartbeat.mp3', volume: .065 }],
+  quiet: []
 };
 
 const between = (min, max) => Math.round(min + Math.random() * (max - min));
@@ -48,39 +32,47 @@ export class AmbientAudio {
     this.music = null;
     this.musicEnabled = false;
     this.lastTrack = -1;
+    this.voiceActive = false;
   }
 
   unlock() {
     if (this.unlocked) return;
     this.unlocked = true;
-    this.scheduleAmbient(1200);
+    this.scheduleAmbient(1800);
   }
 
   setScene(scene) {
     this.scene = SCENES[scene] ? scene : 'home';
     this.stopAmbient();
-    if (this.unlocked) this.scheduleAmbient(between(1200, 3500));
+    if (this.unlocked) this.scheduleAmbient(between(1600, 3200));
   }
 
-  scheduleAmbient(delay = between(14000, 36000)) {
+  scheduleAmbient(delay = 1800) {
     clearTimeout(this.ambientTimer);
-    if (!this.unlocked || document.hidden) return;
+    if (!this.unlocked || document.hidden || !SCENES[this.scene]?.length) return;
     this.ambientTimer = setTimeout(() => this.playAmbient(), delay);
   }
 
   playAmbient() {
     const choices = SCENES[this.scene] || SCENES.home;
+    if (!choices.length) return;
     const choice = choices[Math.floor(Math.random() * choices.length)];
     const audio = new Audio(choice.src);
     this.ambient = audio;
-    audio.volume = choice.volume * (this.musicEnabled ? .55 : 1);
-    const continueLater = () => {
+    audio._ryadomBaseVolume = choice.volume * (this.musicEnabled ? .4 : 1);
+    audio.volume = audio._ryadomBaseVolume * (this.voiceActive ? .35 : 1);
+    const finish = () => {
       if (this.ambient === audio) this.ambient = null;
-      this.scheduleAmbient(this.scene === 'work' ? between(10000, 27000) : between(17000, 44000));
     };
-    audio.addEventListener('ended', continueLater, { once: true });
-    audio.addEventListener('error', continueLater, { once: true });
-    audio.play().catch(continueLater);
+    audio.addEventListener('ended', finish, { once: true });
+    audio.addEventListener('error', finish, { once: true });
+    audio.play().catch(finish);
+    setTimeout(() => {
+      if (this.ambient !== audio) return;
+      audio.pause();
+      audio.currentTime = 0;
+      finish();
+    }, 10000);
   }
 
   stopAmbient() {
@@ -91,13 +83,6 @@ export class AmbientAudio {
       this.ambient.currentTime = 0;
       this.ambient = null;
     }
-  }
-
-  playEffect() {
-    if (!this.unlocked) return;
-    const effect = new Audio('sound/doubleclick.mp3');
-    effect.volume = .16;
-    effect.play().catch(() => {});
   }
 
   toggleMusic() {
@@ -123,7 +108,7 @@ export class AmbientAudio {
     this.lastTrack = index;
     const audio = new Audio(track.src);
     this.music = audio;
-    audio.volume = .3;
+    audio.volume = this.voiceActive ? .035 : .11;
     this.onTrackChange(track.title, true);
     const follow = () => {
       if (this.music === audio) this.music = null;
@@ -149,6 +134,12 @@ export class AmbientAudio {
     this.onTrackChange('', false);
   }
 
+  setVoiceActive(active) {
+    this.voiceActive = Boolean(active);
+    if (this.music) this.music.volume = this.voiceActive ? .035 : .11;
+    if (this.ambient) this.ambient.volume = this.ambient._ryadomBaseVolume * (this.voiceActive ? .35 : 1);
+  }
+
   suspend() {
     this.stopAmbient();
     if (this.music) this.music.pause();
@@ -156,7 +147,6 @@ export class AmbientAudio {
 
   resume() {
     if (!this.unlocked) return;
-    this.scheduleAmbient(900);
     if (this.musicEnabled && this.music) this.music.play().catch(() => {});
   }
 }
