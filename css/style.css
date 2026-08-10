@@ -190,7 +190,7 @@ button { color: inherit; -webkit-tap-highlight-color: transparent; }
   width: min(calc(100% - 16px), 620px);
   min-height: var(--nav-height);
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: center;
   padding: 7px 5px;
   border: 1px solid var(--line);
@@ -235,6 +235,15 @@ button { color: inherit; -webkit-tap-highlight-color: transparent; }
 .log-item { border: 1px solid var(--line); border-radius: 13px; background: #22212d; padding: 10px 12px; }
 .log-item small { color: var(--lilac); }
 .log-item p { margin: 4px 0 0; font-size: 12px; }
+.log-item-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.log-actions { display: flex; gap: 5px; }
+.log-actions button { border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.035); color: var(--muted); padding: 5px 9px; font-size: 8px; }
+.log-actions button[data-delete-symptom] { color: #dba0a8; }
+.edit-banner { margin: 14px 0 -5px; border-left: 2px solid var(--lilac); background: rgba(217,202,242,.08); padding: 9px 11px; color: var(--lilac); font-size: 9px; line-height: 1.55; }
+.form-actions { display: grid; grid-template-columns: 1fr auto; gap: 7px; }
+.form-actions .secondary { border: 1px solid var(--line); border-radius: 14px; background: #22212e; color: var(--muted); padding: 11px; }
+.chat-bubble.care { border-color: rgba(216,180,107,.5); background: linear-gradient(135deg,rgba(216,180,107,.12),#24222f); }
+.chat-bubble .care-label { margin: 0 0 4px; color: #d8b46b; font-size: 8px; letter-spacing: .08em; }
 .saved-message { padding: 22px 8px; text-align: center; color: var(--lilac); line-height: 1.7; }
 .assessment { margin-top: 12px; border-left: 2px solid var(--lilac-2); background: rgba(217, 202, 242, .07); padding: 10px 12px; }
 .assessment.caution { border-left-color: #d8b46b; }
@@ -316,4 +325,13 @@ button { color: inherit; -webkit-tap-highlight-color: transparent; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+}
+.chat-bubble.emotional-care {
+  border-color: rgba(151, 123, 181, .38);
+  background: linear-gradient(145deg, rgba(246, 240, 252, .96), rgba(236, 231, 248, .92));
+}
+
+.chat-bubble.urgent {
+  border-color: rgba(166, 53, 53, .62);
+  box-shadow: 0 0 0 2px rgba(166, 53, 53, .08);
 }

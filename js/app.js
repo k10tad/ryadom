@@ -1,14 +1,16 @@
 import { db, makeId, openDatabase } from './db.js?v=0.9.0';
 import { migrateLegacyData } from './migration.js';
-import { APP_VERSION } from './config.js?v=1.0.0';
+import { APP_VERSION } from './config.js?v=1.3.0';
 import { DialogueEngine } from './dialogue-engine.js';
 import { typeLine, stopTyping } from './typewriter.js';
 import { chooseIntelligentLine } from './ryadom-intelligence.js';
 import { evaluateMedication, renderMedicationAssessment } from './medical-service.js';
 import { addMedicationToProfile, getProfileBundle, saveProfile } from './profile-service.js';
-import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=1.0.0';
+import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=1.3.0';
 import { exportBackup, importBackup } from './backup-service.js?v=0.9.0';
 import { clearWeatherCache, getWeather } from './weather-service.js?v=1.0.0';
+import { adviseFromMessage } from './symptom-advisor.js?v=1.3.0';
+import { emotionalSupportFromMessage } from './emotional-support.js?v=1.3.0';
 
 const app = document.querySelector('#app');
 const sheet = document.querySelector('#sheet');
@@ -25,6 +27,25 @@ let pendingMedication = null;
 let currentLineAudio = null;
 let activeVoice = null;
 let normalPortrait = null;
+const CARE_STATE_KEY = 'ryadom:care-conversation-v1';
+
+function getCareState() {
+  try { return JSON.parse(localStorage.getItem(CARE_STATE_KEY) || 'null'); } catch { return null; }
+}
+
+function setCareState(state) {
+  if (state) localStorage.setItem(CARE_STATE_KEY, JSON.stringify(state));
+  else localStorage.removeItem(CARE_STATE_KEY);
+}
+
+async function saveCareMeasurement(log, at) {
+  if (!log) return;
+  await db.put('symptomLogs', {
+    id: makeId('symptom'), kind: log.kind || '症状', level: 'uneasy', note: log.note,
+    temperature: log.temperature, systolic: log.systolic, diastolic: log.diastolic,
+    pulse: log.pulse, at, source: 'alek-conversation'
+  });
+}
 
 const panels = {
   rhythm: ['РИТМ · RHYTHM', '身体のリズム'],
@@ -206,8 +227,19 @@ async function handleSubmit(form) {
   }
   if (type === 'condition') {
     const pain = values.hasPain === 'yes' ? Number(values.pain) : null;
-    await db.put('symptomLogs', { id: makeId('symptom'), kind: '症状', level: values.level, note: values.note.trim(), pain: Number.isInteger(pain) && pain >= 0 && pain <= 10 ? pain : null, at: now });
-    sheetContent.innerHTML = '<p class="saved-message">うん、症状として残したよ。持病のプロフィールとは分けてある。</p>';
+    const existing = values.id ? await db.get('symptomLogs', values.id) : null;
+    const at = values.at ? new Date(values.at).toISOString() : (existing?.at || now);
+    await db.put('symptomLogs', {
+      ...(existing || {}),
+      id: existing?.id || makeId('symptom'),
+      kind: '症状',
+      level: values.level,
+      note: values.note.trim(),
+      pain: Number.isInteger(pain) && pain >= 0 && pain <= 10 ? pain : null,
+      at,
+      updatedAt: existing ? now : undefined
+    });
+    sheetContent.innerHTML = `<p class="saved-message">${existing ? '症状記録を更新したよ。変更前と同じ記録として保存してある。' : 'うん、症状として残したよ。持病のプロフィールとは分けてある。'}</p>`;
     await showLine({ symptom: values.note.trim() || values.level, level: values.level, distress: values.level === 'bad' });
     return;
   }
@@ -231,14 +263,23 @@ async function handleSubmit(form) {
     return;
   }
   if (type === 'say') {
-    await db.put('messages', { id: makeId('message'), from: 'user', text: values.note.trim(), at: now });
-    const response = await chooseIntelligentLine(engine, {
+    const note = values.note.trim();
+    await db.put('messages', { id: makeId('message'), from: 'user', text: note, at: now });
+    const cancelled = /^(キャンセル|中止|やめる|もう大丈夫)$/.test(note);
+    if (cancelled) setCareState(null);
+    const care = cancelled ? null : adviseFromMessage(note, getCareState());
+    if (care) {
+      setCareState(care.state || null);
+      await saveCareMeasurement(care.log, now);
+    }
+    const emotional = care ? null : emotionalSupportFromMessage(note);
+    const response = care || emotional || await chooseIntelligentLine(engine, {
       room: app.dataset.room,
       timeOfDay: timeOfDay(),
-      distress: /つら|しんど|痛|怖|不安/.test(values.note)
+      distress: /つら|しんど|痛|怖|不安/.test(note)
     });
-    await db.put('messages', { id: makeId('message'), from: 'alek', text: response.text, at: new Date().toISOString() });
-    await showText(response.text, response.audio, true);
+    await db.put('messages', { id: makeId('message'), from: 'alek', kind: response.kind || 'dialogue', urgent: Boolean(response.urgent), text: response.text, at: new Date().toISOString() });
+    await showText(response.text, response.audio || null, Boolean(response.audio));
     sheetContent.innerHTML = await sayPanel();
   }
 }
@@ -295,6 +336,27 @@ document.addEventListener('click', async event => {
   if (deletion) {
     await db.remove('schedules', deletion.dataset.deleteSchedule);
     sheetContent.innerHTML = await rhythmPanel('schedule');
+    return;
+  }
+
+  const symptomEdit = event.target.closest('[data-edit-symptom]');
+  if (symptomEdit) {
+    sheetContent.innerHTML = await conditionPanel(symptomEdit.dataset.editSymptom);
+    sheetContent.scrollTop = 0;
+    return;
+  }
+
+  const symptomEditCancel = event.target.closest('[data-cancel-symptom-edit]');
+  if (symptomEditCancel) {
+    sheetContent.innerHTML = await conditionPanel();
+    return;
+  }
+
+  const symptomDelete = event.target.closest('[data-delete-symptom]');
+  if (symptomDelete) {
+    if (!confirm('この症状記録を削除する？ この操作は元に戻せません。')) return;
+    await db.remove('symptomLogs', symptomDelete.dataset.deleteSymptom);
+    sheetContent.innerHTML = await conditionPanel();
     return;
   }
 
@@ -365,8 +427,15 @@ onboardingForm.addEventListener('submit', async event => {
   await handleSubmit(event.target);
 });
 onboarding.addEventListener('cancel', event => event.preventDefault());
-document.querySelector('#close-sheet').addEventListener('click', () => sheet.close());
-sheet.addEventListener('click', event => { if (event.target === sheet) sheet.close(); });
+function closeSheetToHome() {
+  sheet.close();
+  document.querySelectorAll('[data-nav]').forEach(button => {
+    button.classList.toggle('is-active', button.dataset.nav === 'home');
+  });
+}
+
+document.querySelector('#close-sheet').addEventListener('click', closeSheetToHome);
+sheet.addEventListener('click', event => { if (event.target === sheet) closeSheetToHome(); });
 document.querySelector('#next-line').addEventListener('click', () => showNextVoicedLine());
 document.querySelector('#voice-button').addEventListener('click', speakCurrentLine);
 document.querySelector('#beside-button').addEventListener('click', async () => {

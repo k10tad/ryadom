@@ -56,27 +56,34 @@ export async function medicinePanel() {
     ).join('') : emptyState('服用記録はまだないよ。')}</section>`;
 }
 
-export async function conditionPanel() {
+export async function conditionPanel(editId = null) {
   const [bundle, logs] = await Promise.all([getProfileBundle(), db.all('symptomLogs')]);
+  const editing = editId ? logs.find(item => item.id === editId) : null;
   const conditions = bundle.conditions.length
     ? bundle.conditions.map(item => `<span class="profile-chip${item.status === 'identified' ? '' : ' is-unresolved'}">${escapeHtml(item.rawName)}</span>`).join('')
     : '<span class="profile-chip is-empty">持病は未登録</span>';
   const sortedLogs = logs.sort((a, b) => String(b.at).localeCompare(String(a.at))).slice(0, 10);
+  const level = editing?.level || 'good';
+  const painEnabled = Number.isInteger(editing?.pain);
+  const pain = painEnabled ? editing.pain : 5;
   return `<section class="current-profile"><small>登録している疾患</small><div class="profile-chips">${conditions}</div></section>
+    ${editing ? '<p class="edit-banner">この症状記録を編集中。保存すると同じ記録へ上書きするよ。</p>' : ''}
     <form class="form-grid" data-form="condition">
-      <label>いまの調子<select name="level"><option value="good">落ち着いている</option><option value="uneasy">少し気になる</option><option value="bad">つらい</option></select></label>
-      <label>症状・気分<textarea name="note" placeholder="頭痛、吐き気、息苦しさ、不安など"></textarea></label>
-      <label class="pain-toggle"><input type="checkbox" name="hasPain" value="yes" data-pain-toggle><span>痛みの程度も記録する</span></label>
-      <div class="pain-scale" data-pain-scale hidden>
-        <div><span>痛みなし</span><output data-pain-output>5 / 10</output><span>最も強い痛み</span></div>
-        <input type="range" name="pain" min="0" max="10" step="1" value="5" disabled data-pain-range aria-label="痛みの程度">
+      <input type="hidden" name="id" value="${escapeHtml(editing?.id || '')}">
+      <label>記録日時<input type="datetime-local" name="at" value="${localDateTimeValue(editing?.at ? new Date(editing.at) : new Date())}"></label>
+      <label>いまの調子<select name="level"><option value="good" ${level === 'good' ? 'selected' : ''}>落ち着いている</option><option value="uneasy" ${level === 'uneasy' ? 'selected' : ''}>少し気になる</option><option value="bad" ${level === 'bad' ? 'selected' : ''}>つらい</option></select></label>
+      <label>症状・気分<textarea name="note" placeholder="頭痛、吐き気、息苦しさ、不安など">${escapeHtml(editing?.note || '')}</textarea></label>
+      <label class="pain-toggle"><input type="checkbox" name="hasPain" value="yes" data-pain-toggle ${painEnabled ? 'checked' : ''}><span>痛みの程度も記録する</span></label>
+      <div class="pain-scale" data-pain-scale ${painEnabled ? '' : 'hidden'}>
+        <div><span>痛みなし</span><output data-pain-output>${pain} / 10</output><span>最も強い痛み</span></div>
+        <input type="range" name="pain" min="0" max="10" step="1" value="${pain}" ${painEnabled ? '' : 'disabled'} data-pain-range aria-label="痛みの程度">
         <div class="pain-ticks" aria-hidden="true"><span>0</span><span>5</span><span>10</span></div>
       </div>
-      <button class="primary" type="submit">症状として記録</button>
+      <div class="form-actions"><button class="primary" type="submit">${editing ? '変更を保存' : '症状として記録'}</button>${editing ? '<button class="secondary" type="button" data-cancel-symptom-edit>キャンセル</button>' : ''}</div>
     </form>
     <p class="medical-note">ここへ入れた内容は症状ログです。診断された持病プロフィールには追加されません。</p>
     <section class="log-list">${sortedLogs.length ? sortedLogs.map(item =>
-      `<article class="log-item"><small>${dateTimeLongLabel(item.at)}</small><p>${escapeHtml(item.note || item.level)}</p>${Number.isInteger(item.pain) ? `<strong class="pain-log">痛み ${item.pain}/10</strong>` : ''}</article>`
+      `<article class="log-item"><div class="log-item-head"><small>${dateTimeLongLabel(item.at)}</small><span class="log-actions"><button type="button" data-edit-symptom="${escapeHtml(item.id)}">編集</button><button type="button" data-delete-symptom="${escapeHtml(item.id)}">削除</button></span></div><p>${escapeHtml(item.note || item.level)}</p>${Number.isInteger(item.pain) ? `<strong class="pain-log">痛み ${item.pain}/10</strong>` : ''}</article>`
     ).join('') : emptyState('症状の記録はまだないよ。')}</section>`;
 }
 
@@ -124,6 +131,6 @@ export async function rhythmPanel(activeTab = 'cycle') {
 export async function sayPanel() {
   const messages = (await db.all('messages')).sort((a, b) => String(a.at).localeCompare(String(b.at))).slice(-20);
   return `<div class="chat-history" id="chat-history">${messages.map(item =>
-    `<article class="chat-bubble ${item.from === 'user' ? 'user' : ''}">${escapeHtml(item.text)}<small>${dateTimeLabel(item.at)}</small></article>`
-  ).join('')}</div><form class="form-grid" data-form="say"><label>アレクに話す<textarea name="note" required placeholder="今日はちょっと疲れた、など"></textarea></label><button class="primary" type="submit">送る</button></form>`;
+    `<article class="chat-bubble ${item.from === 'user' ? 'user' : ''}${item.kind === 'symptom-care' ? ' care' : ''}${item.kind === 'emotional-care' ? ' emotional-care' : ''}${item.urgent ? ' urgent' : ''}">${item.kind === 'symptom-care' ? '<p class="care-label">SYMPTOM CARE</p>' : ''}${item.kind === 'emotional-care' ? '<p class="care-label">EMOTIONAL CARE</p>' : ''}${escapeHtml(item.text)}<small>${dateTimeLabel(item.at)}</small></article>`
+  ).join('')}</div><form class="form-grid" data-form="say"><label>アレクに話す<textarea name="note" required placeholder="熱がある、動悸がする、不安で落ち着かない、など"></textarea></label><small class="field-help">問診を終えるときは「キャンセル」と送ってね。測定値は症状記録にも残ります。</small><button class="primary" type="submit">送る</button></form>`;
 }
