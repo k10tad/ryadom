@@ -1,15 +1,15 @@
 import { db, makeId, openDatabase } from './db.js?v=0.9.0';
 import { migrateLegacyData } from './migration.js';
-import { APP_VERSION } from './config.js?v=1.3.0';
+import { APP_VERSION } from './config.js?v=1.4.0';
 import { DialogueEngine } from './dialogue-engine.js';
 import { typeLine, stopTyping } from './typewriter.js';
 import { chooseIntelligentLine } from './ryadom-intelligence.js';
 import { evaluateMedication, renderMedicationAssessment } from './medical-service.js';
 import { addMedicationToProfile, getProfileBundle, saveProfile } from './profile-service.js';
-import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=1.3.1';
+import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=1.4.0';
 import { exportBackup, importBackup } from './backup-service.js?v=0.9.0';
 import { clearWeatherCache, getWeather } from './weather-service.js?v=1.0.0';
-import { adviseFromMessage } from './symptom-advisor.js?v=1.3.0';
+import { adviseFromMessage } from './symptom-advisor.js?v=1.4.0';
 import { emotionalSupportFromMessage } from './emotional-support.js?v=1.3.0';
 
 const app = document.querySelector('#app');
@@ -265,7 +265,22 @@ async function handleSubmit(form) {
   }
   if (type === 'say') {
     const note = values.note.trim();
-    await db.put('messages', { id: makeId('message'), from: 'user', text: note, at: now });
+    const userMessage = { id: makeId('message'), from: 'user', text: note, at: now, readAt: null };
+    await db.put('messages', userMessage);
+    sheetContent.innerHTML = await sayPanel();
+    requestAnimationFrame(() => {
+      const history = document.querySelector('#chat-history');
+      if (history) history.scrollTop = history.scrollHeight;
+    });
+    await new Promise(resolve => setTimeout(resolve, 280));
+    userMessage.readAt = new Date().toISOString();
+    await db.put('messages', userMessage);
+    sheetContent.innerHTML = await sayPanel({ typing: true });
+    requestAnimationFrame(() => {
+      const history = document.querySelector('#chat-history');
+      if (history) history.scrollTop = history.scrollHeight;
+    });
+    await new Promise(resolve => setTimeout(resolve, 720));
     const cancelled = /^(キャンセル|中止|やめる|もう大丈夫)$/.test(note);
     if (cancelled) setCareState(null);
     const care = cancelled ? null : adviseFromMessage(note, getCareState());

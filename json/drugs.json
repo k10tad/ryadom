@@ -3092,6 +3092,126 @@
         "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
       },
       "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "betahistine",
+      "name": "ベタヒスチンメシル酸塩",
+      "aliases": ["ベタヒスチン", "メリスロン", "betahistine"],
+      "importantWarnings": ["メニエール病・めまい症などに処方される抗めまい薬です。処方量を守ってください。", "吐き気、胃部不快感、発疹などが現れた場合は相談してください。"],
+      "seriousAdverseEffects": ["アナフィラキシー"],
+      "conditionWarnings": [{ "conditionId": "peptic_ulcer", "level": "major-caution", "message": "消化性潰瘍の既往がある場合は症状悪化に注意が必要です。" }, { "conditionId": "asthma", "level": "major-caution", "message": "気管支喘息がある場合は使用可否を処方元へ確認してください。" }],
+      "source": { "label": "PMDA ベタヒスチン 添付文書", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/460028_1339005F1440_2_07" },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "isosorbide_oral",
+      "name": "イソソルビド（経口）",
+      "aliases": ["イソバイド", "メニレット", "イソソルビド内服", "isosorbide oral"],
+      "importantWarnings": ["メニエール病などで使われる浸透圧利尿薬です。脱水を避け、処方量を守ってください。", "吐き気、下痢、食欲不振、頭痛などが続く場合は相談してください。"],
+      "seriousAdverseEffects": ["ショック", "アナフィラキシー"],
+      "conditionWarnings": [{ "conditionId": "severe_renal_disease", "level": "major-caution", "message": "腎機能障害では水分・電解質への影響を含め処方元の確認が必要です。" }, { "conditionId": "hypotension", "level": "major-caution", "message": "脱水に伴う血圧低下やふらつきに注意してください。" }],
+      "source": { "label": "PMDA イソソルビド 添付文書", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/300297_2139001Q1039_2_02" },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "difenidol",
+      "name": "ジフェニドール塩酸塩",
+      "aliases": ["ジフェニドール", "セファドール", "difenidol"],
+      "importantWarnings": ["めまい・吐き気に処方されることがあります。眠気や口渇、目のかすみが出る場合があります。", "服用後の運転や危険作業は避けてください。"],
+      "seriousAdverseEffects": ["浮腫", "肝機能障害"],
+      "conditionWarnings": [{ "conditionId": "glaucoma", "level": "major-caution", "message": "緑内障では眼圧への影響を含め使用可否の確認が必要です。" }, { "conditionId": "urinary_retention", "level": "major-caution", "message": "排尿障害を悪化させる可能性があります。" }],
+      "source": { "label": "PMDA ジフェニドール 添付文書検索", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/" },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "midodrine",
+      "name": "ミドドリン塩酸塩",
+      "aliases": ["ミドドリン", "メトリジン", "midodrine"],
+      "importantWarnings": ["低血圧・起立時症状に処方される昇圧薬です。横になった時の血圧上昇に注意してください。", "頭痛、動悸、排尿しにくさが現れた場合は相談してください。"],
+      "seriousAdverseEffects": ["著しい高血圧", "徐脈", "不整脈"],
+      "conditionWarnings": [{ "conditionId": "hypertension", "level": "contraindication", "message": "高血圧がある場合は過度の血圧上昇のおそれがあるため使用可否の確認が必要です。" }, { "conditionId": "urinary_retention", "level": "major-caution", "message": "排尿障害を悪化させる可能性があります。" }],
+      "source": { "label": "PMDA ミドドリン 添付文書検索", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/" },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "amezinium",
+      "name": "アメジニウムメチル硫酸塩",
+      "aliases": ["アメジニウム", "リズミック", "amezinium"],
+      "importantWarnings": ["低血圧に処方される昇圧薬です。自己判断で回数を増やさないでください。", "動悸、頭痛、血圧上昇、ほてりが出る場合があります。"],
+      "seriousAdverseEffects": ["著しい血圧上昇", "動悸・頻脈"],
+      "conditionWarnings": [{ "conditionId": "hypertension", "level": "major-caution", "message": "高血圧を悪化させる可能性があるため血圧確認が必要です。" }, { "conditionId": "thyrotoxicosis", "level": "major-caution", "message": "甲状腺機能亢進状態では動悸・頻脈の悪化に注意が必要です。" }],
+      "source": { "label": "PMDA アメジニウム 添付文書検索", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/" },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "droxidopa",
+      "name": "ドロキシドパ",
+      "aliases": ["ドプス", "droxidopa"],
+      "importantWarnings": ["起立性低血圧などに処方されることがあります。血圧・脈拍を確認し処方量を守ってください。", "頭痛、動悸、吐き気、血圧上昇が続く場合は相談してください。"],
+      "seriousAdverseEffects": ["高熱", "意識障害", "不整脈", "狭心症"],
+      "conditionWarnings": [{ "conditionId": "hypertension", "level": "major-caution", "message": "血圧を上昇させるため高血圧では慎重な確認が必要です。" }, { "conditionId": "ischemic_heart_disease", "level": "major-caution", "message": "狭心症・心筋梗塞などの心疾患では使用可否の確認が必要です。" }],
+      "source": { "label": "PMDA ドロキシドパ 添付文書検索", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/" },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "pregabalin",
+      "name": "プレガバリン",
+      "aliases": ["リリカ", "pregabalin"],
+      "importantWarnings": ["線維筋痛症・神経障害性疼痛などに処方されます。眠気やめまいがあるため運転を避けてください。", "急に中止せず、減量は処方元の指示に従ってください。"],
+      "seriousAdverseEffects": ["血管浮腫", "意識消失", "心不全", "腎不全", "低血糖"],
+      "conditionWarnings": [{ "conditionId": "severe_renal_disease", "level": "major-caution", "message": "腎機能に応じた用量調整が必要です。" }, { "conditionId": "heart_failure", "level": "major-caution", "message": "浮腫や心不全悪化に注意が必要です。" }],
+      "source": { "label": "PMDA プレガバリン 添付文書検索", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/" },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "duloxetine",
+      "name": "デュロキセチン塩酸塩",
+      "aliases": ["デュロキセチン", "サインバルタ", "duloxetine"],
+      "importantWarnings": ["線維筋痛症・慢性疼痛・うつ病などに処方されます。自己判断で急に中止しないでください。", "治療初期や変更時の気分変化、自傷念慮、血圧上昇、眠気に注意してください。"],
+      "seriousAdverseEffects": ["セロトニン症候群", "けいれん", "肝機能障害", "低ナトリウム血症", "悪性症候群"],
+      "conditionWarnings": [{ "conditionId": "severe_liver_disease", "level": "contraindication", "message": "高度な肝機能障害では使用できない場合があります。" }, { "conditionId": "severe_renal_disease", "level": "contraindication", "message": "高度な腎機能障害では使用できない場合があります。" }, { "conditionId": "hypertension", "level": "major-caution", "message": "血圧上昇が起こることがあるため確認が必要です。" }],
+      "source": { "label": "PMDA デュロキセチン 添付文書検索", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/" },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "amitriptyline",
+      "name": "アミトリプチリン塩酸塩",
+      "aliases": ["アミトリプチリン", "トリプタノール", "amitriptyline"],
+      "importantWarnings": ["慢性疼痛などに処方されることがあります。眠気、口渇、便秘、立ちくらみに注意してください。", "急な中止や自己判断での増量を避けてください。"],
+      "seriousAdverseEffects": ["悪性症候群", "セロトニン症候群", "不整脈", "けいれん", "無顆粒球症"],
+      "conditionWarnings": [{ "conditionId": "long_qt_syndrome", "level": "contraindication", "message": "QT延長・重篤な不整脈の危険があるため使用可否の確認が必要です。" }, { "conditionId": "epilepsy", "level": "major-caution", "message": "けいれん閾値を下げる可能性があります。" }, { "conditionId": "glaucoma", "level": "major-caution", "message": "眼圧上昇に注意が必要です。" }],
+      "source": { "label": "PMDA アミトリプチリン 添付文書検索", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/" },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "milnacipran",
+      "name": "ミルナシプラン塩酸塩",
+      "aliases": ["ミルナシプラン", "トレドミン", "milnacipran"],
+      "importantWarnings": ["線維筋痛症の疼痛管理で検討されることがありますが、国内の適応は製剤情報を確認してください。", "自己判断で急に中止せず、血圧・脈拍や気分の変化に注意してください。"],
+      "seriousAdverseEffects": ["セロトニン症候群", "悪性症候群", "けいれん", "低ナトリウム血症", "肝機能障害"],
+      "conditionWarnings": [{ "conditionId": "hypertension", "level": "major-caution", "message": "血圧・脈拍が上昇する可能性があるため確認が必要です。" }, { "conditionId": "glaucoma", "level": "major-caution", "message": "眼圧上昇に注意が必要です。" }],
+      "source": { "label": "PMDA ミルナシプラン 添付文書検索", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/" },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "paroxetine",
+      "name": "パロキセチン塩酸塩水和物",
+      "aliases": ["パロキセチン", "パキシル", "paroxetine"],
+      "importantWarnings": ["パニック症・うつ病などに処方されるSSRIです。効果判定には時間がかかり、急な中止は避けてください。", "治療初期や変更時の強い焦燥、自傷念慮、出血傾向、眠気に注意してください。"],
+      "seriousAdverseEffects": ["セロトニン症候群", "悪性症候群", "けいれん", "低ナトリウム血症", "重篤な皮膚障害"],
+      "conditionWarnings": [{ "conditionId": "epilepsy", "level": "major-caution", "message": "けいれん発作の既往がある場合は慎重な確認が必要です。" }, { "conditionId": "bleeding_disorder", "level": "major-caution", "message": "出血傾向を増やす可能性があります。" }],
+      "source": { "label": "PMDA パロキセチン 添付文書検索", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/" },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "alprazolam",
+      "name": "アルプラゾラム",
+      "aliases": ["コンスタン", "ソラナックス", "alprazolam"],
+      "importantWarnings": ["不安・パニック症状に短期間処方されることがあります。眠気があるため運転を避けてください。", "依存・離脱症状の危険があるため、自己判断で増量・中止せず、飲酒や他の鎮静薬との併用を避けてください。"],
+      "seriousAdverseEffects": ["依存", "呼吸抑制", "意識障害", "錯乱"],
+      "conditionWarnings": [{ "conditionId": "myasthenia_gravis", "level": "contraindication", "message": "重症筋無力症では症状を悪化させる可能性があります。" }, { "conditionId": "copd", "level": "major-caution", "message": "呼吸機能低下がある場合は呼吸抑制に注意が必要です。" }],
+      "source": { "label": "PMDA アルプラゾラム 添付文書検索", "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/" },
+      "lastReviewed": "2026-08-10"
     }
   ],
   "knowledgeVersion": "2026.08.10-allergy-1",

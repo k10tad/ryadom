@@ -128,13 +128,13 @@ export async function rhythmPanel(activeTab = 'cycle') {
       <button class="primary" type="submit">周期を保存</button></form></div>`;
 }
 
-export async function sayPanel() {
+export async function sayPanel({ typing = false } = {}) {
   const messages = (await db.all('messages')).sort((a, b) => String(a.at).localeCompare(String(b.at))).slice(-20);
   return `<section class="chat-app">
     <header class="chat-contact"><span class="chat-avatar" aria-hidden="true">A</span><span><strong>Алек</strong><small><i></i>そばにいる</small></span></header>
     <div class="chat-history" id="chat-history">${messages.map(item =>
-      `<div class="chat-message ${item.from === 'user' ? 'user' : 'alek'}"><article class="chat-bubble${item.kind === 'symptom-care' ? ' care' : ''}${item.kind === 'emotional-care' ? ' emotional-care' : ''}${item.urgent ? ' urgent' : ''}">${item.kind === 'symptom-care' ? '<p class="care-label">SYMPTOM CARE</p>' : ''}${item.kind === 'emotional-care' ? '<p class="care-label">EMOTIONAL CARE</p>' : ''}<p>${escapeHtml(item.text)}</p><small>${dateTimeLabel(item.at)}</small></article></div>`
-    ).join('')}</div>
+      `<div class="chat-message ${item.from === 'user' ? 'user' : 'alek'}"><article class="chat-bubble${item.kind === 'symptom-care' ? ' care' : ''}${item.kind === 'emotional-care' ? ' emotional-care' : ''}${item.urgent ? ' urgent' : ''}">${item.kind === 'symptom-care' ? '<p class="care-label">SYMPTOM CARE</p>' : ''}${item.kind === 'emotional-care' ? '<p class="care-label">EMOTIONAL CARE</p>' : ''}<p>${escapeHtml(item.text)}</p><small>${dateTimeLabel(item.at)}${item.from === 'user' ? `<span class="chat-read-state">${item.readAt ? '既読' : '送信済み'}</span>` : ''}</small></article></div>`
+    ).join('')}${typing ? '<div class="chat-message alek is-typing"><article class="chat-bubble typing-bubble" aria-label="アレクが入力中"><span></span><span></span><span></span><small>入力中</small></article></div>' : ''}</div>
     <form class="chat-composer" data-form="say"><label><span class="visually-hidden">アレクに話す</span><textarea name="note" required rows="1" placeholder="メッセージを入力"></textarea></label><button type="submit" aria-label="送る">↑</button></form>
     <small class="chat-help">問診を終えるときは「キャンセル」と送ってね。測定値は症状記録にも残ります。</small>
   </section>`;

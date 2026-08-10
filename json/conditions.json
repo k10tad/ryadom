@@ -771,6 +771,48 @@
         "url": "https://icd.who.int/browse/2026-01/mms/en"
       },
       "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "meniere_disease",
+      "name": "メニエール病",
+      "aliases": ["メニエール症候群", "Meniere disease", "Ménière disease"],
+      "source": { "label": "日本耳鼻咽喉科頭頸部外科学会会報", "url": "https://www.jstage.jst.go.jp/article/jibiinkoka/121/8/121_1056/_article/-char/ja" },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "bppv",
+      "name": "良性発作性頭位めまい症",
+      "aliases": ["良性発作性頭位眩暈症", "BPPV", "benign paroxysmal positional vertigo"],
+      "source": { "label": "日本めまい平衡医学会 BPPV診療ガイドライン2023", "url": "https://www.jstage.jst.go.jp/article/jser/83/4/83_190/_html/-char/ja" },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "orthostatic_dysregulation",
+      "name": "起立性調節障害",
+      "aliases": ["OD", "orthostatic dysregulation", "起立不耐症"],
+      "source": { "label": "日本小児科学会 移行期医療における疾患別ガイド", "url": "https://www.jpeds.or.jp/society-activities/column/gideline/50153.html" },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "fibromyalgia",
+      "name": "線維筋痛症",
+      "aliases": ["線維筋痛症候群", "fibromyalgia", "FM"],
+      "source": { "label": "日本内科学会雑誌 線維筋痛症", "url": "https://www.jstage.jst.go.jp/article/naika/108/10/108_2077/_pdf/-char/ja" },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "hypothyroidism",
+      "name": "甲状腺機能低下症",
+      "aliases": ["原発性甲状腺機能低下症", "橋本病", "hypothyroidism"],
+      "source": { "label": "日本甲状腺学会 甲状腺疾患診断ガイドライン2024", "url": "https://www.japanthyroid.jp/doctor/guideline/japanese.html" },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "panic_attack",
+      "name": "パニック発作",
+      "aliases": ["パニック症", "パニック障害", "panic attack", "panic disorder"],
+      "source": { "label": "日本精神神経学会 パニック障害／パニック症", "url": "https://www.jspn.or.jp/modules/forpublic/index.php?content_id=43" },
+      "lastReviewed": "2026-08-10"
     }
   ],
   "reviewedAt": "2026-08-10"

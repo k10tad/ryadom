@@ -1,3 +1,5 @@
+import { adviseClinicalTriage } from './clinical-triage.js?v=1.4.0';
+
 const REVIEWED_AT = '2026-08-10';
 
 const emergencyRules = [
@@ -83,6 +85,8 @@ export function adviseFromMessage(rawText, conversationState = null) {
   if (!text) return null;
   const emergency = emergencyRules.find(rule => rule.pattern.test(text));
   if (emergency) return done(emergency.message, true, null);
+  const clinicalTriage = adviseClinicalTriage(text, conversationState);
+  if (clinicalTriage) return clinicalTriage;
   if (conversationState?.topic === 'fever') return feverResult(text, { ...conversationState.data, step: conversationState.step });
   if (conversationState?.topic === 'palpitation') return palpitationResult(text, { ...conversationState.data, step: conversationState.step });
   if (/(発熱|熱がある|高熱|微熱|寒気|悪寒)/.test(text)) return feverResult(text);

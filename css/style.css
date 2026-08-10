@@ -294,6 +294,13 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .chat-message.user .chat-bubble { border-radius: 16px 5px 16px 16px; background: linear-gradient(135deg, rgba(191, 171, 220, .34), rgba(104, 94, 133, .34)); }
 .chat-bubble > p:not(.care-label) { margin: 0; white-space: pre-wrap; }
 .chat-bubble small { display: block; margin-top: 4px; color: var(--muted); font-size: 7px; text-align: right; }
+.chat-read-state { margin-left: 6px; color: var(--lilac); }
+.typing-bubble { display: flex; align-items: center; gap: 4px; min-width: 76px; padding-block: 12px 8px; }
+.typing-bubble > span { width: 5px; height: 5px; border-radius: 50%; background: var(--lilac); opacity: .35; animation: chatTyping 1.15s ease-in-out infinite; }
+.typing-bubble > span:nth-child(2) { animation-delay: .16s; }
+.typing-bubble > span:nth-child(3) { animation-delay: .32s; }
+.typing-bubble small { margin: 0 0 0 4px; }
+@keyframes chatTyping { 0%, 60%, 100% { opacity: .3; translate: 0 0; } 30% { opacity: 1; translate: 0 -3px; } }
 .chat-composer { display: grid; grid-template-columns: minmax(0, 1fr) 38px; align-items: end; gap: 8px; border: 1px solid var(--line); border-radius: 15px; background: #22212e; padding: 6px; }
 .chat-composer label { min-width: 0; }
 .chat-composer textarea { width: 100%; min-height: 36px; max-height: 96px; display: block; resize: vertical; border: 0; outline: 0; background: transparent; color: var(--paper); padding: 9px 8px 7px; font: inherit; font-size: 11px; line-height: 1.5; }
@@ -353,6 +360,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
   .wisteria-fall { display: none; }
   .vital-mark, .vital-mark::after { animation: none; }
+  .typing-bubble > span { animation: none; opacity: .75; }
 }
 .chat-bubble.emotional-care {
   border-color: rgba(151, 123, 181, .38);
