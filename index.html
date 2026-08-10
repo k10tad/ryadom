@@ -7,10 +7,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Рядом</title>
-  <link rel="icon" href="assets/icons/icon.jpg">
-  <link rel="apple-touch-icon" href="assets/icons/icon.jpg">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/Ryadom-AppIcon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/Ryadom-AppIcon-180.png">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="css/style-v050.css?v=0.9.0">
+  <link rel="stylesheet" href="css/style-v050.css?v=1.0.0">
 </head>
 <body>
   <main class="app" id="app" data-room="living">
@@ -32,6 +32,11 @@
       <button class="is-active" type="button" data-room-button="living">Living</button>
       <button type="button" data-room-button="bedroom">Bedroom</button>
     </section>
+
+    <button class="weather-strip" id="weather-strip" type="button" data-open="settings" aria-label="地域と天気の設定を開く">
+      <span><small id="weather-location">地域を設定</small><strong id="weather-condition">天気を読み込み中</strong></span>
+      <span><strong id="weather-temperature">--°</strong><small id="weather-pressure">気圧 -- hPa</small></span>
+    </button>
 
     <section class="home" id="home-view">
       <div class="character-area">
@@ -110,6 +115,6 @@
       <button type="button" id="leave-quiet">戻る</button>
     </section>
   </main>
-  <script type="module" src="js/app.js?v=0.9.3"></script>
+  <script type="module" src="js/app.js?v=1.0.0"></script>
 </body>
 </html>

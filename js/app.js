@@ -1,13 +1,14 @@
 import { db, makeId, openDatabase } from './db.js?v=0.9.0';
 import { migrateLegacyData } from './migration.js';
-import { APP_VERSION } from './config.js?v=0.9.3';
+import { APP_VERSION } from './config.js?v=1.0.0';
 import { DialogueEngine } from './dialogue-engine.js';
 import { typeLine, stopTyping } from './typewriter.js';
 import { chooseIntelligentLine } from './ryadom-intelligence.js';
 import { evaluateMedication, renderMedicationAssessment } from './medical-service.js';
 import { addMedicationToProfile, getProfileBundle, saveProfile } from './profile-service.js';
-import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=0.9.0';
+import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=1.0.0';
 import { exportBackup, importBackup } from './backup-service.js?v=0.9.0';
+import { clearWeatherCache, getWeather } from './weather-service.js?v=1.0.0';
 
 const app = document.querySelector('#app');
 const sheet = document.querySelector('#sheet');
@@ -23,6 +24,7 @@ let engine;
 let pendingMedication = null;
 let currentLineAudio = null;
 let activeVoice = null;
+let normalPortrait = null;
 
 const panels = {
   rhythm: ['РИТМ · RHYTHM', '身体のリズム'],
@@ -102,12 +104,31 @@ function updateClock() {
   document.querySelector('#clock-date').textContent = now.toLocaleDateString('ja-JP', { month: 'long', day: 'numeric', weekday: 'short' });
 }
 
+function chooseActivity(room, date = new Date()) {
+  if (room === 'bedroom') return { src: 'assets/alek/alek-bed.jpg', alt: '寝室で横になるアレク', action: '一緒に休むところ' };
+  const weekday = date.getDay() >= 1 && date.getDay() <= 5;
+  const hour = date.getHours();
+  const roll = Math.random();
+  if (weekday && hour >= 11 && hour < 19 && roll < .38) {
+    return { src: 'assets/alek/alek-asleep.jpg', alt: '夜勤明けに眠るアレク', action: '夜勤明けでうたた寝' };
+  }
+  if (weekday && hour >= 8 && hour < 21 && roll < .76) {
+    return { src: 'assets/alek/alek-work.jpg', alt: '資料を確認するアレク', action: '論文と格闘中' };
+  }
+  return { src: 'assets/alek/alek-home.jpg', alt: 'こちらを見つめるアレク', action: 'レイを待ってる' };
+}
+
+function applyPortrait(activity) {
+  normalPortrait = activity;
+  alekImage.src = activity.src;
+  alekImage.alt = activity.alt;
+  nowAction.textContent = activity.action;
+}
+
 function setRoom(room, persist = true) {
   const bedroom = room === 'bedroom';
   app.dataset.room = bedroom ? 'bedroom' : 'living';
-  alekImage.src = bedroom ? 'assets/alek/alek-bed.jpg' : 'assets/alek/alek-home.jpg';
-  alekImage.alt = bedroom ? '寝室で横になるアレク' : 'こちらを見つめるアレク';
-  nowAction.textContent = bedroom ? '一緒に休むところ' : 'レイを待ってる';
+  applyPortrait(chooseActivity(app.dataset.room));
   document.querySelectorAll('[data-room-button]').forEach(button => {
     button.classList.toggle('is-active', button.dataset.roomButton === app.dataset.room);
   });
@@ -128,6 +149,7 @@ async function openPanel(name) {
   document.querySelector('#sheet-kicker').textContent = kicker;
   document.querySelector('#sheet-title').textContent = title;
   sheetContent.innerHTML = await panelTemplate(name);
+  sheet.classList.toggle('is-settings', name === 'settings');
   if (!sheet.open) sheet.showModal();
   document.querySelectorAll('[data-nav]').forEach(button => {
     button.classList.toggle('is-active', button.dataset.nav === name);
@@ -165,7 +187,9 @@ async function handleSubmit(form) {
     return;
   }
   if (type === 'settings') {
+    clearWeatherCache();
     await saveProfileForm(values);
+    await updateWeather(values.region, true);
     return;
   }
   if (type === 'cycle') {
@@ -346,6 +370,9 @@ sheet.addEventListener('click', event => { if (event.target === sheet) sheet.clo
 document.querySelector('#next-line').addEventListener('click', () => showNextVoicedLine());
 document.querySelector('#voice-button').addEventListener('click', speakCurrentLine);
 document.querySelector('#beside-button').addEventListener('click', async () => {
+  alekImage.src = 'assets/alek/alek-ryadom.jpg';
+  alekImage.alt = '静かにそばにいるアレク';
+  nowAction.textContent = 'レイのそばにいる';
   app.classList.add('is-quiet');
   document.querySelector('#quiet-mode').setAttribute('aria-hidden', 'false');
   await showLine({ quiet: true });
@@ -354,7 +381,32 @@ document.querySelector('#beside-button').addEventListener('click', async () => {
 document.querySelector('#leave-quiet').addEventListener('click', () => {
   app.classList.remove('is-quiet');
   document.querySelector('#quiet-mode').setAttribute('aria-hidden', 'true');
+  if (normalPortrait) applyPortrait(normalPortrait);
 });
+
+async function updateWeather(region, force = false) {
+  const location = document.querySelector('#weather-location');
+  const condition = document.querySelector('#weather-condition');
+  const temperature = document.querySelector('#weather-temperature');
+  const pressure = document.querySelector('#weather-pressure');
+  if (!region) return;
+  location.textContent = region;
+  condition.textContent = '天気を確認中';
+  try {
+    const weather = await getWeather(region, force);
+    location.textContent = weather.location || region;
+    condition.textContent = `${weather.weather}・体感 ${Math.round(weather.apparentTemperature)}°`;
+    temperature.textContent = `${Math.round(weather.temperature)}°`;
+    const delta = weather.trend.delta;
+    const deltaText = delta === null ? '' : ` ${delta > 0 ? '+' : ''}${delta} / 3h`;
+    pressure.textContent = `気圧 ${Math.round(weather.pressure)} hPa・${weather.trend.label}${deltaText}`;
+    document.querySelector('#weather-strip').classList.toggle('is-falling', delta !== null && delta <= -2);
+  } catch (error) {
+    condition.textContent = error.message;
+    temperature.textContent = '--°';
+    pressure.textContent = '設定から地域を確認';
+  }
+}
 
 async function start() {
   await openDatabase();
@@ -369,6 +421,7 @@ async function start() {
     onboarding.showModal();
   } else {
     await showLine();
+    updateWeather(profile.region);
   }
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js').catch(() => {});
 }

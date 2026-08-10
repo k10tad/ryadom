@@ -9,11 +9,13 @@ function profileStatus(item) {
 export async function settingsPanel() {
   const bundle = await getProfileBundle();
   const profile = bundle.profile || { name: '', region: '' };
-  return `<form class="form-grid" data-form="settings">
+  return `<section class="settings-intro"><small>PROFILE & AREA</small><p>名前、登録薬、既往歴、天気を確認する地域をここで変更できます。過去の服薬・症状記録は消えません。</p></section>
+  <form class="form-grid" data-form="settings">
     <label>名前<input name="name" required value="${escapeHtml(profile.name)}"></label>
-    <label>地域<input name="region" required value="${escapeHtml(profile.region)}"></label>
-    <label>現在使っている薬<textarea name="medications" placeholder="1行に1つ">${escapeHtml(bundle.medications.map(item => item.rawName).join('\n'))}</textarea></label>
-    <label>診断されている持病<textarea name="conditions" placeholder="症状ではなく診断名を入力">${escapeHtml(bundle.conditions.map(item => item.rawName).join('\n'))}</textarea></label>
+    <label>天気・気圧を表示する地域<input name="region" required value="${escapeHtml(profile.region)}" placeholder="吹田市 または 大阪府"></label>
+    <small class="field-help">市区町村まで入力すると、より近い地点の気象データを取得できます。</small>
+    <label>常時服用している薬・現在使っている薬<textarea name="medications" placeholder="1行に1つ">${escapeHtml(bundle.medications.map(item => item.rawName).join('\n'))}</textarea></label>
+    <label>既往歴・診断されている持病<textarea name="conditions" placeholder="症状ではなく診断名を1行に1つ">${escapeHtml(bundle.conditions.map(item => item.rawName).join('\n'))}</textarea></label>
     <p class="medical-note">薬のプロフィールと実際の服用記録、診断された疾患とその日の症状は、それぞれ別に保存されます。</p>
     <button class="primary" type="submit">プロフィールを保存</button>
   </form>

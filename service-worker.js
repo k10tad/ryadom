@@ -1,12 +1,12 @@
-const VERSION = 'ryadom-v0.9.3-alek-voices-fix-1';
+const VERSION = 'ryadom-v1.0.0-settings-weather-actions-icons-1';
 const APP_SHELL = [
   './',
   './index.html',
   './css/style.css',
-  './css/style-v050.css?v=0.9.0',
+  './css/style-v050.css?v=1.0.0',
   './manifest.webmanifest',
-  './js/app.js?v=0.9.3',
-  './js/config.js?v=0.9.3',
+  './js/app.js?v=1.0.0',
+  './js/config.js?v=1.0.0',
   './js/db.js?v=0.9.0',
   './js/migration.js',
   './js/dialogue-engine.js',
@@ -18,7 +18,8 @@ const APP_SHELL = [
   './js/memory-service.js',
   './js/profile-service.js',
   './js/templates.js?v=0.9.0',
-  './js/panels.js?v=0.9.0',
+  './js/panels.js?v=1.0.0',
+  './js/weather-service.js?v=1.0.0',
   './js/backup-service.js?v=0.9.0',
   './js/fflate.js',
   './json/dialogues.json',
@@ -27,9 +28,14 @@ const APP_SHELL = [
   './json/interactions.json',
   './assets/alek/alek-home.jpg',
   './assets/alek/alek-bed.jpg',
+  './assets/alek/alek-work.jpg',
+  './assets/alek/alek-asleep.jpg',
+  './assets/alek/alek-ryadom.jpg',
   './assets/backgrounds/living.jpg',
   './assets/backgrounds/bedroom.jpg',
-  './assets/icons/icon.jpg'
+  './assets/icons/Ryadom-AppIcon-180.png',
+  './assets/icons/Ryadom-AppIcon-192.png',
+  './assets/icons/Ryadom-AppIcon-512.png'
   ,'./voice/Alek.1.mp3'
   ,'./voice/Alek.2.mp3'
   ,'./voice/Alek.3.mp3'
@@ -84,6 +90,7 @@ async function networkFirst(request) {
 
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
+  if (new URL(event.request.url).origin !== self.location.origin) return;
   if (event.request.mode === 'navigate' || isKnowledgeRequest(event.request) || isVoiceRequest(event.request)) {
     event.respondWith(networkFirst(event.request));
     return;

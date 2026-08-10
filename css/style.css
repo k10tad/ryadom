@@ -41,7 +41,7 @@ button { color: inherit; -webkit-tap-highlight-color: transparent; }
     linear-gradient(90deg, rgba(26, 24, 39, .22), rgba(70, 62, 91, .12));
 }
 
-.topbar, .room-tabs, .home { width: min(100%, 980px); margin-inline: auto; }
+.topbar, .room-tabs, .weather-strip, .home { width: min(100%, 980px); margin-inline: auto; }
 .topbar { min-height: 62px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
 .brand { border: 0; background: none; display: flex; align-items: center; gap: 10px; padding: 4px 0; text-align: left; }
 .brand > span:last-child { display: grid; }
@@ -59,6 +59,13 @@ button { color: inherit; -webkit-tap-highlight-color: transparent; }
 .room-tabs { display: flex; justify-content: center; gap: 4px; padding: 10px 0 8px; }
 .room-tabs button { border: 1px solid transparent; border-radius: 999px; background: rgba(18, 18, 28, .48); color: var(--muted); padding: 7px 16px; font-family: Georgia, serif; font-size: 11px; letter-spacing: .07em; }
 .room-tabs button.is-active { border-color: var(--line); background: rgba(217, 202, 242, .88); color: #292236; }
+.weather-strip { min-height: 46px; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 9px; border: 1px solid var(--line); border-radius: 15px; background: rgba(18, 18, 28, .68); padding: 8px 12px; text-align: left; backdrop-filter: blur(12px); }
+.weather-strip span { min-width: 0; display: grid; gap: 2px; }
+.weather-strip span:last-child { justify-items: end; text-align: right; }
+.weather-strip strong { overflow: hidden; font-size: 11px; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+.weather-strip span:last-child strong { color: var(--lilac); font: 18px Georgia, serif; }
+.weather-strip small { overflow: hidden; color: var(--muted); font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
+.weather-strip.is-falling { border-color: rgba(216, 180, 107, .5); }
 
 .home { display: grid; gap: 10px; }
 .character-area { display: grid; gap: 0; justify-items: center; }
@@ -263,11 +270,16 @@ button { color: inherit; -webkit-tap-highlight-color: transparent; }
 .quiet-copy small { color: var(--lilac); letter-spacing: .22em; }
 .quiet-copy p { margin: 7px 0; }
 .quiet-mode button { border: 1px solid var(--line); border-radius: 999px; background: rgba(18, 17, 28, .78); padding: 9px 22px; }
-.app.is-quiet .topbar, .app.is-quiet .room-tabs, .app.is-quiet .home, .app.is-quiet .vine-nav { opacity: 0; pointer-events: none; }
+.app.is-quiet .topbar, .app.is-quiet .room-tabs, .app.is-quiet .weather-strip, .app.is-quiet .home, .app.is-quiet .vine-nav { opacity: 0; pointer-events: none; }
 .app.is-quiet .quiet-mode { display: flex; }
 .app.is-quiet .room-shade { background: linear-gradient(180deg, rgba(7, 7, 12, .28), rgba(8, 8, 14, .78)); }
-.app.is-quiet::after { content: ""; position: fixed; inset: 10svh 12vw 18svh; background: center / contain no-repeat url("../assets/alek/alek-home.jpg"); border-radius: 34px; box-shadow: var(--shadow); }
-.app.is-quiet[data-room="bedroom"]::after { background-image: url("../assets/alek/alek-bed.jpg"); }
+.app.is-quiet::after { content: ""; position: fixed; inset: 8svh 8vw 17svh; background: center / contain no-repeat url("../assets/alek/alek-ryadom.jpg"); border-radius: 34px; box-shadow: var(--shadow); }
+
+.sheet.is-settings { width: min(calc(100% - 20px), 680px); max-height: calc(100svh - 24px); margin: auto; }
+.settings-intro { margin-top: 14px; border: 1px solid var(--line); border-radius: 16px; background: linear-gradient(145deg, rgba(217, 202, 242, .12), rgba(255, 255, 255, .025)); padding: 14px; }
+.settings-intro small { color: var(--lilac); font: 9px Georgia, serif; letter-spacing: .14em; }
+.settings-intro p { margin: 6px 0 0; color: var(--muted); font-size: 10px; line-height: 1.7; }
+.field-help { margin-top: -5px; color: var(--muted); font-size: 8px; line-height: 1.5; }
 
 @media (min-width: 720px) {
   .app { padding-inline: 28px; }
