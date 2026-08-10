@@ -11,7 +11,6 @@ const SCENES = {
   home: [],
   work: [
     { src: 'sound/keyboard.mp3', volume: .13 },
-    { src: 'sound/doubleclick.mp3', volume: .09, clipMs: 90 },
     { src: 'sound/printer.mp3', volume: .1 },
     { src: 'sound/paper.mp3', volume: .11 },
     { src: 'sound/doubleclick.mp3', volume: .09 },
@@ -25,7 +24,7 @@ const SCENES = {
     { src: 'sound/paper.mp3', volume: .08 },
     { src: 'sound/vibe.mp3', volume: .055 }
   ],
-  bedroom: [],
+  bedroom: [{ src: 'sound/heartbeat.mp3', volume: .045, loop: true }],
   quiet: []
 };
 
@@ -77,6 +76,7 @@ export class AmbientAudio {
     const versionAtStart = this.sceneVersion;
     const audio = new Audio(choice.src);
     this.ambient = audio;
+    audio.loop = Boolean(choice.loop);
     audio._ryadomBaseVolume = choice.volume * (this.musicEnabled ? .4 : 1);
     audio.volume = audio._ryadomBaseVolume * (this.voiceActive ? .35 : 1);
     let finished = false;
@@ -89,15 +89,17 @@ export class AmbientAudio {
         this.scheduleAmbient(delay);
       }
     };
-    audio.addEventListener('ended', finish, { once: true });
+    if (!choice.loop) audio.addEventListener('ended', finish, { once: true });
     audio.addEventListener('error', finish, { once: true });
     audio.play().catch(finish);
-    setTimeout(() => {
-      if (this.ambient !== audio) return;
-      audio.pause();
-      audio.currentTime = 0;
-      finish();
-    }, choice.clipMs || 10000);
+    if (!choice.loop) {
+      setTimeout(() => {
+        if (this.ambient !== audio) return;
+        audio.pause();
+        audio.currentTime = 0;
+        finish();
+      }, 10000);
+    }
   }
 
   stopAmbient() {
@@ -133,7 +135,7 @@ export class AmbientAudio {
     this.lastTrack = index;
     const audio = new Audio(track.src);
     this.music = audio;
-    audio.volume = this.voiceActive ? .035 : .11;
+    audio.volume = this.voiceActive ? .018 : .06;
     this.onTrackChange(track.title, true);
     const follow = () => {
       if (this.music === audio) this.music = null;
@@ -161,7 +163,7 @@ export class AmbientAudio {
 
   setVoiceActive(active) {
     this.voiceActive = Boolean(active);
-    if (this.music) this.music.volume = this.voiceActive ? .035 : .11;
+    if (this.music) this.music.volume = this.voiceActive ? .018 : .06;
     if (this.ambient) this.ambient.volume = this.ambient._ryadomBaseVolume * (this.voiceActive ? .35 : 1);
   }
 

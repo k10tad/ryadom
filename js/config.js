@@ -1,4 +1,4 @@
-export const APP_VERSION = '1.7.2';
+export const APP_VERSION = '1.7.3';
 
 export const DATA_PATHS = Object.freeze({
   dialogues: './json/dialogues.json',

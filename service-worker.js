@@ -1,4 +1,4 @@
-const VERSION = 'ryadom-v1.7.2-action-sound-1';
+const VERSION = 'ryadom-v1.7.3-audio-balance-1';
 const APP_SHELL = [
   './',
   './index.html',
@@ -6,9 +6,9 @@ const APP_SHELL = [
   './css/cycle-tracker.css?v=1.6.0',
   './css/style-v050.css?v=1.7.0',
   './manifest.webmanifest',
-  './js/app.js?v=1.7.2',
-  './js/config.js?v=1.7.2',
-  './js/ambient-audio.js?v=1.7.2',
+  './js/app.js?v=1.7.3',
+  './js/config.js?v=1.7.3',
+  './js/ambient-audio.js?v=1.7.3',
   './js/db.js?v=0.9.0',
   './js/migration.js',
   './js/dialogue-engine.js',

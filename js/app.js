@@ -1,6 +1,6 @@
 import { db, makeId, openDatabase } from './db.js?v=0.9.0';
 import { migrateLegacyData } from './migration.js';
-import { APP_VERSION } from './config.js?v=1.7.2';
+import { APP_VERSION } from './config.js?v=1.7.3';
 import { DialogueEngine } from './dialogue-engine.js';
 import { typeLine, stopTyping } from './typewriter.js';
 import { chooseIntelligentLine } from './ryadom-intelligence.js';
@@ -13,7 +13,7 @@ import { adviseFromMessage } from './symptom-advisor.js?v=1.4.0';
 import { emotionalSupportFromMessage } from './emotional-support.js?v=1.3.0';
 import { cycleActionLine, deleteCycleRecord, getCycleCarePrompt, saveCycleRecord, saveCycleSettings, saveSelectedBoundary } from './menstrual-service.js?v=1.6.0';
 import { cycleTrackerPanel } from './cycle-panel.js?v=1.6.0';
-import { AmbientAudio } from './ambient-audio.js?v=1.7.2';
+import { AmbientAudio } from './ambient-audio.js?v=1.7.3';
 
 const app = document.querySelector('#app');
 const sheet = document.querySelector('#sheet');
@@ -99,6 +99,7 @@ function playVoice(source, useFallback = false) {
     utterance.lang = 'ja-JP';
     utterance.rate = .9;
     utterance.pitch = .8;
+    utterance.volume = 1;
     utterance.addEventListener('end', () => ambientAudio.setVoiceActive(false), { once: true });
     utterance.addEventListener('error', () => ambientAudio.setVoiceActive(false), { once: true });
     speechSynthesis.speak(utterance);
@@ -106,6 +107,7 @@ function playVoice(source, useFallback = false) {
   function startAudio() {
     const audio = new Audio(sources[sourceIndex]);
     activeVoice = audio;
+    audio.volume = 1;
     ambientAudio.setVoiceActive(true);
     const restoreSound = () => {
       if (activeVoice === audio) ambientAudio.setVoiceActive(false);
