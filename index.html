@@ -104,11 +104,11 @@
       <h2 id="onboarding-title">最初に、君のことを教えて</h2>
       <p>名前と地域、それから今使っている薬と持病を分けて覚える。服用した記録や症状とは混ぜないから安心して。</p>
       <form class="form-grid" id="onboarding-form" data-form="onboarding">
-        <label>名前<input name="name" autocomplete="name" required placeholder="レイ"></label>
-        <label>地域<input name="region" autocomplete="address-level1" required placeholder="大阪府"></label>
-        <label>現在使っている薬<textarea name="medications" required placeholder="ロメリジン、レイボー&#10;なければ「なし」と入力してね"></textarea></label>
-        <label>診断されている持病<textarea name="conditions" required placeholder="心房細動、片頭痛&#10;なければ「なし」と入力してね"></textarea></label>
-        <p class="medical-note">薬名や疾患名を内部辞書と照合してプロフィールに保存します。特定できない名前は推測せず、未確認のまま保持します。</p>
+        <label>名前<input name="name" autocomplete="name" required placeholder="呼んでほしい名前"></label>
+        <label>地域<input name="region" autocomplete="address-level1" required placeholder="～市"></label>
+        <label>現在使っている薬<textarea name="medications" required placeholder="ロキソニン、アレグラ等&#10;なければ「なし」と入力してね"></textarea></label>
+        <label>診断されている持病<textarea name="conditions" required placeholder="片頭痛、月経困難症等&#10;なければ「なし」と入力してね"></textarea></label>
+        <p class="medical-note">薬名や疾患名を紐付け後、内部辞書と照合してカルテを作成します。現段階において特定できない名称は推測せず、未確認のまま保持します。</p>
         <button class="primary" type="submit">登録して始める</button>
       </form>
     </dialog>
