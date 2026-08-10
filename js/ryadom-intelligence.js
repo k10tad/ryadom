@@ -5,7 +5,7 @@ export async function chooseIntelligentLine(engine, context = {}) {
   const memory = await getMemory();
   const categories = inferCategories(context);
   const category = categories.find(item => item === 'warning' || !isCoolingDown(item, memory)) || 'everyday';
-  const tags = [context.room, context.timeOfDay].filter(Boolean);
+  const tags = [context.room, context.timeOfDay, context.dayType, context.activity].filter(Boolean);
   const line = engine.pick(category, { exclude: memory.recent || [], tags });
   await rememberLine(line, category);
   return line;

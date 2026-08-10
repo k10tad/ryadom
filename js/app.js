@@ -1,16 +1,17 @@
 import { db, makeId, openDatabase } from './db.js?v=0.9.0';
 import { migrateLegacyData } from './migration.js';
-import { APP_VERSION } from './config.js?v=1.4.0';
+import { APP_VERSION } from './config.js?v=1.5.0';
 import { DialogueEngine } from './dialogue-engine.js';
 import { typeLine, stopTyping } from './typewriter.js';
 import { chooseIntelligentLine } from './ryadom-intelligence.js';
 import { evaluateMedication, renderMedicationAssessment } from './medical-service.js';
 import { addMedicationToProfile, getProfileBundle, saveProfile } from './profile-service.js';
-import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=1.4.0';
+import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=1.5.0';
 import { exportBackup, importBackup } from './backup-service.js?v=0.9.0';
 import { clearWeatherCache, getWeather } from './weather-service.js?v=1.0.0';
 import { adviseFromMessage } from './symptom-advisor.js?v=1.4.0';
 import { emotionalSupportFromMessage } from './emotional-support.js?v=1.3.0';
+import { contextualizeSymptom, setEpisodeStatus } from './health-context.js?v=1.5.0';
 
 const app = document.querySelector('#app');
 const sheet = document.querySelector('#sheet');
@@ -40,11 +41,11 @@ function setCareState(state) {
 
 async function saveCareMeasurement(log, at) {
   if (!log) return;
-  await db.put('symptomLogs', {
+  await db.put('symptomLogs', await contextualizeSymptom({
     id: makeId('symptom'), kind: log.kind || '症状', level: 'uneasy', note: log.note,
     temperature: log.temperature, systolic: log.systolic, diastolic: log.diastolic,
     pulse: log.pulse, at, source: 'alek-conversation'
-  });
+  }));
 }
 
 const panels = {
@@ -101,9 +102,12 @@ async function showText(text, audio = null, autoplay = false) {
 }
 
 async function showLine(context = {}) {
+  const now = new Date();
   const line = await chooseIntelligentLine(engine, {
     room: app.dataset.room,
-    timeOfDay: timeOfDay(),
+    timeOfDay: timeOfDay(now),
+    dayType: [0, 6].includes(now.getDay()) ? 'weekend' : 'weekday',
+    activity: app.dataset.activity,
     ...context
   });
   await showText(line.text, line.audio, true);
@@ -130,6 +134,12 @@ function chooseActivity(room, date = new Date()) {
   const weekday = date.getDay() >= 1 && date.getDay() <= 5;
   const hour = date.getHours();
   const roll = Math.random();
+  if ((hour < 7 || hour >= 23) && roll < .34) {
+    return { src: 'assets/alek/alek-shower.jpg', alt: '不規則な時間にシャワーを浴びるアレク', action: '当直明けのシャワー', tag: 'shower' };
+  }
+  if (hour >= 7 && hour < 10 && roll < .16) {
+    return { src: 'assets/alek/alek-shower.jpg', alt: '朝にシャワーを浴びるアレク', action: '遅い当直明けのシャワー', tag: 'shower' };
+  }
   if (weekday && hour >= 11 && hour < 19 && roll < .38) {
     return { src: 'assets/alek/alek-asleep.jpg', alt: '夜勤明けに眠るアレク', action: '夜勤明けでうたた寝' };
   }
@@ -144,6 +154,7 @@ function applyPortrait(activity) {
   alekImage.src = activity.src;
   alekImage.alt = activity.alt;
   nowAction.textContent = activity.action;
+  app.dataset.activity = activity.tag || 'home';
 }
 
 function setRoom(room, persist = true) {
@@ -230,7 +241,7 @@ async function handleSubmit(form) {
     const pain = values.hasPain === 'yes' ? Number(values.pain) : null;
     const existing = values.id ? await db.get('symptomLogs', values.id) : null;
     const at = values.at ? new Date(values.at).toISOString() : (existing?.at || now);
-    await db.put('symptomLogs', {
+    await db.put('symptomLogs', await contextualizeSymptom({
       ...(existing || {}),
       id: existing?.id || makeId('symptom'),
       kind: '症状',
@@ -239,7 +250,7 @@ async function handleSubmit(form) {
       pain: Number.isInteger(pain) && pain >= 0 && pain <= 10 ? pain : null,
       at,
       updatedAt: existing ? now : undefined
-    });
+    }));
     sheetContent.innerHTML = `<p class="saved-message">${existing ? '症状記録を更新したよ。変更前と同じ記録として保存してある。' : 'うん、症状として残したよ。持病のプロフィールとは分けてある。'}</p>`;
     await showLine({ symptom: values.note.trim() || values.level, level: values.level, distress: values.level === 'bad' });
     return;
@@ -350,6 +361,32 @@ document.addEventListener('click', async event => {
   const rhythmTab = event.target.closest('[data-rhythm-tab]');
   if (rhythmTab) {
     sheetContent.innerHTML = await rhythmPanel(rhythmTab.dataset.rhythmTab);
+    return;
+  }
+
+  const conditionTab = event.target.closest('[data-condition-tab]');
+  if (conditionTab) {
+    sheetContent.innerHTML = await conditionPanel(null, conditionTab.dataset.conditionTab);
+    return;
+  }
+
+  const episodeButton = event.target.closest('[data-episode-status]');
+  if (episodeButton) {
+    await setEpisodeStatus(episodeButton.dataset.episodeId, episodeButton.dataset.episodeStatus);
+    sheetContent.innerHTML = await conditionPanel(null, 'course');
+    await showText(episodeButton.dataset.episodeStatus === 'closed'
+      ? '落ち着いたんだね。よし、経過は閉じとく。ぶり返したらまた開けばいいよ。'
+      : 'また気になってきたか。前の続きとして見ていこう。');
+    return;
+  }
+
+  const copyReport = event.target.closest('[data-copy-report]');
+  if (copyReport) {
+    const text = document.querySelector('#visit-report')?.innerText || '';
+    try {
+      await navigator.clipboard.writeText(text);
+      copyReport.textContent = 'コピーしたよ';
+    } catch { copyReport.textContent = '長押しして選択してね'; }
     return;
   }
 

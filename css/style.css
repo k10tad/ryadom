@@ -247,6 +247,37 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .log-actions { display: flex; gap: 5px; }
 .log-actions button { border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.035); color: var(--muted); padding: 5px 9px; font-size: 8px; }
 .log-actions button[data-delete-symptom] { color: #dba0a8; }
+.measurement-line { display: block; margin-top: 7px; color: var(--muted) !important; }
+.condition-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; padding: 14px 0 2px; }
+.condition-tabs button { border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.035); color: var(--muted); padding: 9px 5px; font-size: 9px; }
+.condition-tabs button.is-active { border-color: transparent; background: linear-gradient(135deg,#dfd3f2,#9884bd); color: #282034; }
+.course-view { display: grid; gap: 12px; }
+.insight-card { border: 1px solid rgba(216,180,107,.28); border-radius: 14px; background: rgba(216,180,107,.07); padding: 12px; }
+.insight-card h3 { margin: 0 0 6px; color: #d8b46b; font-size: 11px; }
+.insight-card p { margin: 5px 0; color: var(--muted); font-size: 9px; line-height: 1.6; }
+.episode-list { display: grid; gap: 10px; }
+.episode-card { border: 1px solid var(--line); border-radius: 15px; background: #22212d; padding: 12px; }
+.episode-card.is-active { border-color: rgba(217,202,242,.38); box-shadow: inset 2px 0 0 var(--lilac); }
+.episode-card header { display: flex; justify-content: space-between; gap: 8px; }
+.episode-card header div { display: grid; gap: 3px; }
+.episode-card header small { color: var(--muted); font-size: 8px; }
+.episode-card header strong { font-size: 12px; }
+.episode-card header > span { align-self: start; border-radius: 999px; background: rgba(217,202,242,.12); color: var(--lilac); padding: 4px 7px; font-size: 8px; }
+.episode-card > p { margin: 7px 0; color: var(--muted); font-size: 9px; }
+.episode-timeline { display: grid; gap: 6px; margin: 9px 0; }
+.episode-timeline div { display: grid; grid-template-columns: 6px 70px 1fr; gap: 7px; align-items: start; font-size: 9px; }
+.episode-timeline i { width: 5px; height: 5px; margin-top: 4px; border-radius: 50%; background: var(--lilac); }
+.episode-timeline small { color: var(--muted); }
+.episode-card > button, .report-copy { width: 100%; border: 1px solid var(--line); border-radius: 11px; background: rgba(255,255,255,.035); color: var(--lilac); padding: 9px; font-size: 9px; }
+.visit-report { display: grid; gap: 12px; margin-top: 12px; border: 1px solid var(--line); border-radius: 16px; background: #f4f0f8; color: #282034; padding: 16px; }
+.visit-report header { border-bottom: 1px solid #d9d0e2; padding-bottom: 10px; }
+.visit-report header small { color: #71677f; letter-spacing: .12em; }
+.visit-report h3, .visit-report h4 { margin: 3px 0; }
+.visit-report h4 { font-size: 11px; }
+.visit-report p { margin: 4px 0; font-size: 9px; line-height: 1.6; }
+.report-row { display: grid; gap: 2px; border-top: 1px solid #ded6e5; padding: 7px 0; font-size: 9px; }
+.report-row > small { color: #71677f !important; }
+.report-copy { margin-top: 9px; background: linear-gradient(135deg,#dfd3f2,#9884bd); color: #282034; font-weight: 700; }
 .edit-banner { margin: 14px 0 -5px; border-left: 2px solid var(--lilac); background: rgba(217,202,242,.08); padding: 9px 11px; color: var(--lilac); font-size: 9px; line-height: 1.55; }
 .form-actions { display: grid; grid-template-columns: 1fr auto; gap: 7px; }
 .form-actions .secondary { border: 1px solid var(--line); border-radius: 14px; background: #22212e; color: var(--muted); padding: 11px; }

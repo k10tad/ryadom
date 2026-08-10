@@ -1,6 +1,7 @@
 import { db } from './db.js?v=0.9.0';
 import { getProfileBundle } from './profile-service.js';
 import { dateTimeLabel, dateTimeLongLabel, emptyState, escapeHtml, localDateTimeValue } from './templates.js?v=0.9.0';
+import { baselineDifference, healthOverview } from './health-context.js?v=1.5.0';
 
 function profileStatus(item) {
   return item.status === 'identified' ? '' : '（辞書未確認）';
@@ -56,7 +57,7 @@ export async function medicinePanel() {
     ).join('') : emptyState('服用記録はまだないよ。')}</section>`;
 }
 
-export async function conditionPanel(editId = null) {
+export async function conditionPanel(editId = null, activeTab = 'record') {
   const [bundle, logs] = await Promise.all([getProfileBundle(), db.all('symptomLogs')]);
   const editing = editId ? logs.find(item => item.id === editId) : null;
   const conditions = bundle.conditions.length
@@ -66,7 +67,10 @@ export async function conditionPanel(editId = null) {
   const level = editing?.level || 'good';
   const painEnabled = Number.isInteger(editing?.pain);
   const pain = painEnabled ? editing.pain : 5;
-  return `<section class="current-profile"><small>登録している疾患</small><div class="profile-chips">${conditions}</div></section>
+  const tabs = `<nav class="condition-tabs"><button type="button" data-condition-tab="record" class="${activeTab === 'record' ? 'is-active' : ''}">記録</button><button type="button" data-condition-tab="course" class="${activeTab === 'course' ? 'is-active' : ''}">経過</button><button type="button" data-condition-tab="report" class="${activeTab === 'report' ? 'is-active' : ''}">受診まとめ</button></nav>`;
+  if (activeTab === 'course') return tabs + await courseView();
+  if (activeTab === 'report') return tabs + await reportView(bundle);
+  return tabs + `<section class="current-profile"><small>登録している疾患</small><div class="profile-chips">${conditions}</div></section>
     ${editing ? '<p class="edit-banner">この症状記録を編集中。保存すると同じ記録へ上書きするよ。</p>' : ''}
     <form class="form-grid" data-form="condition">
       <input type="hidden" name="id" value="${escapeHtml(editing?.id || '')}">
@@ -83,8 +87,48 @@ export async function conditionPanel(editId = null) {
     </form>
     <p class="medical-note">ここへ入れた内容は症状ログです。診断された持病プロフィールには追加されません。</p>
     <section class="log-list">${sortedLogs.length ? sortedLogs.map(item =>
-      `<article class="log-item"><div class="log-item-head"><small>${dateTimeLongLabel(item.at)}</small><span class="log-actions"><button type="button" data-edit-symptom="${escapeHtml(item.id)}">編集</button><button type="button" data-delete-symptom="${escapeHtml(item.id)}">削除</button></span></div><p>${escapeHtml(item.note || item.level)}</p>${Number.isInteger(item.pain) ? `<strong class="pain-log">痛み ${item.pain}/10</strong>` : ''}</article>`
+      `<article class="log-item"><div class="log-item-head"><small>${dateTimeLongLabel(item.at)}</small><span class="log-actions"><button type="button" data-edit-symptom="${escapeHtml(item.id)}">編集</button><button type="button" data-delete-symptom="${escapeHtml(item.id)}">削除</button></span></div><p>${escapeHtml(item.note || item.level)}</p>${Number.isInteger(item.pain) ? `<strong class="pain-log">痛み ${item.pain}/10</strong>` : ''}${measurementLine(item)}</article>`
     ).join('') : emptyState('症状の記録はまだないよ。')}</section>`;
+}
+
+function measurementLine(item) {
+  const values = [];
+  if (Number.isFinite(Number(item.temperature))) values.push(`${Number(item.temperature)}℃`);
+  if (Number.isFinite(Number(item.systolic)) && Number.isFinite(Number(item.diastolic))) values.push(`血圧 ${item.systolic}/${item.diastolic}`);
+  if (Number.isFinite(Number(item.pulse))) values.push(`脈 ${item.pulse}/分`);
+  return values.length ? `<small class="measurement-line">${values.join(' · ')}</small>` : '';
+}
+
+async function courseView() {
+  const overview = await healthOverview();
+  return `<div class="course-view"><section class="summary-card"><small>PERSONAL BASELINE</small><strong>レイの記録から見る平常値</strong><p>${baselineText(overview.baselines)}</p></section>${overview.patterns.length ? `<section class="insight-card"><h3>関連の候補</h3>${overview.patterns.map(text => `<p>${escapeHtml(text)}</p>`).join('')}</section>` : ''}<section class="episode-list">${overview.episodes.length ? overview.episodes.slice(0, 12).map(episode => {
+    const latest = episode.logs[0];
+    const first = episode.logs[episode.logs.length - 1];
+    const difference = baselineDifference(latest, overview.baselines);
+    return `<article class="episode-card ${episode.status === 'active' ? 'is-active' : ''}"><header><div><small>${dateTimeLongLabel(first.at)} から</small><strong>${escapeHtml(latest.note || latest.kind || '症状')}</strong></div><span>${episode.status === 'active' ? '経過中' : '終了'}</span></header><p>${episode.logs.length}件の記録${difference ? ` · ${escapeHtml(difference)}` : ''}</p><div class="episode-timeline">${episode.logs.slice().reverse().map(log => `<div><i></i><small>${dateTimeLabel(log.at)}</small><span>${escapeHtml(log.note || log.level)}</span></div>`).join('')}</div><button type="button" data-episode-status="${episode.status === 'active' ? 'closed' : 'active'}" data-episode-id="${escapeHtml(episode.id)}">${episode.status === 'active' ? '改善・終了として閉じる' : '経過を再開する'}</button></article>`;
+  }).join('') : emptyState('経過としてまとめられた症状はまだないよ。')}</section></div>`;
+}
+
+async function reportView(bundle) {
+  const overview = await healthOverview();
+  const recent = overview.symptoms.slice(0, 12);
+  return `<article class="visit-report" id="visit-report"><header><small>VISIT SUMMARY</small><h3>受診時に見せるまとめ</h3><p>${new Date().toLocaleString('ja-JP')} 作成</p></header><section><h4>登録情報</h4><p><strong>既往歴：</strong>${bundle.conditions.length ? bundle.conditions.map(x => escapeHtml(x.rawName)).join('、') : '登録なし'}</p><p><strong>常用薬：</strong>${bundle.medications.length ? bundle.medications.map(x => escapeHtml(x.rawName)).join('、') : '登録なし'}</p></section><section><h4>個人基準</h4><p>${baselineText(overview.baselines)}</p></section><section><h4>最近の症状と経過</h4>${recent.length ? recent.map(log => `<div class="report-row"><strong>${dateTimeLongLabel(log.at)}</strong><span>${escapeHtml(log.note || log.level)}${Number.isInteger(log.pain) ? `（痛み${log.pain}/10）` : ''}</span>${measurementLine(log)}${contextLine(log)}</div>`).join('') : '<p>記録なし</p>'}</section>${overview.patterns.length ? `<section><h4>関連候補</h4>${overview.patterns.map(x => `<p>${escapeHtml(x)}</p>`).join('')}</section>` : ''}<p class="medical-note">この画面は診断ではありません。気圧・周期・服薬との表示は時系列上の候補で、因果関係を断定しません。</p></article><button class="primary report-copy" type="button" data-copy-report>まとめをコピー</button>`;
+}
+
+function baselineText(base) {
+  const items = [];
+  if (Number.isFinite(base.temperature)) items.push(`体温 ${base.temperature.toFixed(1)}℃`);
+  if (Number.isFinite(base.systolic) && Number.isFinite(base.diastolic)) items.push(`血圧 ${Math.round(base.systolic)}/${Math.round(base.diastolic)}mmHg`);
+  if (Number.isFinite(base.pulse)) items.push(`脈拍 ${Math.round(base.pulse)}/分`);
+  return items.length ? `直近30件の中央値：${items.join('、')}` : '測定値が増えると、レイ自身の中央値をここに表示します。';
+}
+
+function contextLine(log) {
+  const parts = [];
+  if (Number.isFinite(Number(log.context?.weather?.pressure))) parts.push(`気圧 ${Math.round(log.context.weather.pressure)}hPa`);
+  if (log.context?.cycle?.label) parts.push(log.context.cycle.label);
+  if (log.context?.nearbyMedication?.length) parts.push(`前後6時間の服薬：${log.context.nearbyMedication.map(x => x.name).join('、')}`);
+  return parts.length ? `<small>${escapeHtml(parts.join(' · '))}</small>` : '';
 }
 
 function addDays(dateString, days) {
