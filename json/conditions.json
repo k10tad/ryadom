@@ -1,7 +1,7 @@
 {
   "schemaVersion": 5,
-  "knowledgeVersion": "2026.08.09-hormones-1",
-  "lastReviewed": "2026-08-09",
+  "knowledgeVersion": "2026.08.10-allergy-1",
+  "lastReviewed": "2026-08-10",
   "items": [
     {
       "id": "atrial_fibrillation",
@@ -636,6 +636,142 @@
         "url": "https://jbcs.xsrv.jp/guideline/p2023/"
       },
       "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "cluster_headache",
+      "name": "群発頭痛",
+      "aliases": [
+        "cluster headache",
+        "群発性頭痛"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "dysmenorrhea",
+      "name": "月経困難症",
+      "aliases": [
+        "生理痛",
+        "月経痛",
+        "dysmenorrhea"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "allergic_rhinitis",
+      "name": "アレルギー性鼻炎",
+      "aliases": [
+        "鼻アレルギー",
+        "allergic rhinitis"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "pollinosis",
+      "name": "花粉症",
+      "aliases": [
+        "季節性アレルギー性鼻炎",
+        "hay fever",
+        "pollinosis"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "urticaria",
+      "name": "蕁麻疹",
+      "aliases": [
+        "じんましん",
+        "urticaria",
+        "hives"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "atopic_dermatitis",
+      "name": "アトピー性皮膚炎",
+      "aliases": [
+        "アトピー",
+        "atopic dermatitis",
+        "eczema"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "allergic_conjunctivitis",
+      "name": "アレルギー性結膜炎",
+      "aliases": [
+        "花粉性結膜炎",
+        "allergic conjunctivitis"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "food_allergy",
+      "name": "食物アレルギー",
+      "aliases": [
+        "food allergy"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "anaphylaxis_history",
+      "name": "アナフィラキシーの既往",
+      "aliases": [
+        "アナフィラキシー",
+        "anaphylaxis",
+        "anaphylactic shock"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "chronic_rhinosinusitis_nasal_polyps",
+      "name": "鼻茸を伴う慢性副鼻腔炎",
+      "aliases": [
+        "好酸球性副鼻腔炎",
+        "鼻ポリープ",
+        "CRSwNP"
+      ],
+      "source": {
+        "label": "WHO ICD-11",
+        "url": "https://icd.who.int/browse/2026-01/mms/en"
+      },
+      "lastReviewed": "2026-08-10"
     }
-  ]
+  ],
+  "reviewedAt": "2026-08-10"
 }

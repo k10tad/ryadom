@@ -1,6 +1,6 @@
 {
   "schemaVersion": 5,
-  "reviewedAt": "2026-08-09",
+  "reviewedAt": "2026-08-10",
   "items": [
     {
       "id": "lomerizine",
@@ -2622,8 +2622,478 @@
         "url": "https://www.pmda.go.jp/PmdaSearch/iyakuDetail/ResultDataSetPDF/630004_2482010F1026_1_17"
       },
       "reviewedAt": "2026-08-09"
+    },
+    {
+      "id": "fexofenadine",
+      "name": "フェキソフェナジン",
+      "aliases": [
+        "アレグラ",
+        "フェキソフェナジン塩酸塩",
+        "fexofenadine",
+        "Allegra"
+      ],
+      "importantWarnings": [
+        "眠気は比較的少ない薬ですが、個人差があるため初回は反応を確認してください。",
+        "水酸化アルミニウム・水酸化マグネシウム含有制酸薬は吸収を低下させることがあります。"
+      ],
+      "seriousAdverseEffects": [
+        "ショック・アナフィラキシー",
+        "肝機能障害",
+        "無顆粒球症・白血球減少・好中球減少"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA フェキソフェナジン 添付文書検索",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "loratadine",
+      "name": "ロラタジン",
+      "aliases": [
+        "クラリチン",
+        "loratadine",
+        "Claritin"
+      ],
+      "importantWarnings": [
+        "眠気が現れることがあります。",
+        "肝障害がある場合は血中濃度が上がる可能性があります。"
+      ],
+      "seriousAdverseEffects": [
+        "ショック・アナフィラキシー",
+        "てんかん",
+        "肝機能障害・黄疸"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA ロラタジン 添付文書検索",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "desloratadine",
+      "name": "デスロラタジン",
+      "aliases": [
+        "デザレックス",
+        "desloratadine",
+        "Desalex"
+      ],
+      "importantWarnings": [
+        "眠気が現れることがあります。",
+        "重度の腎機能障害では慎重な使用が必要です。"
+      ],
+      "seriousAdverseEffects": [
+        "ショック・アナフィラキシー",
+        "てんかん",
+        "肝機能障害・黄疸"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA デスロラタジン 添付文書検索",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "cetirizine",
+      "name": "セチリジン",
+      "aliases": [
+        "ジルテック",
+        "セチリジン塩酸塩",
+        "cetirizine",
+        "Zyrtec"
+      ],
+      "importantWarnings": [
+        "眠気を起こすことがあるため、服用中は運転や危険作業を避けます。",
+        "腎機能に応じた用量調整が必要になることがあります。"
+      ],
+      "seriousAdverseEffects": [
+        "ショック・アナフィラキシー",
+        "痙攣",
+        "肝機能障害・黄疸"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "severe_renal_disease",
+          "level": "major-caution",
+          "message": "腎機能に応じた減量・投与間隔調整が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA セチリジン 添付文書検索",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "levocetirizine",
+      "name": "レボセチリジン",
+      "aliases": [
+        "ザイザル",
+        "レボセチリジン塩酸塩",
+        "levocetirizine",
+        "Xyzal"
+      ],
+      "importantWarnings": [
+        "眠気を起こすことがあるため、服用中は運転や危険作業を避けます。",
+        "腎機能に応じた用量調整が必要です。"
+      ],
+      "seriousAdverseEffects": [
+        "ショック・アナフィラキシー",
+        "痙攣",
+        "肝機能障害・黄疸"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "severe_renal_disease",
+          "level": "contraindication",
+          "message": "重度の腎機能障害では禁忌に該当する場合があります。腎機能と製剤の添付文書を確認してください。"
+        }
+      ],
+      "source": {
+        "label": "PMDA レボセチリジン 添付文書検索",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "bilastine",
+      "name": "ビラスチン",
+      "aliases": [
+        "ビラノア",
+        "bilastine",
+        "Bilaxten"
+      ],
+      "importantWarnings": [
+        "食事や果汁で吸収が低下するため、空腹時の服用が指定されています。",
+        "眠気、めまいが現れることがあります。"
+      ],
+      "seriousAdverseEffects": [
+        "ショック・アナフィラキシー",
+        "肝機能障害"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA ビラスチン 添付文書検索",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "rupatadine",
+      "name": "ルパタジン",
+      "aliases": [
+        "ルパフィン",
+        "ルパタジンフマル酸塩",
+        "rupatadine",
+        "Rupafin"
+      ],
+      "importantWarnings": [
+        "眠気を起こすことがあるため、服用中は運転や危険作業を避けます。",
+        "グレープフルーツやCYP3A4阻害薬で血中濃度が上がる可能性があります。"
+      ],
+      "seriousAdverseEffects": [
+        "ショック・アナフィラキシー",
+        "てんかん",
+        "肝機能障害"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "epilepsy",
+          "level": "major-caution",
+          "message": "てんかん既往では発作に注意が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA ルパタジン 添付文書検索",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "epinastine",
+      "name": "エピナスチン",
+      "aliases": [
+        "アレジオン",
+        "エピナスチン塩酸塩",
+        "epinastine",
+        "Alesion"
+      ],
+      "importantWarnings": [
+        "眠気を起こすことがあるため、服用後の運転や危険作業に注意してください。"
+      ],
+      "seriousAdverseEffects": [
+        "肝機能障害・黄疸",
+        "血小板減少"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA エピナスチン 添付文書検索",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "olopatadine",
+      "name": "オロパタジン",
+      "aliases": [
+        "アレロック",
+        "オロパタジン塩酸塩",
+        "olopatadine",
+        "Allelock"
+      ],
+      "importantWarnings": [
+        "眠気を起こすことがあるため、服用中は運転や危険作業を避けます。",
+        "腎機能低下時は血中濃度が上がる可能性があります。"
+      ],
+      "seriousAdverseEffects": [
+        "劇症肝炎・肝機能障害・黄疸"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA オロパタジン 添付文書検索",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "bepotastine",
+      "name": "ベポタスチン",
+      "aliases": [
+        "タリオン",
+        "ベポタスチンベシル酸塩",
+        "bepotastine",
+        "Talion"
+      ],
+      "importantWarnings": [
+        "眠気が現れることがあるため、運転や危険作業に注意してください。"
+      ],
+      "seriousAdverseEffects": [
+        "肝機能障害・黄疸"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA ベポタスチン 添付文書検索",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "ebastine",
+      "name": "エバスチン",
+      "aliases": [
+        "エバステル",
+        "ebastine",
+        "Ebastel"
+      ],
+      "importantWarnings": [
+        "眠気が現れることがあります。",
+        "肝機能障害がある場合は血中濃度上昇に注意が必要です。"
+      ],
+      "seriousAdverseEffects": [
+        "ショック・アナフィラキシー",
+        "肝機能障害・黄疸"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA エバスチン 添付文書検索",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "azelastine",
+      "name": "アゼラスチン",
+      "aliases": [
+        "アゼプチン",
+        "アゼラスチン塩酸塩",
+        "azelastine",
+        "Azeptin"
+      ],
+      "importantWarnings": [
+        "眠気を起こすことがあるため、服用中は運転や危険作業を避けます。"
+      ],
+      "seriousAdverseEffects": [
+        "ショック・アナフィラキシー",
+        "肝機能障害"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA アゼラスチン 添付文書検索",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "ketotifen",
+      "name": "ケトチフェン",
+      "aliases": [
+        "ザジテン",
+        "ケトチフェンフマル酸塩",
+        "ketotifen",
+        "Zaditen"
+      ],
+      "importantWarnings": [
+        "眠気を起こすことがあるため、服用中は運転や危険作業を避けます。",
+        "アルコールや中枢神経抑制薬で眠気が強まることがあります。"
+      ],
+      "seriousAdverseEffects": [
+        "痙攣",
+        "興奮",
+        "肝機能障害・黄疸"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "epilepsy",
+          "level": "major-caution",
+          "message": "てんかん又はその既往では痙攣閾値低下に注意が必要です。"
+        }
+      ],
+      "source": {
+        "label": "PMDA ケトチフェン 添付文書検索",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "hydroxyzine",
+      "name": "ヒドロキシジン",
+      "aliases": [
+        "アタラックス",
+        "アタラックスP",
+        "hydroxyzine",
+        "Atarax"
+      ],
+      "importantWarnings": [
+        "強い眠気を起こし得るため、服用中は運転や危険作業を避けます。",
+        "アルコールや他の中枢神経抑制薬で鎮静が強まることがあります。"
+      ],
+      "seriousAdverseEffects": [
+        "ショック・アナフィラキシー",
+        "QT延長・心室頻拍",
+        "肝機能障害・黄疸"
+      ],
+      "conditionWarnings": [
+        {
+          "conditionId": "long_qt_syndrome",
+          "level": "contraindication",
+          "message": "QT延長がある場合は重篤な不整脈の危険があり、使用可否の確認が必要です。"
+        },
+        {
+          "conditionId": "arrhythmia",
+          "level": "major-caution",
+          "message": "不整脈がある場合はQT延長リスクを含め処方元へ確認してください。"
+        }
+      ],
+      "source": {
+        "label": "PMDA ヒドロキシジン 添付文書検索",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "pranlukast",
+      "name": "プランルカスト",
+      "aliases": [
+        "オノン",
+        "プランルカスト水和物",
+        "pranlukast",
+        "Onon"
+      ],
+      "importantWarnings": [
+        "喘息発作をその場で止める薬ではありません。",
+        "発熱、咳、しびれなどを伴う好酸球性多発血管炎性肉芽腫症の症状に注意します。"
+      ],
+      "seriousAdverseEffects": [
+        "ショック・アナフィラキシー",
+        "白血球減少",
+        "血小板減少",
+        "肝機能障害",
+        "間質性肺炎",
+        "好酸球性多発血管炎性肉芽腫症"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA プランルカスト 添付文書検索",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "fluticasone_nasal",
+      "name": "フルチカゾン点鼻薬",
+      "aliases": [
+        "フルナーゼ",
+        "フルチカゾンプロピオン酸エステル点鼻",
+        "fluticasone nasal",
+        "Flonase"
+      ],
+      "importantWarnings": [
+        "鼻噴霧用ステロイドです。目に入れず、指示された噴霧回数を守ってください。",
+        "鼻出血や鼻内刺激感が続く場合は相談してください。"
+      ],
+      "seriousAdverseEffects": [
+        "アナフィラキシー"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA フルチカゾン点鼻薬 添付文書検索",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "mometasone_nasal",
+      "name": "モメタゾン点鼻薬",
+      "aliases": [
+        "ナゾネックス",
+        "モメタゾンフランカルボン酸エステル点鼻",
+        "mometasone nasal",
+        "Nasonex"
+      ],
+      "importantWarnings": [
+        "鼻噴霧用ステロイドです。目に入れず、指示された噴霧回数を守ってください。",
+        "鼻出血や鼻内刺激感が続く場合は相談してください。"
+      ],
+      "seriousAdverseEffects": [
+        "アナフィラキシー"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA モメタゾン点鼻薬 添付文書検索",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "epinephrine_autoinjector",
+      "name": "アドレナリン自己注射薬",
+      "aliases": [
+        "エピペン",
+        "アドレナリン注射",
+        "エピネフリン自己注射",
+        "epinephrine autoinjector",
+        "EpiPen"
+      ],
+      "importantWarnings": [
+        "アナフィラキシー時の緊急補助治療薬です。使用後は症状が改善しても直ちに救急要請してください。",
+        "動悸、振戦、頭痛などが現れることがあります。"
+      ],
+      "seriousAdverseEffects": [
+        "肺水腫",
+        "不整脈",
+        "心停止"
+      ],
+      "conditionWarnings": [],
+      "source": {
+        "label": "PMDA アドレナリン自己注射薬 添付文書検索",
+        "url": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/"
+      },
+      "lastReviewed": "2026-08-10"
     }
   ],
-  "knowledgeVersion": "2026.08.09-hormones-1",
-  "lastReviewed": "2026-08-09"
+  "knowledgeVersion": "2026.08.10-allergy-1",
+  "lastReviewed": "2026-08-10"
 }

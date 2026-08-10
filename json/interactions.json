@@ -1,6 +1,6 @@
 {
   "schemaVersion": 5,
-  "reviewedAt": "2026-08-09",
+  "reviewedAt": "2026-08-10",
   "items": [
     {
       "id": "ibuprofen-elpain",
@@ -628,8 +628,218 @@
       "message": "酵素誘導によりジエノゲスト濃度が低下し、効果が弱まる可能性があります。",
       "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
       "lastReviewed": "2026-08-09"
+    },
+    {
+      "id": "cetirizine-travelmin",
+      "a": "cetirizine",
+      "b": "travelmin_combination",
+      "severity": "major-caution",
+      "label": "眠気・注意力低下の増強",
+      "message": "どちらも眠気や注意力低下を起こし得ます。同日使用では強い眠気やふらつきに注意し、運転を避けてください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "cetirizine-lasmiditan",
+      "a": "cetirizine",
+      "b": "lasmiditan",
+      "severity": "major-caution",
+      "label": "眠気・中枢神経症状の増強",
+      "message": "ラスミジタンのめまい・傾眠に抗ヒスタミン薬の眠気が重なる可能性があります。服用後は運転せず、強い症状があれば相談してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "levocetirizine-travelmin",
+      "a": "levocetirizine",
+      "b": "travelmin_combination",
+      "severity": "major-caution",
+      "label": "眠気・注意力低下の増強",
+      "message": "どちらも眠気や注意力低下を起こし得ます。同日使用では強い眠気やふらつきに注意し、運転を避けてください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "levocetirizine-lasmiditan",
+      "a": "levocetirizine",
+      "b": "lasmiditan",
+      "severity": "major-caution",
+      "label": "眠気・中枢神経症状の増強",
+      "message": "ラスミジタンのめまい・傾眠に抗ヒスタミン薬の眠気が重なる可能性があります。服用後は運転せず、強い症状があれば相談してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "rupatadine-travelmin",
+      "a": "rupatadine",
+      "b": "travelmin_combination",
+      "severity": "major-caution",
+      "label": "眠気・注意力低下の増強",
+      "message": "どちらも眠気や注意力低下を起こし得ます。同日使用では強い眠気やふらつきに注意し、運転を避けてください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "rupatadine-lasmiditan",
+      "a": "rupatadine",
+      "b": "lasmiditan",
+      "severity": "major-caution",
+      "label": "眠気・中枢神経症状の増強",
+      "message": "ラスミジタンのめまい・傾眠に抗ヒスタミン薬の眠気が重なる可能性があります。服用後は運転せず、強い症状があれば相談してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "epinastine-travelmin",
+      "a": "epinastine",
+      "b": "travelmin_combination",
+      "severity": "major-caution",
+      "label": "眠気・注意力低下の増強",
+      "message": "どちらも眠気や注意力低下を起こし得ます。同日使用では強い眠気やふらつきに注意し、運転を避けてください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "epinastine-lasmiditan",
+      "a": "epinastine",
+      "b": "lasmiditan",
+      "severity": "major-caution",
+      "label": "眠気・中枢神経症状の増強",
+      "message": "ラスミジタンのめまい・傾眠に抗ヒスタミン薬の眠気が重なる可能性があります。服用後は運転せず、強い症状があれば相談してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "olopatadine-travelmin",
+      "a": "olopatadine",
+      "b": "travelmin_combination",
+      "severity": "major-caution",
+      "label": "眠気・注意力低下の増強",
+      "message": "どちらも眠気や注意力低下を起こし得ます。同日使用では強い眠気やふらつきに注意し、運転を避けてください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "olopatadine-lasmiditan",
+      "a": "olopatadine",
+      "b": "lasmiditan",
+      "severity": "major-caution",
+      "label": "眠気・中枢神経症状の増強",
+      "message": "ラスミジタンのめまい・傾眠に抗ヒスタミン薬の眠気が重なる可能性があります。服用後は運転せず、強い症状があれば相談してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "bepotastine-travelmin",
+      "a": "bepotastine",
+      "b": "travelmin_combination",
+      "severity": "major-caution",
+      "label": "眠気・注意力低下の増強",
+      "message": "どちらも眠気や注意力低下を起こし得ます。同日使用では強い眠気やふらつきに注意し、運転を避けてください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "bepotastine-lasmiditan",
+      "a": "bepotastine",
+      "b": "lasmiditan",
+      "severity": "major-caution",
+      "label": "眠気・中枢神経症状の増強",
+      "message": "ラスミジタンのめまい・傾眠に抗ヒスタミン薬の眠気が重なる可能性があります。服用後は運転せず、強い症状があれば相談してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "ebastine-travelmin",
+      "a": "ebastine",
+      "b": "travelmin_combination",
+      "severity": "major-caution",
+      "label": "眠気・注意力低下の増強",
+      "message": "どちらも眠気や注意力低下を起こし得ます。同日使用では強い眠気やふらつきに注意し、運転を避けてください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "ebastine-lasmiditan",
+      "a": "ebastine",
+      "b": "lasmiditan",
+      "severity": "major-caution",
+      "label": "眠気・中枢神経症状の増強",
+      "message": "ラスミジタンのめまい・傾眠に抗ヒスタミン薬の眠気が重なる可能性があります。服用後は運転せず、強い症状があれば相談してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "azelastine-travelmin",
+      "a": "azelastine",
+      "b": "travelmin_combination",
+      "severity": "major-caution",
+      "label": "眠気・注意力低下の増強",
+      "message": "どちらも眠気や注意力低下を起こし得ます。同日使用では強い眠気やふらつきに注意し、運転を避けてください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "azelastine-lasmiditan",
+      "a": "azelastine",
+      "b": "lasmiditan",
+      "severity": "major-caution",
+      "label": "眠気・中枢神経症状の増強",
+      "message": "ラスミジタンのめまい・傾眠に抗ヒスタミン薬の眠気が重なる可能性があります。服用後は運転せず、強い症状があれば相談してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "ketotifen-travelmin",
+      "a": "ketotifen",
+      "b": "travelmin_combination",
+      "severity": "major-caution",
+      "label": "眠気・注意力低下の増強",
+      "message": "どちらも眠気や注意力低下を起こし得ます。同日使用では強い眠気やふらつきに注意し、運転を避けてください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "ketotifen-lasmiditan",
+      "a": "ketotifen",
+      "b": "lasmiditan",
+      "severity": "major-caution",
+      "label": "眠気・中枢神経症状の増強",
+      "message": "ラスミジタンのめまい・傾眠に抗ヒスタミン薬の眠気が重なる可能性があります。服用後は運転せず、強い症状があれば相談してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "hydroxyzine-travelmin",
+      "a": "hydroxyzine",
+      "b": "travelmin_combination",
+      "severity": "major-caution",
+      "label": "眠気・注意力低下の増強",
+      "message": "どちらも眠気や注意力低下を起こし得ます。同日使用では強い眠気やふらつきに注意し、運転を避けてください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "hydroxyzine-lasmiditan",
+      "a": "hydroxyzine",
+      "b": "lasmiditan",
+      "severity": "major-caution",
+      "label": "眠気・中枢神経症状の増強",
+      "message": "ラスミジタンのめまい・傾眠に抗ヒスタミン薬の眠気が重なる可能性があります。服用後は運転せず、強い症状があれば相談してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
+    },
+    {
+      "id": "fexofenadine-magnesium-oxide",
+      "a": "fexofenadine",
+      "b": "magnesium_oxide",
+      "severity": "major-caution",
+      "label": "フェキソフェナジンの吸収低下",
+      "message": "マグネシウムを含む制酸薬はフェキソフェナジンの吸収を低下させることがあります。服用間隔を処方元・薬剤師へ確認してください。",
+      "source": "https://www.pmda.go.jp/PmdaSearch/iyakuSearch/",
+      "lastReviewed": "2026-08-10"
     }
   ],
-  "knowledgeVersion": "2026.08.09-hormones-1",
-  "lastReviewed": "2026-08-09"
+  "knowledgeVersion": "2026.08.10-allergy-1",
+  "lastReviewed": "2026-08-10"
 }

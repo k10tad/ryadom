@@ -1,4 +1,4 @@
-const VERSION = 'ryadom-v1.0.0-settings-weather-actions-icons-1';
+const VERSION = 'ryadom-v1.1.0-allergy-medical-knowledge-1';
 const APP_SHELL = [
   './',
   './index.html',
