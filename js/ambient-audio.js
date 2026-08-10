@@ -9,13 +9,23 @@ const TRACKS = [
 
 const SCENES = {
   home: [],
-  work: [{ src: 'sound/keyboard.mp3', volume: .13 }],
+  work: [
+    { src: 'sound/keyboard.mp3', volume: .13 },
+    { src: 'sound/doubleclick.mp3', volume: .09, clipMs: 90 },
+    { src: 'sound/printer.mp3', volume: .1 },
+    { src: 'sound/paper.mp3', volume: .11 },
+    { src: 'sound/doubleclick.mp3', volume: .09 },
+    { src: 'sound/phone.mp3', volume: .08 }
+  ],
   shower: [
     { src: 'sound/shower.mp3', volume: .12 },
     { src: 'sound/bathtub.mp3', volume: .1 }
   ],
-  asleep: [{ src: 'sound/heartbeat.mp3', volume: .065 }],
-  bedroom: [{ src: 'sound/heartbeat.mp3', volume: .065 }],
+  asleep: [
+    { src: 'sound/paper.mp3', volume: .08 },
+    { src: 'sound/vibe.mp3', volume: .055 }
+  ],
+  bedroom: [],
   quiet: []
 };
 
@@ -33,6 +43,8 @@ export class AmbientAudio {
     this.musicEnabled = false;
     this.lastTrack = -1;
     this.voiceActive = false;
+    this.sceneVersion = 0;
+    this.lastAmbientIndex = {};
   }
 
   unlock() {
@@ -43,6 +55,7 @@ export class AmbientAudio {
 
   setScene(scene) {
     this.scene = SCENES[scene] ? scene : 'home';
+    this.sceneVersion += 1;
     this.stopAmbient();
     if (this.unlocked) this.scheduleAmbient(between(1600, 3200));
   }
@@ -56,13 +69,25 @@ export class AmbientAudio {
   playAmbient() {
     const choices = SCENES[this.scene] || SCENES.home;
     if (!choices.length) return;
-    const choice = choices[Math.floor(Math.random() * choices.length)];
+    let choiceIndex = Math.floor(Math.random() * choices.length);
+    if (choices.length > 1 && choiceIndex === this.lastAmbientIndex[this.scene]) choiceIndex = (choiceIndex + 1) % choices.length;
+    this.lastAmbientIndex[this.scene] = choiceIndex;
+    const choice = choices[choiceIndex];
+    const sceneAtStart = this.scene;
+    const versionAtStart = this.sceneVersion;
     const audio = new Audio(choice.src);
     this.ambient = audio;
     audio._ryadomBaseVolume = choice.volume * (this.musicEnabled ? .4 : 1);
     audio.volume = audio._ryadomBaseVolume * (this.voiceActive ? .35 : 1);
+    let finished = false;
     const finish = () => {
+      if (finished) return;
+      finished = true;
       if (this.ambient === audio) this.ambient = null;
+      if (this.unlocked && !document.hidden && this.scene === sceneAtStart && this.sceneVersion === versionAtStart) {
+        const delay = sceneAtStart === 'asleep' ? between(28000, 58000) : between(13000, 36000);
+        this.scheduleAmbient(delay);
+      }
     };
     audio.addEventListener('ended', finish, { once: true });
     audio.addEventListener('error', finish, { once: true });
@@ -72,7 +97,7 @@ export class AmbientAudio {
       audio.pause();
       audio.currentTime = 0;
       finish();
-    }, 10000);
+    }, choice.clipMs || 10000);
   }
 
   stopAmbient() {
@@ -147,6 +172,7 @@ export class AmbientAudio {
 
   resume() {
     if (!this.unlocked) return;
+    if (!this.ambient && SCENES[this.scene]?.length) this.scheduleAmbient(between(1800, 4200));
     if (this.musicEnabled && this.music) this.music.play().catch(() => {});
   }
 }

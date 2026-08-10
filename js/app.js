@@ -1,6 +1,6 @@
 import { db, makeId, openDatabase } from './db.js?v=0.9.0';
 import { migrateLegacyData } from './migration.js';
-import { APP_VERSION } from './config.js?v=1.7.1';
+import { APP_VERSION } from './config.js?v=1.7.2';
 import { DialogueEngine } from './dialogue-engine.js';
 import { typeLine, stopTyping } from './typewriter.js';
 import { chooseIntelligentLine } from './ryadom-intelligence.js';
@@ -13,7 +13,7 @@ import { adviseFromMessage } from './symptom-advisor.js?v=1.4.0';
 import { emotionalSupportFromMessage } from './emotional-support.js?v=1.3.0';
 import { cycleActionLine, deleteCycleRecord, getCycleCarePrompt, saveCycleRecord, saveCycleSettings, saveSelectedBoundary } from './menstrual-service.js?v=1.6.0';
 import { cycleTrackerPanel } from './cycle-panel.js?v=1.6.0';
-import { AmbientAudio } from './ambient-audio.js?v=1.7.1';
+import { AmbientAudio } from './ambient-audio.js?v=1.7.2';
 
 const app = document.querySelector('#app');
 const sheet = document.querySelector('#sheet');
