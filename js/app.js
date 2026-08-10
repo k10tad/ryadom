@@ -1,6 +1,6 @@
 import { db, makeId, openDatabase } from './db.js?v=0.9.0';
 import { migrateLegacyData } from './migration.js';
-import { APP_VERSION } from './config.js?v=1.6.0';
+import { APP_VERSION } from './config.js?v=1.7.0';
 import { DialogueEngine } from './dialogue-engine.js';
 import { typeLine, stopTyping } from './typewriter.js';
 import { chooseIntelligentLine } from './ryadom-intelligence.js';
@@ -13,6 +13,7 @@ import { adviseFromMessage } from './symptom-advisor.js?v=1.4.0';
 import { emotionalSupportFromMessage } from './emotional-support.js?v=1.3.0';
 import { cycleActionLine, deleteCycleRecord, getCycleCarePrompt, saveCycleRecord, saveCycleSettings, saveSelectedBoundary } from './menstrual-service.js?v=1.6.0';
 import { cycleTrackerPanel } from './cycle-panel.js?v=1.6.0';
+import { AmbientAudio } from './ambient-audio.js?v=1.7.0';
 
 const app = document.querySelector('#app');
 const sheet = document.querySelector('#sheet');
@@ -23,6 +24,17 @@ const alekLine = document.querySelector('#alek-line');
 const alekImage = document.querySelector('#alek-image');
 const nowAction = document.querySelector('#now-action');
 const speechFlow = document.querySelector('.speech-flow');
+const musicBoxButton = document.querySelector('#music-box');
+const musicTitle = document.querySelector('#music-title');
+
+const ambientAudio = new AmbientAudio({
+  onTrackChange(title, playing) {
+    musicBoxButton.classList.toggle('is-playing', playing);
+    musicBoxButton.setAttribute('aria-pressed', String(playing));
+    musicBoxButton.setAttribute('aria-label', playing ? 'オルゴールを止める' : 'オルゴールを再生');
+    musicTitle.textContent = playing && title ? `♪ ${title}` : '';
+  }
+});
 
 let engine;
 let pendingMedication = null;
@@ -128,18 +140,18 @@ function updateClock() {
 }
 
 function chooseActivity(room, date = new Date()) {
-  if (room === 'bedroom') return { src: 'assets/alek/alek-bed.jpg', alt: '寝室で横になるアレク', action: '一緒に休むところ' };
+  if (room === 'bedroom') return { src: 'assets/alek/alek-bed.jpg', alt: '寝室で横になるアレク', action: '一緒に休むところ', soundScene: 'bedroom' };
   const weekday = date.getDay() >= 1 && date.getDay() <= 5;
   const hour = date.getHours();
   const roll = Math.random();
-  if ((hour < 7 && roll < .34) || (hour >= 7 && hour < 10 && roll < .16)) return { src: 'assets/alek/alek-shower.jpg', alt: '不規則な時間にシャワーを浴びるアレク', action: '当直明けのシャワー中' };
+  if ((hour < 7 && roll < .34) || (hour >= 7 && hour < 10 && roll < .16)) return { src: 'assets/alek/alek-shower.jpg', alt: '不規則な時間にシャワーを浴びるアレク', action: '当直明けのシャワー中', soundScene: 'shower' };
   if (weekday && hour >= 11 && hour < 19 && roll < .38) {
-    return { src: 'assets/alek/alek-asleep.jpg', alt: '夜勤明けに眠るアレク', action: '夜勤明けでうたた寝' };
+    return { src: 'assets/alek/alek-asleep.jpg', alt: '夜勤明けに眠るアレク', action: '夜勤明けでうたた寝', soundScene: 'asleep' };
   }
   if (weekday && hour >= 8 && hour < 21 && roll < .76) {
-    return { src: 'assets/alek/alek-work.jpg', alt: '資料を確認するアレク', action: '論文と格闘中' };
+    return { src: 'assets/alek/alek-work.jpg', alt: '資料を確認するアレク', action: '論文と格闘中', soundScene: 'work' };
   }
-  return { src: 'assets/alek/alek-home.jpg', alt: 'こちらを見つめるアレク', action: 'レイを待ってる' };
+  return { src: 'assets/alek/alek-home.jpg', alt: 'こちらを見つめるアレク', action: 'レイを待ってる', soundScene: 'home' };
 }
 
 function applyPortrait(activity) {
@@ -147,6 +159,7 @@ function applyPortrait(activity) {
   alekImage.src = activity.src;
   alekImage.alt = activity.alt;
   nowAction.textContent = activity.action;
+  ambientAudio.setScene(activity.soundScene || 'home');
 }
 
 function setRoom(room, persist = true) {
@@ -514,6 +527,8 @@ async function showQuietLine() {
 }
 
 document.querySelector('#beside-button').addEventListener('click', async () => {
+  ambientAudio.unlock();
+  ambientAudio.setScene('quiet');
   alekImage.src = 'assets/alek/alek-ryadom.jpg';
   alekImage.alt = '静かにそばにいるアレク';
   nowAction.textContent = 'レイのそばにいる';
@@ -522,10 +537,24 @@ document.querySelector('#beside-button').addEventListener('click', async () => {
   await showQuietLine();
 });
 document.querySelector('#quiet-portrait').addEventListener('click', showQuietLine);
+musicBoxButton.addEventListener('click', event => {
+  event.stopPropagation();
+  ambientAudio.toggleMusic();
+});
 document.querySelector('#leave-quiet').addEventListener('click', () => {
+  ambientAudio.stopMusic();
   app.classList.remove('is-quiet');
   document.querySelector('#quiet-mode').setAttribute('aria-hidden', 'true');
   if (normalPortrait) applyPortrait(normalPortrait);
+});
+
+document.addEventListener('pointerdown', () => ambientAudio.unlock(), { once: true });
+document.addEventListener('click', event => {
+  if (event.target.closest('button') && !event.target.closest('#music-box')) ambientAudio.playEffect();
+});
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) ambientAudio.suspend();
+  else ambientAudio.resume();
 });
 
 async function updateWeather(region, force = false) {

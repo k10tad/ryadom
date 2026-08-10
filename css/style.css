@@ -340,6 +340,14 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .chat-help { padding: 7px 4px 0; color: var(--muted); font-size: 7px; line-height: 1.45; }
 
 .quiet-mode { display: none; position: fixed; z-index: 20; inset: 0; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: max(24px, env(safe-area-inset-top)) 20px calc(72px + env(safe-area-inset-bottom)); text-align: center; }
+.music-box { position: relative; width: 58px; height: 58px; flex: 0 0 auto; display: grid; place-items: center; gap: 0; border: 1px solid rgba(235,224,250,.28); border-radius: 50%; background: radial-gradient(circle, rgba(217,202,242,.16), rgba(22,21,33,.78) 68%); color: var(--lilac); padding: 7px; box-shadow: 0 0 22px rgba(201,181,231,.11); backdrop-filter: blur(10px); }
+.music-box-mark { position: relative; width: 21px; height: 18px; display: block; }
+.music-box-mark::before { content: "♪"; position: absolute; inset: -5px 0 0; font: 21px Georgia, serif; }
+.music-box-mark i { position: absolute; left: 2px; right: 2px; bottom: -1px; height: 1px; background: currentColor; opacity: .45; }
+.music-box small { font-size: 6px; letter-spacing: .16em; }
+.music-box.is-playing { border-color: rgba(235,224,250,.55); box-shadow: 0 0 30px rgba(201,181,231,.3); }
+.music-box.is-playing .music-box-mark { animation: musicBoxBreath 2.4s ease-in-out infinite; }
+@keyframes musicBoxBreath { 50% { transform: translateY(-2px) rotate(-4deg); filter: drop-shadow(0 0 6px rgba(217,202,242,.8)); } }
 .quiet-portrait { position: relative; width: min(72vw, 410px); aspect-ratio: 1; flex: 0 1 auto; overflow: hidden; border: 1px solid rgba(235, 224, 250, .34); border-radius: 24px; background: #24222f; padding: 0; box-shadow: 0 24px 65px rgba(0, 0, 0, .48), 0 0 0 7px rgba(205, 188, 232, .055); }
 .quiet-portrait img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; }
 .quiet-portrait::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 58%, rgba(14, 13, 22, .25)); pointer-events: none; }
@@ -349,6 +357,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .quiet-copy p::after { content: ""; display: inline-block; width: 1px; height: 1em; margin-left: 3px; vertical-align: -.1em; background: var(--lilac); opacity: 0; }
 .quiet-copy.is-typing p::after { opacity: .9; animation: caretBlink .8s steps(1) infinite; }
 .quiet-copy span { color: rgba(185, 181, 199, .72); font-size: 8px; letter-spacing: .06em; }
+.quiet-copy em { min-height: 1.4em; display: block; margin-top: 6px; color: rgba(217,202,242,.58); font: italic 8px Georgia, serif; letter-spacing: .08em; }
 .quiet-mode #leave-quiet { position: absolute; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom)); translate: -50% 0; border: 1px solid var(--line); border-radius: 12px; background: rgba(18, 17, 28, .78); padding: 9px 24px; backdrop-filter: blur(12px); }
 .app.is-quiet .topbar, .app.is-quiet .room-tabs, .app.is-quiet .weather-strip, .app.is-quiet .home, .app.is-quiet .vine-nav { opacity: 0; pointer-events: none; }
 .app.is-quiet .quiet-mode { display: flex; }
@@ -392,6 +401,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
   .wisteria-fall { display: none; }
   .vital-mark, .vital-mark::after { animation: none; }
   .typing-bubble > span { animation: none; opacity: .75; }
+  .music-box.is-playing .music-box-mark { animation: none; }
 }
 .chat-bubble.emotional-care {
   border-color: rgba(151, 123, 181, .38);
