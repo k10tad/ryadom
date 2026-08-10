@@ -1,6 +1,6 @@
 import { db, makeId, openDatabase } from './db.js?v=0.9.0';
 import { migrateLegacyData } from './migration.js';
-import { APP_VERSION } from './config.js?v=0.9.2';
+import { APP_VERSION } from './config.js?v=0.9.3';
 import { DialogueEngine } from './dialogue-engine.js';
 import { typeLine, stopTyping } from './typewriter.js';
 import { chooseIntelligentLine } from './ryadom-intelligence.js';
@@ -44,9 +44,15 @@ function timeOfDay(date = new Date()) {
 function playVoice(source, useFallback = false) {
   if (!source) return;
   activeVoice?.pause();
-  const audio = new Audio(source);
-  activeVoice = audio;
+  const sources = [source];
+  if (source.startsWith('voice/')) sources.push(`Voice/${source.slice(6)}`);
+  let sourceIndex = 0;
   const fallback = () => {
+    sourceIndex += 1;
+    if (sourceIndex < sources.length) {
+      startAudio();
+      return;
+    }
     if (!useFallback || !('speechSynthesis' in window)) return;
     speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(alekLine.textContent);
@@ -55,8 +61,13 @@ function playVoice(source, useFallback = false) {
     utterance.pitch = .8;
     speechSynthesis.speak(utterance);
   };
-  audio.addEventListener('error', fallback, { once: true });
-  audio.play().catch(fallback);
+  function startAudio() {
+    const audio = new Audio(sources[sourceIndex]);
+    activeVoice = audio;
+    audio.addEventListener('error', fallback, { once: true });
+    audio.play().catch(fallback);
+  }
+  startAudio();
 }
 
 async function showText(text, audio = null, autoplay = false) {
@@ -72,6 +83,15 @@ async function showLine(context = {}) {
     timeOfDay: timeOfDay(),
     ...context
   });
+  await showText(line.text, line.audio, true);
+  return line;
+}
+
+async function showNextVoicedLine() {
+  const index = Number(localStorage.getItem('ryadom:voiced-line-index') || 0);
+  const line = engine.pickVoiced(index);
+  const total = engine.voicedLines().length;
+  if (total) localStorage.setItem('ryadom:voiced-line-index', String((index + 1) % total));
   await showText(line.text, line.audio, true);
   return line;
 }
@@ -323,7 +343,7 @@ onboardingForm.addEventListener('submit', async event => {
 onboarding.addEventListener('cancel', event => event.preventDefault());
 document.querySelector('#close-sheet').addEventListener('click', () => sheet.close());
 sheet.addEventListener('click', event => { if (event.target === sheet) sheet.close(); });
-document.querySelector('#next-line').addEventListener('click', () => showLine());
+document.querySelector('#next-line').addEventListener('click', () => showNextVoicedLine());
 document.querySelector('#voice-button').addEventListener('click', speakCurrentLine);
 document.querySelector('#beside-button').addEventListener('click', async () => {
   app.classList.add('is-quiet');

@@ -1,12 +1,12 @@
-const VERSION = 'ryadom-v0.9.2-alek-voices-1';
+const VERSION = 'ryadom-v0.9.3-alek-voices-fix-1';
 const APP_SHELL = [
   './',
   './index.html',
   './css/style.css',
   './css/style-v050.css?v=0.9.0',
   './manifest.webmanifest',
-  './js/app.js?v=0.9.2',
-  './js/config.js?v=0.9.2',
+  './js/app.js?v=0.9.3',
+  './js/config.js?v=0.9.3',
   './js/db.js?v=0.9.0',
   './js/migration.js',
   './js/dialogue-engine.js',
@@ -64,6 +64,11 @@ function isKnowledgeRequest(request) {
   return url.pathname.includes('/json/');
 }
 
+function isVoiceRequest(request) {
+  const url = new URL(request.url);
+  return url.pathname.includes('/voice/') || url.pathname.includes('/Voice/');
+}
+
 async function networkFirst(request) {
   try {
     const response = await fetch(request);
@@ -79,7 +84,7 @@ async function networkFirst(request) {
 
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
-  if (event.request.mode === 'navigate' || isKnowledgeRequest(event.request)) {
+  if (event.request.mode === 'navigate' || isKnowledgeRequest(event.request) || isVoiceRequest(event.request)) {
     event.respondWith(networkFirst(event.request));
     return;
   }

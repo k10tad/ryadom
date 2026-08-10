@@ -21,5 +21,21 @@ export class DialogueEngine {
       id: 'fallback', category: 'everyday', text: 'うん、ここにいるよ。'
     };
   }
-}
 
+  voicedLines() {
+    return this.lines
+      .filter(line => typeof line.audio === 'string' && line.audio.trim())
+      .sort((a, b) => {
+        const aNumber = Number(a.audio.match(/Alek\.(\d+)\.mp3$/i)?.[1] || 0);
+        const bNumber = Number(b.audio.match(/Alek\.(\d+)\.mp3$/i)?.[1] || 0);
+        return aNumber - bNumber;
+      });
+  }
+
+  pickVoiced(index = 0) {
+    const pool = this.voicedLines();
+    if (!pool.length) return this.pick('everyday');
+    const safeIndex = ((Number(index) || 0) % pool.length + pool.length) % pool.length;
+    return pool[safeIndex];
+  }
+}
