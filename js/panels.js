@@ -130,7 +130,12 @@ export async function rhythmPanel(activeTab = 'cycle') {
 
 export async function sayPanel() {
   const messages = (await db.all('messages')).sort((a, b) => String(a.at).localeCompare(String(b.at))).slice(-20);
-  return `<div class="chat-history" id="chat-history">${messages.map(item =>
-    `<article class="chat-bubble ${item.from === 'user' ? 'user' : ''}${item.kind === 'symptom-care' ? ' care' : ''}${item.kind === 'emotional-care' ? ' emotional-care' : ''}${item.urgent ? ' urgent' : ''}">${item.kind === 'symptom-care' ? '<p class="care-label">SYMPTOM CARE</p>' : ''}${item.kind === 'emotional-care' ? '<p class="care-label">EMOTIONAL CARE</p>' : ''}${escapeHtml(item.text)}<small>${dateTimeLabel(item.at)}</small></article>`
-  ).join('')}</div><form class="form-grid" data-form="say"><label>アレクに話す<textarea name="note" required placeholder="熱がある、動悸がする、不安で落ち着かない、など"></textarea></label><small class="field-help">問診を終えるときは「キャンセル」と送ってね。測定値は症状記録にも残ります。</small><button class="primary" type="submit">送る</button></form>`;
+  return `<section class="chat-app">
+    <header class="chat-contact"><span class="chat-avatar" aria-hidden="true">A</span><span><strong>Алек</strong><small><i></i>そばにいる</small></span></header>
+    <div class="chat-history" id="chat-history">${messages.map(item =>
+      `<div class="chat-message ${item.from === 'user' ? 'user' : 'alek'}"><article class="chat-bubble${item.kind === 'symptom-care' ? ' care' : ''}${item.kind === 'emotional-care' ? ' emotional-care' : ''}${item.urgent ? ' urgent' : ''}">${item.kind === 'symptom-care' ? '<p class="care-label">SYMPTOM CARE</p>' : ''}${item.kind === 'emotional-care' ? '<p class="care-label">EMOTIONAL CARE</p>' : ''}<p>${escapeHtml(item.text)}</p><small>${dateTimeLabel(item.at)}</small></article></div>`
+    ).join('')}</div>
+    <form class="chat-composer" data-form="say"><label><span class="visually-hidden">アレクに話す</span><textarea name="note" required rows="1" placeholder="メッセージを入力"></textarea></label><button type="submit" aria-label="送る">↑</button></form>
+    <small class="chat-help">問診を終えるときは「キャンセル」と送ってね。測定値は症状記録にも残ります。</small>
+  </section>`;
 }

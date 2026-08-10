@@ -6,7 +6,7 @@ import { typeLine, stopTyping } from './typewriter.js';
 import { chooseIntelligentLine } from './ryadom-intelligence.js';
 import { evaluateMedication, renderMedicationAssessment } from './medical-service.js';
 import { addMedicationToProfile, getProfileBundle, saveProfile } from './profile-service.js';
-import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=1.3.0';
+import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=1.3.1';
 import { exportBackup, importBackup } from './backup-service.js?v=0.9.0';
 import { clearWeatherCache, getWeather } from './weather-service.js?v=1.0.0';
 import { adviseFromMessage } from './symptom-advisor.js?v=1.3.0';
@@ -171,6 +171,7 @@ async function openPanel(name) {
   document.querySelector('#sheet-title').textContent = title;
   sheetContent.innerHTML = await panelTemplate(name);
   sheet.classList.toggle('is-settings', name === 'settings');
+  sheet.classList.toggle('is-chat', name === 'say');
   if (!sheet.open) sheet.showModal();
   document.querySelectorAll('[data-nav]').forEach(button => {
     button.classList.toggle('is-active', button.dataset.nav === name);
@@ -281,6 +282,11 @@ async function handleSubmit(form) {
     await db.put('messages', { id: makeId('message'), from: 'alek', kind: response.kind || 'dialogue', urgent: Boolean(response.urgent), text: response.text, at: new Date().toISOString() });
     await showText(response.text, response.audio || null, Boolean(response.audio));
     sheetContent.innerHTML = await sayPanel();
+    requestAnimationFrame(() => {
+      const history = document.querySelector('#chat-history');
+      if (history) history.scrollTop = history.scrollHeight;
+      document.querySelector('.chat-composer textarea')?.focus();
+    });
   }
 }
 
@@ -438,15 +444,23 @@ document.querySelector('#close-sheet').addEventListener('click', closeSheetToHom
 sheet.addEventListener('click', event => { if (event.target === sheet) closeSheetToHome(); });
 document.querySelector('#next-line').addEventListener('click', () => showNextVoicedLine());
 document.querySelector('#voice-button').addEventListener('click', speakCurrentLine);
+async function showQuietLine() {
+  stopTyping();
+  const line = await chooseIntelligentLine(engine, { room: app.dataset.room, timeOfDay: timeOfDay(), quiet: true });
+  currentLineAudio = line.audio || null;
+  if (line.audio) playVoice(line.audio);
+  await typeLine(document.querySelector('#quiet-line'), line.text, document.querySelector('.quiet-copy'));
+}
+
 document.querySelector('#beside-button').addEventListener('click', async () => {
   alekImage.src = 'assets/alek/alek-ryadom.jpg';
   alekImage.alt = '静かにそばにいるアレク';
   nowAction.textContent = 'レイのそばにいる';
   app.classList.add('is-quiet');
   document.querySelector('#quiet-mode').setAttribute('aria-hidden', 'false');
-  await showLine({ quiet: true });
-  document.querySelector('#quiet-line').textContent = alekLine.textContent;
+  await showQuietLine();
 });
+document.querySelector('#quiet-portrait').addEventListener('click', showQuietLine);
 document.querySelector('#leave-quiet').addEventListener('click', () => {
   app.classList.remove('is-quiet');
   document.querySelector('#quiet-mode').setAttribute('aria-hidden', 'true');
