@@ -1,28 +1,31 @@
-const VERSION = 'ryadom-v1.5.0-health-memory-dialogue-1';
+const VERSION = 'ryadom-v1.6.0-cycle-tracker-1';
 const APP_SHELL = [
   './',
   './index.html',
   './css/style.css',
-  './css/style-v050.css?v=1.5.0',
+  './css/cycle-tracker.css?v=1.6.0',
+  './css/style-v050.css?v=0.9.0',
   './manifest.webmanifest',
-  './js/app.js?v=1.5.0',
-  './js/config.js?v=1.5.0',
+  './js/app.js?v=1.6.0',
+  './js/config.js?v=1.6.0',
   './js/db.js?v=0.9.0',
   './js/migration.js',
   './js/dialogue-engine.js',
   './js/typewriter.js',
   './js/reasoning.js',
   './js/ryadom-intelligence.js',
-  './js/symptom-advisor.js?v=1.3.0',
+  './js/symptom-advisor.js?v=1.4.0',
   './js/emotional-support.js?v=1.3.0',
+  './js/clinical-triage.js',
   './js/knowledge-service.js',
   './js/medical-service.js',
   './js/memory-service.js',
   './js/profile-service.js',
-  './js/templates.js?v=0.9.0',
-  './js/panels.js?v=1.5.0',
-  './js/health-context.js?v=1.5.0',
   './js/weather-service.js?v=1.0.0',
+  './js/templates.js?v=0.9.0',
+  './js/panels.js?v=0.9.0',
+  './js/cycle-panel.js?v=1.6.0',
+  './js/menstrual-service.js?v=1.6.0',
   './js/backup-service.js?v=0.9.0',
   './js/fflate.js',
   './json/dialogues.json',
@@ -37,9 +40,7 @@ const APP_SHELL = [
   './assets/alek/alek-ryadom.jpg',
   './assets/backgrounds/living.jpg',
   './assets/backgrounds/bedroom.jpg',
-  './assets/icons/Ryadom-AppIcon-180.png',
-  './assets/icons/Ryadom-AppIcon-192.png',
-  './assets/icons/Ryadom-AppIcon-512.png'
+  './assets/icons/icon.jpg'
   ,'./voice/Alek.1.mp3'
   ,'./voice/Alek.2.mp3'
   ,'./voice/Alek.3.mp3'
@@ -94,7 +95,6 @@ async function networkFirst(request) {
 
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
-  if (new URL(event.request.url).origin !== self.location.origin) return;
   if (event.request.mode === 'navigate' || isKnowledgeRequest(event.request) || isVoiceRequest(event.request)) {
     event.respondWith(networkFirst(event.request));
     return;
