@@ -18,10 +18,10 @@
     <div class="room-shade" aria-hidden="true"></div>
 
     <header class="topbar">
-      <button class="brand" type="button" data-open="settings" aria-label="設定を開く">
+      <div class="brand">
         <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
         <span><strong>Рядом</strong><small>いつも、そばに</small></span>
-      </button>
+      </div>
       <div class="clock" aria-label="現在日時">
         <strong id="clock-time">--:--</strong>
         <small id="clock-date">----</small>
@@ -55,22 +55,21 @@
           <figcaption class="now-pill"><i></i><span>NOW</span><strong id="now-action">レイを待ってる</strong></figcaption>
         </figure>
 
+      </div>
+
+      <div class="home-side">
+
         <article class="speech-flow" aria-live="polite">
           <div class="speech-label"><span>ALEK</span><button id="voice-button" type="button">VOICE</button></div>
           <p id="alek-line">おかえり、レイ。今日はどんな一日だった？</p>
           <button class="next-line" id="next-line" type="button" aria-label="次の音声付きの言葉">もう一度、話す</button>
         </article>
+
+        <button class="beside-button" id="beside-button" type="button">
+          <span class="bud" aria-hidden="true"></span>
+          <span><strong>そばにいて</strong><small>静かな寄り添いモード</small></span>
+        </button>
       </div>
-
-      <section class="quick-actions" aria-label="よく使う操作">
-        <button type="button" data-open="medicine"><b>＋</b><span>薬を記録<small>服用した日時</small></span></button>
-        <button type="button" data-open="condition"><b>≈</b><span>体調を伝える<small>今の症状や気分</small></span></button>
-      </section>
-
-      <button class="beside-button" id="beside-button" type="button">
-        <span class="bud" aria-hidden="true"></span>
-        <span><strong>そばにいて</strong><small>静かな寄り添いモード</small></span>
-      </button>
     </section>
 
     <nav class="vine-nav" aria-label="Рядом navigation">

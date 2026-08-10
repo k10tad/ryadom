@@ -69,6 +69,7 @@ button { color: inherit; -webkit-tap-highlight-color: transparent; }
 
 .home { display: grid; gap: 10px; }
 .character-area { display: grid; gap: 0; justify-items: center; }
+.home-side { display: grid; align-content: center; gap: 10px; min-width: 0; }
 .alek-portrait {
   position: relative;
   width: min(100%, 480px);
@@ -144,24 +145,6 @@ button { color: inherit; -webkit-tap-highlight-color: transparent; }
 .speech-flow.is-typing p::after { opacity: .9; animation: caretBlink .8s steps(1) infinite; }
 @keyframes caretBlink { 50% { opacity: .15; } }
 .next-line { opacity: .82; }
-
-.quick-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
-.quick-actions button {
-  min-width: 0;
-  min-height: 54px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: rgba(22, 21, 33, .78);
-  backdrop-filter: blur(14px);
-  padding: 7px;
-}
-.quick-actions b { color: var(--lilac); font: 20px Georgia, serif; }
-.quick-actions span { min-width: 0; display: grid; text-align: left; font-size: 10px; }
-.quick-actions small { overflow: hidden; text-overflow: ellipsis; color: var(--muted); font: 7px Georgia, serif; letter-spacing: .05em; }
 
 .beside-button {
   width: min(100%, 480px);
@@ -292,13 +275,11 @@ button { color: inherit; -webkit-tap-highlight-color: transparent; }
 
 @media (min-width: 720px) {
   .app { padding-inline: 28px; }
-  .home { grid-template-columns: minmax(320px, 1.1fr) minmax(300px, .9fr); align-items: center; }
-  .character-area { grid-row: 1 / span 2; }
+  .home { grid-template-columns: minmax(320px, 1.1fr) minmax(300px, .9fr); align-items: center; gap: clamp(24px, 5vw, 64px); }
+  .character-area { grid-column: 1; }
   .alek-portrait { width: min(42vw, 480px); }
-  .speech-flow { width: min(90%, 480px); }
-  .quick-actions { grid-column: 2; grid-template-columns: 1fr; }
-  .quick-actions button { min-height: 66px; justify-content: flex-start; padding-inline: 18px; }
-  .beside-button { grid-column: 2; }
+  .home-side { grid-column: 2; gap: 14px; }
+  .speech-flow, .beside-button { width: min(100%, 480px); }
 }
 
 @media (max-height: 720px) and (max-width: 719px) {
@@ -306,7 +287,6 @@ button { color: inherit; -webkit-tap-highlight-color: transparent; }
   .room-tabs { padding-block: 6px; }
   .speech-flow { padding-block: 10px; }
   .speech-flow p { min-height: 34px; margin-block: 5px; font-size: 12px; }
-  .quick-actions button { min-height: 45px; }
   .beside-button { min-height: 41px; }
   .vine-nav b { width: 27px; height: 27px; }
   .vine { top: 24px; }
@@ -314,11 +294,8 @@ button { color: inherit; -webkit-tap-highlight-color: transparent; }
 
 @media (max-width: 350px) {
   .app { padding-inline: 10px; }
-  .brand small, .clock small, .quick-actions small { display: none; }
+  .brand small, .clock small { display: none; }
   .room-tabs button { padding-inline: 12px; }
-  .quick-actions { gap: 5px; }
-  .quick-actions button { padding-inline: 4px; }
-  .quick-actions span { font-size: 9px; }
   .portrait-tools button { padding-inline: 6px; }
   .portrait-tools small { display: none; }
 }
