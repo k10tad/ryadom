@@ -135,7 +135,7 @@ export class AmbientAudio {
     this.lastTrack = index;
     const audio = new Audio(track.src);
     this.music = audio;
-    audio.volume = this.voiceActive ? .018 : .06;
+    audio.volume = this.voiceActive ? .018 : .03;
     this.onTrackChange(track.title, true);
     const follow = () => {
       if (this.music === audio) this.music = null;

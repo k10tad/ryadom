@@ -1,14 +1,15 @@
-const VERSION = 'ryadom-v1.8.0-medical-dictionary-1';
+const VERSION = 'ryadom-v1.8.1-controls-and-music-1';
 const APP_SHELL = [
   './',
   './index.html',
-  './css/style.css?v=1.7.0',
+  './css/style.css?v=1.8.1',
   './css/cycle-tracker.css?v=1.6.0',
-  './css/style-v050.css?v=1.7.0',
+  './css/style-v050.css?v=1.8.1',
   './manifest.webmanifest',
-  './js/app.js?v=1.7.3',
-  './js/config.js?v=1.8.0',
-  './js/ambient-audio.js?v=1.7.3',
+  './js/app.js?v=1.8.1',
+  './js/config.js?v=1.8.1',
+  './js/personalization.js?v=1.8.1',
+  './js/ambient-audio.js?v=1.8.1',
   './js/db.js?v=0.9.0',
   './js/migration.js',
   './js/dialogue-engine.js',
