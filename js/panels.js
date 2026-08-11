@@ -40,10 +40,10 @@ export async function settingsPanel() {
 export async function medicinePanel() {
   const [bundle, logs] = await Promise.all([getProfileBundle(), db.all('medicationLogs')]);
   const current = bundle.medications.length
-    ? bundle.medications.map(item => `<span class="profile-chip${item.status === 'identified' ? '' : ' is-unresolved'}">${escapeHtml(item.rawName)}</span>`).join('')
+    ? bundle.medications.map(item => `<button class="profile-chip${item.status === 'identified' ? '' : ' is-unresolved'}" type="button" data-medication-preset="${escapeHtml(item.rawName)}" aria-pressed="false">${escapeHtml(item.rawName)}</button>`).join('')
     : '<span class="profile-chip is-empty">現在の薬は未登録</span>';
   const sortedLogs = logs.sort((a, b) => String(b.at).localeCompare(String(a.at))).slice(0, 10);
-  return `<section class="current-profile"><small>現在の薬プロフィール</small><div class="profile-chips">${current}</div></section>
+  return `<section class="current-profile"><small>現在の薬プロフィール</small><div class="profile-chips">${current}</div>${bundle.medications.length ? '<p class="profile-preset-help">薬名を押すと、下の入力欄に入ります。</p>' : ''}</section>
     <form class="form-grid" data-form="medicine">
       <label>薬の名前<input name="name" required placeholder="商品名・一般名・成分名"></label>
       <label>用量・規格<input name="dose" placeholder="5mg 1錠 など"></label>

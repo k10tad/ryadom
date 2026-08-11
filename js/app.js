@@ -6,7 +6,7 @@ import { typeLine, stopTyping } from './typewriter.js';
 import { chooseIntelligentLine } from './ryadom-intelligence.js?v=1.0.2';
 import { evaluateMedication, renderMedicationAssessment } from './medical-service.js';
 import { addMedicationToProfile, getProfileBundle, saveProfile } from './profile-service.js';
-import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=1.4.0';
+import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=1.4.1';
 import { exportBackup, importBackup } from './backup-service.js?v=0.9.0';
 import { clearWeatherCache, getWeather } from './weather-service.js?v=1.0.0';
 import { adviseFromMessage } from './symptom-advisor.js?v=1.4.0';
@@ -505,6 +505,19 @@ function speakCurrentLine() {
 }
 
 document.addEventListener('click', async event => {
+  const medicationPreset = event.target.closest('[data-medication-preset]');
+  if (medicationPreset) {
+    const form = sheetContent.querySelector('[data-form="medicine"]');
+    const nameInput = form?.elements.namedItem('name');
+    const doseInput = form?.elements.namedItem('dose');
+    if (nameInput instanceof HTMLInputElement) {
+      nameInput.value = medicationPreset.dataset.medicationPreset || '';
+      nameInput.dispatchEvent(new Event('input', { bubbles: true }));
+      if (doseInput instanceof HTMLInputElement) doseInput.focus({ preventScroll: true });
+    }
+    return;
+  }
+
   const exportButton = event.target.closest('[data-export-backup]');
   if (exportButton) {
     const status = document.querySelector('[data-transfer-status]');
@@ -661,6 +674,14 @@ sheetContent.addEventListener('change', async event => {
 });
 
 sheetContent.addEventListener('input', event => {
+  if (event.target.matches('[data-form="medicine"] input[name="name"]')) {
+    const selectedName = event.target.value.trim().toLocaleLowerCase('ja-JP');
+    sheetContent.querySelectorAll('[data-medication-preset]').forEach(button => {
+      const selected = (button.dataset.medicationPreset || '').trim().toLocaleLowerCase('ja-JP') === selectedName;
+      button.classList.toggle('is-selected', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    });
+  }
   if (event.target.matches('[data-pain-range]')) {
     const output = document.querySelector('[data-pain-output]');
     if (output) output.textContent = `${event.target.value} / 10`;

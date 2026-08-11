@@ -190,8 +190,13 @@
 .current-profile > small { color: var(--lilac); font-size: 9px; letter-spacing: .08em; }
 .profile-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
 .profile-chip { border: 1px solid var(--line); border-radius: 999px; background: rgba(217, 202, 242, .1); padding: 5px 9px; font-size: 9px; }
+.profile-chip[data-medication-preset] { appearance: none; color: var(--paper); font: inherit; line-height: 1.35; cursor: pointer; transition: border-color .18s ease, background .18s ease, box-shadow .18s ease, transform .18s ease; }
+.profile-chip[data-medication-preset]:active { transform: scale(.97); }
+.profile-chip[data-medication-preset]:focus-visible { outline: 2px solid rgba(218, 199, 255, .78); outline-offset: 2px; }
+.profile-chip[data-medication-preset].is-selected { border-color: rgba(218, 199, 255, .82); background: rgba(195, 168, 239, .28); box-shadow: 0 0 14px rgba(190, 157, 242, .18); }
 .profile-chip.is-unresolved { border-color: rgba(216, 180, 107, .48); color: #e5c98f; }
 .profile-chip.is-empty { color: var(--muted); }
+.profile-preset-help { margin: 8px 0 0; color: var(--muted); font-size: 8px; line-height: 1.5; }
 .profile-summary h3,
 .log-list h3 { margin: 0 0 8px; color: var(--lilac); font-size: 11px; }
 .profile-summary p { margin: 6px 0; color: var(--muted); font-size: 10px; line-height: 1.6; }
