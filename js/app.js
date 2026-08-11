@@ -129,7 +129,7 @@ function dialogueContext(context = {}) {
 
 function updateBedtimeButton() {
   bedtimeButton.setAttribute('aria-pressed', String(bedtimeActive));
-  bedtimeStatus.textContent = bedtimeActive ? '心拍と声を止める' : 'おいで、俺の鼓動わかる？';
+  bedtimeStatus.textContent = bedtimeActive ? '少し離れる。' : 'アレクの胸に耳を当てる。';
 }
 
 function clearBedtimeSpeechTimer() {
@@ -286,14 +286,14 @@ function chooseActivity(room, date = new Date()) {
   const weekday = date.getDay() >= 1 && date.getDay() <= 5;
   const hour = date.getHours();
   const roll = Math.random();
-  if ((hour < 7 && roll < .34) || (hour >= 7 && hour < 10 && roll < .16)) return { src: 'assets/alek/alek-shower.jpg', alt: '不規則な時間にシャワーを浴びるアレク', action: '当直明けのシャワー中', soundScene: 'shower' };
+  if ((hour < 7 && roll < .34) || (hour >= 7 && hour < 10 && roll < .16)) return { src: 'assets/alek/alek-shower.jpg', alt: '不規則な時間にシャワーを浴びるアレク', action: 'シャワー中', soundScene: 'shower' };
   if (weekday && hour >= 11 && hour < 19 && roll < .38) {
     return { src: 'assets/alek/alek-asleep.jpg', alt: '夜勤明けに眠るアレク', action: '夜勤明けでうたた寝', soundScene: 'asleep' };
   }
   if (weekday && hour >= 8 && hour < 21 && roll < .76) {
     return { src: 'assets/alek/alek-work.jpg', alt: '資料を確認するアレク', action: '論文と格闘中', soundScene: 'work' };
   }
-  return { src: 'assets/alek/alek-home.jpg', alt: 'こちらを見つめるアレク', action: 'レイを待ってる', soundScene: 'home' };
+  return { src: 'assets/alek/alek-home.jpg', alt: 'こちらを見つめるアレク', action: 'レイと居る。', soundScene: 'home' };
 }
 
 function applyPortrait(activity) {
