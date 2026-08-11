@@ -1,10 +1,10 @@
-const VERSION = 'ryadom-v1.8.18-contained-chat-composer';
+const VERSION = 'ryadom-v1.8.19-fresh-ui-assets';
 const APP_SHELL = [
   './',
   './index.html',
   './css/style.css?v=1.8.1',
   './css/cycle-tracker.css?v=1.6.0',
-  './css/style-v050.css?v=1.8.18',
+  './css/style-v050.css?v=1.8.19',
   './css/splash.css?v=1.0.2',
   './manifest.webmanifest',
   './js/splash.js?v=1.0.0',
@@ -103,6 +103,11 @@ function isVoiceRequest(request) {
   return url.pathname.includes('/voice/') || url.pathname.includes('/Voice/');
 }
 
+function isCodeRequest(request) {
+  const url = new URL(request.url);
+  return url.origin === self.location.origin && /\.(?:html|css|js|webmanifest)$/.test(url.pathname);
+}
+
 async function networkFirst(request) {
   try {
     const response = await fetch(request);
@@ -118,7 +123,7 @@ async function networkFirst(request) {
 
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
-  if (event.request.mode === 'navigate' || isKnowledgeRequest(event.request) || isVoiceRequest(event.request)) {
+  if (event.request.mode === 'navigate' || isCodeRequest(event.request) || isKnowledgeRequest(event.request) || isVoiceRequest(event.request)) {
     event.respondWith(networkFirst(event.request));
     return;
   }
