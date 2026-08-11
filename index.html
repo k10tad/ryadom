@@ -12,8 +12,21 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="css/style-v050.css?v=1.8.1">
   <link rel="stylesheet" href="css/cycle-tracker.css?v=1.6.0">
+  <link rel="stylesheet" href="css/splash.css?v=1.0.1">
 </head>
-<body>
+<body class="splash-active">
+  <section class="ryadom-splash" id="ryadom-splash" aria-label="Рядом 起動画面">
+    <div class="ryadom-splash-stage">
+      <div class="ryadom-splash-haze" aria-hidden="true"></div>
+      <svg class="ryadom-splash-wave" viewBox="0 0 1000 1700" preserveAspectRatio="none" aria-hidden="true">
+        <path class="ryadom-splash-wave-glow" pathLength="1" d="M-50 760H95C118 760 126 700 151 704C177 708 183 760 206 760C230 760 235 810 251 810L292 485L341 917L383 760H565C590 760 598 720 623 720C649 720 662 760 685 760C709 760 715 820 742 820C765 820 774 755 804 755H1050" />
+        <path class="ryadom-splash-wave-core" pathLength="1" d="M-50 760H95C118 760 126 700 151 704C177 708 183 760 206 760C230 760 235 810 251 810L292 485L341 917L383 760H565C590 760 598 720 623 720C649 720 662 760 685 760C709 760 715 820 742 820C765 820 774 755 804 755H1050" />
+      </svg>
+      <img class="ryadom-splash-wisteria" src="assets/splash-wisteria.png" alt="" aria-hidden="true">
+      <p class="ryadom-splash-copy" lang="ru" aria-live="polite"><span id="ryadom-splash-copy"></span><i aria-hidden="true"></i></p>
+      <button class="ryadom-splash-skip" id="ryadom-splash-skip" type="button" aria-label="起動画面をスキップ">Skip</button>
+    </div>
+  </section>
   <main class="app" id="app" data-room="living">
     <div class="room-background" aria-hidden="true"></div>
     <div class="room-shade" aria-hidden="true"></div>
@@ -126,6 +139,7 @@
       <button type="button" id="leave-quiet">戻る</button>
     </section>
   </main>
+  <script src="js/splash.js?v=1.0.0" defer></script>
   <script type="module" src="js/app.js?v=1.8.1"></script>
 </body>
 </html>

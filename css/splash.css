@@ -1,0 +1,260 @@
+.splash-active {
+  overflow: hidden;
+}
+
+.ryadom-splash {
+  position: fixed;
+  z-index: 10000;
+  inset: 0;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: #0b081b;
+  opacity: 1;
+  transition: opacity .72s cubic-bezier(.4, 0, .2, 1), visibility .72s linear;
+}
+
+.ryadom-splash.is-leaving {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ryadom-splash-stage {
+  position: relative;
+  width: min(100%, 600px);
+  height: 100%;
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 49% 39%, rgba(144, 108, 206, .43), transparent 34%),
+    radial-gradient(circle at 75% 25%, rgba(102, 76, 167, .2), transparent 30%),
+    linear-gradient(180deg, #15102e 0%, #171238 39%, #0c091e 72%, #080616 100%);
+  box-shadow: 0 0 90px rgba(0, 0, 0, .58);
+}
+
+.ryadom-splash-haze {
+  position: absolute;
+  z-index: 0;
+  inset: 10% -20% 25%;
+  background: radial-gradient(circle, rgba(198, 171, 247, .16), transparent 62%);
+  filter: blur(34px);
+  opacity: 0;
+  animation: ryadom-splash-haze-in 2.2s .25s ease-out both;
+}
+
+.ryadom-splash-wave {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ryadom-splash-wave-glow,
+.ryadom-splash-wave-core {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: ryadom-splash-wave-draw 1.7s .38s cubic-bezier(.3, .03, .22, 1) forwards;
+}
+
+.ryadom-splash-wave-glow {
+  stroke: rgba(194, 159, 255, .72);
+  stroke-width: 24;
+  filter: blur(10px) drop-shadow(0 0 24px rgba(189, 148, 255, .9));
+}
+
+.ryadom-splash-wave-core {
+  stroke: rgba(255, 250, 255, .95);
+  stroke-width: 5;
+  filter: drop-shadow(0 0 8px rgba(229, 210, 255, 1));
+}
+
+.ryadom-splash-wisteria {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+  transform-origin: 94% 3%;
+  filter: drop-shadow(0 18px 26px rgba(25, 13, 48, .3));
+  animation:
+    ryadom-splash-wisteria-in 1.25s .18s cubic-bezier(.2, .72, .22, 1) both,
+    ryadom-splash-wisteria-sway 3.7s 1.05s ease-in-out both;
+}
+
+.ryadom-splash-copy {
+  position: absolute;
+  z-index: 3;
+  left: 20px;
+  right: 20px;
+  bottom: max(16.5%, 112px);
+  min-height: 1.55em;
+  margin: 0;
+  color: rgba(252, 247, 255, .99);
+  font-family: "Segoe UI Light", "Palatino Linotype", "Times New Roman", serif;
+  font-size: clamp(22px, 6vw, 32px);
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: .085em;
+  line-height: 1.5;
+  text-align: center;
+  text-shadow:
+    0 0 3px rgba(255, 255, 255, .92),
+    0 0 11px rgba(222, 192, 255, .78),
+    0 0 26px rgba(174, 119, 255, .48),
+    0 4px 22px rgba(0, 0, 0, .82);
+  opacity: 0;
+  filter: blur(7px);
+  transform: translate3d(0, 10px, 0) scale(.985);
+  animation:
+    ryadom-splash-copy-rise 1.18s 1.55s cubic-bezier(.18, .78, .2, 1) forwards,
+    ryadom-splash-copy-glow 2.15s 2.72s ease-in-out infinite;
+}
+
+.ryadom-splash-copy i {
+  display: inline-block;
+  width: 1px;
+  height: 1.1em;
+  margin-left: 5px;
+  vertical-align: -.12em;
+  background: rgba(250, 241, 255, .94);
+  box-shadow: 0 0 7px rgba(220, 184, 255, .82), 0 0 15px rgba(166, 109, 255, .42);
+  opacity: 0;
+}
+
+.ryadom-splash-copy.is-typing i {
+  opacity: 1;
+  animation: ryadom-splash-caret .72s steps(1) infinite;
+}
+
+.ryadom-splash-skip {
+  position: absolute;
+  z-index: 4;
+  right: max(17px, env(safe-area-inset-right));
+  bottom: max(14px, env(safe-area-inset-bottom));
+  border: 0;
+  background: transparent;
+  color: rgba(230, 216, 243, .58);
+  padding: 10px 7px;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: .12em;
+  opacity: 0;
+  animation: ryadom-splash-skip-in .55s .72s ease-out forwards;
+}
+
+.ryadom-splash-skip:focus-visible {
+  outline: 1px solid rgba(230, 216, 243, .72);
+  outline-offset: 2px;
+  border-radius: 999px;
+}
+
+@keyframes ryadom-splash-haze-in {
+  0% { opacity: 0; transform: scale(.84); }
+  55% { opacity: 1; }
+  100% { opacity: .68; transform: scale(1.06); }
+}
+
+@keyframes ryadom-splash-wave-draw {
+  0% { stroke-dashoffset: 1; opacity: .18; }
+  16% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: .92; }
+}
+
+@keyframes ryadom-splash-wisteria-in {
+  0% { opacity: 0; transform: rotate(.9deg) translate3d(7px, -6px, 0) scale(.985); }
+  100% { opacity: 1; transform: rotate(0) translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes ryadom-splash-wisteria-sway {
+  0%, 100% { transform: rotate(0) translate3d(0, 0, 0) scale(1); }
+  36% { transform: rotate(-.45deg) translate3d(-1px, 2px, 0) scale(1.002); }
+  70% { transform: rotate(.28deg) translate3d(1px, -1px, 0) scale(1); }
+}
+
+@keyframes ryadom-splash-caret {
+  0%, 46% { opacity: .92; }
+  47%, 100% { opacity: .12; }
+}
+
+@keyframes ryadom-splash-copy-rise {
+  0% {
+    opacity: 0;
+    filter: blur(7px);
+    transform: translate3d(0, 10px, 0) scale(.985);
+  }
+  58% { opacity: .9; }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes ryadom-splash-copy-glow {
+  0%, 100% {
+    text-shadow:
+      0 0 3px rgba(255, 255, 255, .9),
+      0 0 10px rgba(222, 192, 255, .72),
+      0 0 24px rgba(174, 119, 255, .42),
+      0 4px 22px rgba(0, 0, 0, .82);
+  }
+  50% {
+    text-shadow:
+      0 0 4px rgba(255, 255, 255, 1),
+      0 0 14px rgba(229, 204, 255, .9),
+      0 0 32px rgba(181, 128, 255, .58),
+      0 4px 24px rgba(0, 0, 0, .84);
+  }
+}
+
+@keyframes ryadom-splash-skip-in {
+  to { opacity: 1; }
+}
+
+@media (min-aspect-ratio: 3 / 4) {
+  .ryadom-splash-stage {
+    width: min(100%, 520px);
+  }
+
+  .ryadom-splash-copy {
+    bottom: 13%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ryadom-splash-haze,
+  .ryadom-splash-wave-glow,
+  .ryadom-splash-wave-core,
+  .ryadom-splash-wisteria,
+  .ryadom-splash-copy,
+  .ryadom-splash-skip {
+    animation: none;
+  }
+
+  .ryadom-splash-haze,
+  .ryadom-splash-copy,
+  .ryadom-splash-skip {
+    opacity: 1;
+  }
+
+  .ryadom-splash-copy {
+    filter: none;
+    transform: none;
+  }
+
+  .ryadom-splash-wave-glow,
+  .ryadom-splash-wave-core {
+    stroke-dashoffset: 0;
+  }
+}
