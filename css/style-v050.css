@@ -1,4 +1,65 @@
-@import url("./style.css?v=1.7.0");
+@import url("./style.css?v=1.5.0");
+
+/* Keep every sheet control inside the rounded modal on narrow iPhones. */
+.sheet,
+.onboarding {
+  max-width: calc(100vw - 20px);
+  overflow-x: hidden;
+}
+
+#sheet-content,
+#sheet-content > *,
+.sheet .form-grid,
+.onboarding .form-grid,
+.form-grid > *,
+.log-list,
+.log-item,
+.summary-card,
+.assessment,
+.current-profile,
+.profile-summary,
+.data-transfer,
+.pain-scale,
+.cycle-tracker,
+.cycle-entry,
+.cycle-settings,
+.cycle-history {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.form-grid input:not([type="checkbox"]):not([type="radio"]),
+.form-grid textarea,
+.form-grid select,
+.form-grid button,
+.form-actions,
+.form-actions > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.form-grid input[type="date"],
+.form-grid input[type="time"],
+.form-grid input[type="datetime-local"] {
+  display: block;
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.log-item-head,
+.cycle-history article,
+.transfer-actions,
+.form-actions {
+  min-width: 0;
+}
+
+.log-item-head > *,
+.cycle-history article > *,
+.transfer-actions > *,
+.form-actions > * {
+  min-width: 0;
+}
 
 .form-grid input:focus,
 .form-grid textarea:focus,

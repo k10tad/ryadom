@@ -1,6 +1,6 @@
 import { db, makeId, openDatabase } from './db.js?v=0.9.0';
 import { migrateLegacyData } from './migration.js';
-import { APP_VERSION } from './config.js?v=1.7.3';
+import { APP_VERSION } from './config.js?v=1.7.0';
 import { DialogueEngine } from './dialogue-engine.js';
 import { typeLine, stopTyping } from './typewriter.js';
 import { chooseIntelligentLine } from './ryadom-intelligence.js';
@@ -13,7 +13,7 @@ import { adviseFromMessage } from './symptom-advisor.js?v=1.4.0';
 import { emotionalSupportFromMessage } from './emotional-support.js?v=1.3.0';
 import { cycleActionLine, deleteCycleRecord, getCycleCarePrompt, saveCycleRecord, saveCycleSettings, saveSelectedBoundary } from './menstrual-service.js?v=1.6.0';
 import { cycleTrackerPanel } from './cycle-panel.js?v=1.6.0';
-import { AmbientAudio } from './ambient-audio.js?v=1.7.3';
+import { personalizeElement, personalizeText, setConfiguredName } from './personalization.js?v=1.7.0';
 
 const app = document.querySelector('#app');
 const sheet = document.querySelector('#sheet');
@@ -24,16 +24,11 @@ const alekLine = document.querySelector('#alek-line');
 const alekImage = document.querySelector('#alek-image');
 const nowAction = document.querySelector('#now-action');
 const speechFlow = document.querySelector('.speech-flow');
-const musicBoxButton = document.querySelector('#music-box');
-const musicTitle = document.querySelector('#music-title');
 
-const ambientAudio = new AmbientAudio({
-  onTrackChange(title, playing) {
-    musicBoxButton.classList.toggle('is-playing', playing);
-    musicBoxButton.setAttribute('aria-pressed', String(playing));
-    musicBoxButton.setAttribute('aria-label', playing ? 'オルゴールを止める' : 'オルゴールを再生');
-    musicTitle.textContent = playing && title ? `♪ ${title}` : '';
-  }
+new MutationObserver(() => personalizeElement(sheetContent)).observe(sheetContent, {
+  childList: true,
+  subtree: true,
+  characterData: true
 });
 
 let engine;
@@ -90,29 +85,17 @@ function playVoice(source, useFallback = false) {
       startAudio();
       return;
     }
-    if (!useFallback || !('speechSynthesis' in window)) {
-      ambientAudio.setVoiceActive(false);
-      return;
-    }
+    if (!useFallback || !('speechSynthesis' in window)) return;
     speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(alekLine.textContent);
     utterance.lang = 'ja-JP';
     utterance.rate = .9;
     utterance.pitch = .8;
-    utterance.volume = 1;
-    utterance.addEventListener('end', () => ambientAudio.setVoiceActive(false), { once: true });
-    utterance.addEventListener('error', () => ambientAudio.setVoiceActive(false), { once: true });
     speechSynthesis.speak(utterance);
   };
   function startAudio() {
     const audio = new Audio(sources[sourceIndex]);
     activeVoice = audio;
-    audio.volume = 1;
-    ambientAudio.setVoiceActive(true);
-    const restoreSound = () => {
-      if (activeVoice === audio) ambientAudio.setVoiceActive(false);
-    };
-    audio.addEventListener('ended', restoreSound, { once: true });
     audio.addEventListener('error', fallback, { once: true });
     audio.play().catch(fallback);
   }
@@ -123,7 +106,7 @@ async function showText(text, audio = null, autoplay = false) {
   stopTyping();
   currentLineAudio = audio;
   if (autoplay && audio) playVoice(audio);
-  await typeLine(alekLine, text, speechFlow);
+  await typeLine(alekLine, personalizeText(text), speechFlow);
 }
 
 async function showLine(context = {}) {
@@ -152,26 +135,25 @@ function updateClock() {
 }
 
 function chooseActivity(room, date = new Date()) {
-  if (room === 'bedroom') return { src: 'assets/alek/alek-bed.jpg', alt: '寝室で横になるアレク', action: '一緒に休むところ', soundScene: 'bedroom' };
+  if (room === 'bedroom') return { src: 'assets/alek/alek-bed.jpg', alt: '寝室で横になるアレク', action: '一緒に休むところ' };
   const weekday = date.getDay() >= 1 && date.getDay() <= 5;
   const hour = date.getHours();
   const roll = Math.random();
-  if ((hour < 7 && roll < .34) || (hour >= 7 && hour < 10 && roll < .16)) return { src: 'assets/alek/alek-shower.jpg', alt: '不規則な時間にシャワーを浴びるアレク', action: '当直明けのシャワー中', soundScene: 'shower' };
+  if ((hour < 7 && roll < .34) || (hour >= 7 && hour < 10 && roll < .16)) return { src: 'assets/alek/alek-shower.jpg', alt: '不規則な時間にシャワーを浴びるアレク', action: '当直明けのシャワー中' };
   if (weekday && hour >= 11 && hour < 19 && roll < .38) {
-    return { src: 'assets/alek/alek-asleep.jpg', alt: '夜勤明けに眠るアレク', action: '夜勤明けでうたた寝', soundScene: 'asleep' };
+    return { src: 'assets/alek/alek-asleep.jpg', alt: '夜勤明けに眠るアレク', action: '夜勤明けでうたた寝' };
   }
   if (weekday && hour >= 8 && hour < 21 && roll < .76) {
-    return { src: 'assets/alek/alek-work.jpg', alt: '資料を確認するアレク', action: '論文と格闘中', soundScene: 'work' };
+    return { src: 'assets/alek/alek-work.jpg', alt: '資料を確認するアレク', action: '論文と格闘中' };
   }
-  return { src: 'assets/alek/alek-home.jpg', alt: 'こちらを見つめるアレク', action: 'レイを待ってる', soundScene: 'home' };
+  return { src: 'assets/alek/alek-home.jpg', alt: 'こちらを見つめるアレク', action: 'レイを待ってる' };
 }
 
 function applyPortrait(activity) {
   normalPortrait = activity;
   alekImage.src = activity.src;
   alekImage.alt = activity.alt;
-  nowAction.textContent = activity.action;
-  ambientAudio.setScene(activity.soundScene || 'home');
+  nowAction.textContent = personalizeText(activity.action);
 }
 
 function setRoom(room, persist = true) {
@@ -197,7 +179,7 @@ async function openPanel(name) {
   const [kicker, title] = panels[name];
   document.querySelector('#sheet-kicker').textContent = kicker;
   document.querySelector('#sheet-title').textContent = title;
-  sheetContent.innerHTML = await panelTemplate(name);
+  sheetContent.innerHTML = personalizeText(await panelTemplate(name));
   sheet.classList.toggle('is-settings', name === 'settings');
   sheet.classList.toggle('is-chat', name === 'say');
   if (!sheet.open) sheet.showModal();
@@ -218,6 +200,7 @@ async function saveProfileForm(values, isOnboarding = false) {
     conditions: values.conditions,
     onboardingComplete: true
   });
+  setConfiguredName(values.name);
   if (isOnboarding) {
     onboarding.close();
     await showText(`${values.name.trim()}、覚えたよ。薬と持病はプロフィールに、飲んだ記録と症状は別々に残すね。`);
@@ -535,35 +518,22 @@ async function showQuietLine() {
   const line = await chooseIntelligentLine(engine, { room: app.dataset.room, timeOfDay: timeOfDay(), quiet: true });
   currentLineAudio = line.audio || null;
   if (line.audio) playVoice(line.audio);
-  await typeLine(document.querySelector('#quiet-line'), line.text, document.querySelector('.quiet-copy'));
+  await typeLine(document.querySelector('#quiet-line'), personalizeText(line.text), document.querySelector('.quiet-copy'));
 }
 
 document.querySelector('#beside-button').addEventListener('click', async () => {
-  ambientAudio.unlock();
-  ambientAudio.setScene('quiet');
   alekImage.src = 'assets/alek/alek-ryadom.jpg';
   alekImage.alt = '静かにそばにいるアレク';
-  nowAction.textContent = 'レイのそばにいる';
+  nowAction.textContent = personalizeText('レイのそばにいる');
   app.classList.add('is-quiet');
   document.querySelector('#quiet-mode').setAttribute('aria-hidden', 'false');
   await showQuietLine();
 });
 document.querySelector('#quiet-portrait').addEventListener('click', showQuietLine);
-musicBoxButton.addEventListener('click', event => {
-  event.stopPropagation();
-  ambientAudio.toggleMusic();
-});
 document.querySelector('#leave-quiet').addEventListener('click', () => {
-  ambientAudio.stopMusic();
   app.classList.remove('is-quiet');
   document.querySelector('#quiet-mode').setAttribute('aria-hidden', 'true');
   if (normalPortrait) applyPortrait(normalPortrait);
-});
-
-document.addEventListener('pointerdown', () => ambientAudio.unlock(), { once: true });
-document.addEventListener('visibilitychange', () => {
-  if (document.hidden) ambientAudio.suspend();
-  else ambientAudio.resume();
 });
 
 async function updateWeather(region, force = false) {
@@ -594,10 +564,11 @@ async function start() {
   await openDatabase();
   await migrateLegacyData();
   engine = await DialogueEngine.create();
+  const { profile } = await getProfileBundle();
+  setConfiguredName(profile?.name || '');
   updateClock();
   setInterval(updateClock, 30000);
   setRoom(localStorage.getItem('ryadom:room-v2') || 'living', false);
-  const { profile } = await getProfileBundle();
   if (!profile?.onboardingComplete || !profile.name || !profile.region) {
     alekLine.textContent = '最初に、君のことを少し教えて。';
     onboarding.showModal();

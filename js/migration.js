@@ -45,7 +45,7 @@ export async function migrateLegacyData() {
     const conditions = Array.isArray(oldProfile.conditions) ? oldProfile.conditions : [];
     await db.put('profile', {
       id: 'current',
-      name: oldProfile.name || 'レイ',
+      name: oldProfile.name || '',
       region: oldProfile.region || '',
       onboardingComplete: Boolean(oldProfile.onboardingComplete || oldProfile.name),
       createdAt: oldProfile.createdAt || new Date().toISOString(),
