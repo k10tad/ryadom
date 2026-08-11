@@ -10,7 +10,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/Ryadom-AppIcon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/Ryadom-AppIcon-180.png">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="css/style-v050.css?v=1.8.4">
+  <link rel="stylesheet" href="css/style-v050.css?v=1.8.12">
   <link rel="stylesheet" href="css/cycle-tracker.css?v=1.6.0">
   <link rel="stylesheet" href="css/splash.css?v=1.0.2">
 </head>
@@ -34,9 +34,9 @@
 
     <header class="topbar">
       <div class="brand">
-        <svg class="otter-guide otter-guide--a" viewBox="0 0 540 540" aria-hidden="true">
-          <defs><filter id="otter-alpha-a" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 .84  0 0 0 0 .76  0 0 0 0 .98  -.75 -.75 -.75 0 2.25"/></filter></defs>
-          <image href="assets/icons/otter-guide-sheet.jpg" x="0" y="0" width="1536" height="1024" filter="url(#otter-alpha-a)"/>
+        <svg class="otter-guide otter-guide--a" viewBox="0 0 448 520" aria-hidden="true">
+          <defs><filter id="otter-alpha-a" x="-7%" y="-7%" width="114%" height="114%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 .97  0 0 0 0 .91  0 0 0 0 1  -1.75 -1.75 -1.75 5.25 0" result="otter-tint-a"/><feMorphology in="otter-tint-a" operator="dilate" radius="1.2"/></filter></defs>
+          <image href="assets/icons/otter-a.png" x="0" y="0" width="448" height="520" filter="url(#otter-alpha-a)"/>
         </svg>
         <span><strong>Рядом</strong><small>いつも、そばに</small></span>
       </div>
@@ -109,16 +109,25 @@
     <dialog class="sheet" id="sheet">
       <div class="sheet-grip" aria-hidden="true"></div>
       <header class="sheet-header">
-        <div><small id="sheet-kicker"></small><h2 id="sheet-title"></h2></div>
+        <div class="sheet-heading">
+          <small id="sheet-kicker"></small>
+          <div class="sheet-title-row">
+            <h2 id="sheet-title"></h2>
+            <svg class="otter-guide sheet-otter" id="sheet-otter" viewBox="0 0 448 520" aria-hidden="true" hidden>
+              <defs><filter id="otter-alpha-sheet" x="-7%" y="-7%" width="114%" height="114%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 .97  0 0 0 0 .91  0 0 0 0 1  -1.75 -1.75 -1.75 5.25 0" result="otter-tint-sheet"/><feMorphology in="otter-tint-sheet" operator="dilate" radius="1.2"/></filter></defs>
+              <image id="sheet-otter-image" href="assets/icons/otter-a.png" x="0" y="0" width="448" height="520" filter="url(#otter-alpha-sheet)"/>
+            </svg>
+          </div>
+        </div>
         <button type="button" id="close-sheet" aria-label="閉じる">×</button>
       </header>
       <div id="sheet-content"></div>
     </dialog>
 
     <dialog class="onboarding" id="onboarding" aria-labelledby="onboarding-title">
-      <svg class="otter-guide otter-guide--b" viewBox="485 20 540 540" aria-hidden="true">
-        <defs><filter id="otter-alpha-b" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 .84  0 0 0 0 .76  0 0 0 0 .98  -.75 -.75 -.75 0 2.25"/></filter></defs>
-        <image href="assets/icons/otter-guide-sheet.jpg" x="0" y="0" width="1536" height="1024" filter="url(#otter-alpha-b)"/>
+      <svg class="otter-guide otter-guide--b" viewBox="0 0 500 472" aria-hidden="true">
+        <defs><filter id="otter-alpha-b" x="-7%" y="-7%" width="114%" height="114%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 .97  0 0 0 0 .91  0 0 0 0 1  -1.75 -1.75 -1.75 5.25 0" result="otter-tint-b"/><feMorphology in="otter-tint-b" operator="dilate" radius="1.2"/></filter></defs>
+        <image href="assets/icons/otter-b.png" x="0" y="0" width="500" height="472" filter="url(#otter-alpha-b)"/>
       </svg>
       <small>ПЕРВАЯ НАСТРОЙКА</small>
       <h2 id="onboarding-title">最初に、君のことを教えて</h2>
@@ -146,6 +155,6 @@
     </section>
   </main>
   <script src="js/splash.js?v=1.0.0" defer></script>
-  <script type="module" src="js/app.js?v=1.8.1"></script>
+  <script type="module" src="js/app.js?v=1.8.4"></script>
 </body>
 </html>

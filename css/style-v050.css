@@ -1,24 +1,62 @@
 @import url("./style.css?v=1.8.1");
 
-/* Original otter guide artwork: A for the home sign, B for first setup. */
+/* Individually trimmed otter guide artwork. */
 .otter-guide {
   position: relative;
   display: block;
   flex: 0 0 auto;
   overflow: hidden;
   color: var(--lilac);
-  filter: drop-shadow(0 0 6px rgba(210, 185, 244, .18));
+  opacity: 1;
+  filter:
+    drop-shadow(0 0 .55px rgba(255, 252, 255, .98))
+    drop-shadow(0 0 2.6px rgba(226, 199, 255, .78));
 }
 
 .otter-guide--a {
-  width: 42px;
-  height: 42px;
+  width: 58px;
+  height: 58px;
 }
 
 .otter-guide--b {
-  width: 78px;
-  height: 78px;
+  width: 90px;
+  height: 85px;
   margin: 0 auto 7px;
+}
+
+.sheet-heading {
+  min-width: 0;
+}
+
+.sheet-title-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.sheet-title-row h2 {
+  min-width: 0;
+}
+
+.sheet-otter {
+  width: 64px;
+  height: 59px;
+  margin-top: 2px;
+}
+
+.sheet-otter[hidden] {
+  display: none;
+}
+
+.sheet-otter[data-otter="a"] {
+  width: 58px;
+  height: 58px;
+}
+
+.sheet-otter[data-otter="c"] {
+  width: 58px;
+  height: 63px;
 }
 
 /* Keep every sheet control inside the rounded modal on narrow iPhones. */

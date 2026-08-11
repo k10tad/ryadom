@@ -76,6 +76,13 @@ const panels = {
   settings: [`НАСТРОЙКИ · v${APP_VERSION}`, 'Рядомの設定']
 };
 
+const panelOtters = {
+  rhythm: { code: 'c', src: 'assets/icons/otter-c.png', viewBox: '0 0 496 552', width: 496, height: 552 },
+  say: { code: 'b', src: 'assets/icons/otter-b.png', viewBox: '0 0 500 472', width: 500, height: 472 },
+  condition: { code: 'b', src: 'assets/icons/otter-b.png', viewBox: '0 0 500 472', width: 500, height: 472 },
+  settings: { code: 'a', src: 'assets/icons/otter-a.png', viewBox: '0 0 448 520', width: 448, height: 520 }
+};
+
 function timeOfDay(date = new Date()) {
   const hour = date.getHours();
   if (hour < 5) return 'lateNight';
@@ -204,6 +211,19 @@ async function openPanel(name) {
   const [kicker, title] = panels[name];
   document.querySelector('#sheet-kicker').textContent = kicker;
   document.querySelector('#sheet-title').textContent = title;
+  const sheetOtter = document.querySelector('#sheet-otter');
+  const sheetOtterImage = document.querySelector('#sheet-otter-image');
+  const otter = panelOtters[name];
+  sheetOtter.toggleAttribute('hidden', !otter);
+  if (otter) {
+    sheetOtter.dataset.otter = otter.code;
+    sheetOtter.setAttribute('viewBox', otter.viewBox);
+    sheetOtterImage.setAttribute('href', otter.src);
+    sheetOtterImage.setAttribute('width', otter.width);
+    sheetOtterImage.setAttribute('height', otter.height);
+  } else {
+    delete sheetOtter.dataset.otter;
+  }
   sheetContent.innerHTML = personalizeText(await panelTemplate(name));
   sheet.classList.toggle('is-settings', name === 'settings');
   sheet.classList.toggle('is-chat', name === 'say');
