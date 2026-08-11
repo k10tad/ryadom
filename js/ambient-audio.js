@@ -163,7 +163,7 @@ export class AmbientAudio {
 
   setVoiceActive(active) {
     this.voiceActive = Boolean(active);
-    if (this.music) this.music.volume = this.voiceActive ? .018 : .06;
+    if (this.music) this.music.volume = this.voiceActive ? .018 : .03;
     if (this.ambient) this.ambient.volume = this.ambient._ryadomBaseVolume * (this.voiceActive ? .35 : 1);
   }
 

@@ -1,13 +1,14 @@
-const VERSION = 'ryadom-v1.6.0-cycle-tracker-1';
+const VERSION = 'ryadom-v1.8.0-medical-dictionary-1';
 const APP_SHELL = [
   './',
   './index.html',
-  './css/style.css',
+  './css/style.css?v=1.7.0',
   './css/cycle-tracker.css?v=1.6.0',
-  './css/style-v050.css?v=0.9.0',
+  './css/style-v050.css?v=1.7.0',
   './manifest.webmanifest',
-  './js/app.js?v=1.6.0',
-  './js/config.js?v=1.6.0',
+  './js/app.js?v=1.7.3',
+  './js/config.js?v=1.8.0',
+  './js/ambient-audio.js?v=1.7.3',
   './js/db.js?v=0.9.0',
   './js/migration.js',
   './js/dialogue-engine.js',
@@ -52,6 +53,21 @@ const APP_SHELL = [
   ,'./voice/Alek.9.mp3'
   ,'./voice/Alek.10.mp3'
   ,'./voice/Alek.11.mp3'
+  ,'./music/elmenreich_tsumugiuta.mp3'
+  ,'./music/gluck_seireinoodori.mp3'
+  ,'./music/grieg_solveigssong.mp3'
+  ,'./music/schumann_morinoiriguchi.mp3'
+  ,'./music/straussII_annenpolka.mp3'
+  ,'./music/veldy_hanakarahanahe.mp3'
+  ,'./sound/bathtub.mp3'
+  ,'./sound/doubleclick.mp3'
+  ,'./sound/heartbeat.mp3'
+  ,'./sound/keyboard.mp3'
+  ,'./sound/paper.mp3'
+  ,'./sound/phone.mp3'
+  ,'./sound/printer.mp3'
+  ,'./sound/shower.mp3'
+  ,'./sound/vibe.mp3'
 ];
 
 self.addEventListener('install', event => {
