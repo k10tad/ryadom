@@ -127,7 +127,7 @@ function dialogueContext(context = {}) {
 
 function updateBedtimeButton() {
   bedtimeButton.setAttribute('aria-pressed', String(bedtimeActive));
-  bedtimeStatus.textContent = bedtimeActive ? '心拍と声を止める' : '心拍と、静かな声';
+  bedtimeStatus.textContent = bedtimeActive ? '離れる。' : 'もう一度耳を当てる。';
 }
 
 function clearBedtimeSpeechTimer() {
