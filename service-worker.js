@@ -1,10 +1,10 @@
-const VERSION = 'ryadom-v1.8.16-balanced-chat-sheet';
+const VERSION = 'ryadom-v1.8.18-contained-chat-composer';
 const APP_SHELL = [
   './',
   './index.html',
   './css/style.css?v=1.8.1',
   './css/cycle-tracker.css?v=1.6.0',
-  './css/style-v050.css?v=1.8.16',
+  './css/style-v050.css?v=1.8.18',
   './css/splash.css?v=1.0.2',
   './manifest.webmanifest',
   './js/splash.js?v=1.0.0',
