@@ -1,4 +1,4 @@
-@import url("./style.css?v=1.8.1");
+@import url("./style.css?v=1.8.2");
 
 /* Individually trimmed otter guide artwork. */
 .otter-guide {
@@ -190,7 +190,7 @@
 .current-profile > small { color: var(--lilac); font-size: 9px; letter-spacing: .08em; }
 .profile-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
 .profile-chip { border: 1px solid var(--line); border-radius: 999px; background: rgba(217, 202, 242, .1); padding: 5px 9px; font-size: 9px; }
-.profile-chip[data-medication-preset] { appearance: none; color: var(--paper); font: inherit; line-height: 1.35; cursor: pointer; transition: border-color .18s ease, background .18s ease, box-shadow .18s ease, transform .18s ease; }
+.profile-chip[data-medication-preset] { appearance: none; color: var(--paper); font-family: inherit; font-size: 9px; font-weight: inherit; line-height: normal; cursor: pointer; transition: border-color .18s ease, background .18s ease, box-shadow .18s ease, transform .18s ease; }
 .profile-chip[data-medication-preset]:active { transform: scale(.97); }
 .profile-chip[data-medication-preset]:focus-visible { outline: 2px solid rgba(218, 199, 255, .78); outline-offset: 2px; }
 .profile-chip[data-medication-preset].is-selected { border-color: rgba(218, 199, 255, .82); background: rgba(195, 168, 239, .28); box-shadow: 0 0 14px rgba(190, 157, 242, .18); }
@@ -209,7 +209,7 @@
 .profile-choice span { color: var(--paper); font-size: 10px; line-height: 1.5; }
 
 .pain-toggle { display: flex !important; align-items: center; gap: 9px !important; }
-.pain-toggle input { width: 18px !important; height: 18px; margin: 0; accent-color: var(--lilac-2); }
+.pain-toggle input[type="checkbox"] { appearance: auto; -webkit-appearance: checkbox; width: 17px !important; height: 17px; flex: 0 0 17px; margin: 0; border: 0; border-radius: 0; background: transparent; padding: 0 !important; box-shadow: none; accent-color: var(--lilac-2); }
 .pain-scale { border: 1px solid var(--line); border-radius: 14px; background: rgba(217, 202, 242, .055); padding: 12px; }
 .pain-scale[hidden] { display: none; }
 .pain-scale > div:first-child { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--muted); font-size: 8px; }

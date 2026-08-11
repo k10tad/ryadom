@@ -1,14 +1,14 @@
-const VERSION = 'ryadom-v1.8.23-medication-presets';
+const VERSION = 'ryadom-v1.8.25-pain-checkbox';
 const APP_SHELL = [
   './',
   './index.html',
-  './css/style.css?v=1.8.1',
+  './css/style.css?v=1.8.2',
   './css/cycle-tracker.css?v=1.6.0',
-  './css/style-v050.css?v=1.8.21',
+  './css/style-v050.css?v=1.8.23',
   './css/splash.css?v=1.0.2',
   './manifest.webmanifest',
   './js/splash.js?v=1.0.0',
-  './js/app.js?v=1.8.11',
+  './js/app.js?v=1.8.12',
   './js/config.js?v=1.8.1',
   './js/personalization.js?v=1.8.1',
   './js/ambient-audio.js?v=1.8.2',
@@ -29,7 +29,7 @@ const APP_SHELL = [
   './js/profile-service.js',
   './js/weather-service.js?v=1.0.0',
   './js/templates.js?v=0.9.0',
-  './js/panels.js?v=1.4.1',
+  './js/panels.js?v=1.4.2',
   './js/cycle-panel.js?v=1.6.0',
   './js/menstrual-service.js?v=1.6.0',
   './js/backup-service.js?v=0.9.0',

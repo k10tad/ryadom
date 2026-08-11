@@ -6,7 +6,7 @@ import { typeLine, stopTyping } from './typewriter.js';
 import { chooseIntelligentLine } from './ryadom-intelligence.js?v=1.0.2';
 import { evaluateMedication, renderMedicationAssessment } from './medical-service.js';
 import { addMedicationToProfile, getProfileBundle, saveProfile } from './profile-service.js';
-import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=1.4.1';
+import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=1.4.2';
 import { exportBackup, importBackup } from './backup-service.js?v=0.9.0';
 import { clearWeatherCache, getWeather } from './weather-service.js?v=1.0.0';
 import { adviseFromMessage } from './symptom-advisor.js?v=1.4.0';
@@ -457,6 +457,19 @@ async function handleSubmit(form) {
   }
   if (type === 'say') {
     const note = values.note.trim();
+    if (values.editId) {
+      const existingMessage = await db.get('messages', values.editId);
+      if (existingMessage?.from === 'user') {
+        await db.put('messages', { ...existingMessage, text: note, editedAt: now });
+      }
+      sheetContent.innerHTML = await sayPanel();
+      requestAnimationFrame(() => {
+        const history = document.querySelector('#chat-history');
+        if (history) history.scrollTop = history.scrollHeight;
+        document.querySelector('.chat-composer textarea')?.focus();
+      });
+      return;
+    }
     const userMessage = { id: makeId('message'), from: 'user', text: note, at: now, readAt: null };
     await db.put('messages', userMessage);
     sheetContent.innerHTML = await sayPanel();
@@ -505,6 +518,43 @@ function speakCurrentLine() {
 }
 
 document.addEventListener('click', async event => {
+  const editMessage = event.target.closest('[data-edit-message]');
+  if (editMessage) {
+    sheetContent.innerHTML = await sayPanel({ editId: editMessage.dataset.editMessage });
+    requestAnimationFrame(() => {
+      const textarea = document.querySelector('.chat-composer textarea');
+      if (textarea) {
+        textarea.focus({ preventScroll: true });
+        textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+      }
+      document.querySelector(`[data-message-id="${CSS.escape(editMessage.dataset.editMessage)}"]`)?.scrollIntoView({ block: 'center' });
+    });
+    return;
+  }
+
+  if (event.target.closest('[data-cancel-message-edit]')) {
+    sheetContent.innerHTML = await sayPanel();
+    requestAnimationFrame(() => {
+      const history = document.querySelector('#chat-history');
+      if (history) history.scrollTop = history.scrollHeight;
+      document.querySelector('.chat-composer textarea')?.focus();
+    });
+    return;
+  }
+
+  const deleteMessage = event.target.closest('[data-delete-message]');
+  if (deleteMessage) {
+    if (!confirm('このメッセージを削除する？')) return;
+    const message = await db.get('messages', deleteMessage.dataset.deleteMessage);
+    if (message?.from === 'user') await db.remove('messages', message.id);
+    sheetContent.innerHTML = await sayPanel();
+    requestAnimationFrame(() => {
+      const history = document.querySelector('#chat-history');
+      if (history) history.scrollTop = history.scrollHeight;
+    });
+    return;
+  }
+
   const medicationPreset = event.target.closest('[data-medication-preset]');
   if (medicationPreset) {
     const form = sheetContent.querySelector('[data-form="medicine"]');
