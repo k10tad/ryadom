@@ -15,6 +15,7 @@ import { cycleActionLine, deleteCycleRecord, getCycleCarePrompt, saveCycleRecord
 import { cycleTrackerPanel } from './cycle-panel.js?v=1.6.0';
 import { personalizeElement, personalizeText, setConfiguredName } from './personalization.js?v=1.8.1';
 import { AmbientAudio } from './ambient-audio.js?v=1.8.1';
+import { activityPeriodKey, buildTimeContext, dialogueTags, timeOfDay } from './time-context.js?v=1.0.0';
 
 const app = document.querySelector('#app');
 const sheet = document.querySelector('#sheet');
@@ -62,6 +63,7 @@ let pendingMedication = null;
 let currentLineAudio = null;
 let activeVoice = null;
 let normalPortrait = null;
+let currentActivityPeriod = '';
 const CARE_STATE_KEY = 'ryadom:care-conversation-v1';
 
 function getCareState() {
@@ -97,13 +99,14 @@ const panelOtters = {
   settings: { code: 'a', src: 'assets/icons/otter-a.png', viewBox: '0 0 448 520', width: 448, height: 520 }
 };
 
-function timeOfDay(date = new Date()) {
-  const hour = date.getHours();
-  if (hour < 5) return 'lateNight';
-  if (hour < 11) return 'morning';
-  if (hour < 17) return 'day';
-  if (hour < 22) return 'evening';
-  return 'night';
+function dialogueContext(context = {}) {
+  const date = context.date instanceof Date ? context.date : new Date();
+  return {
+    room: app.dataset.room,
+    activity: app.dataset.activity,
+    ...buildTimeContext(date),
+    ...context
+  };
 }
 
 function playVoice(source, useFallback = false) {
@@ -155,19 +158,16 @@ async function showText(text, audio = null, autoplay = false) {
 }
 
 async function showLine(context = {}) {
-  const line = await chooseIntelligentLine(engine, {
-    room: app.dataset.room,
-    timeOfDay: timeOfDay(),
-    ...context
-  });
+  const line = await chooseIntelligentLine(engine, dialogueContext(context));
   await showText(line.text, line.audio, true);
   return line;
 }
 
 async function showNextVoicedLine() {
   const index = Number(localStorage.getItem('ryadom:voiced-line-index') || 0);
-  const line = engine.pickVoiced(index);
-  const total = engine.voicedLines().length;
+  const tags = dialogueTags(dialogueContext());
+  const line = engine.pickVoiced(index, { tags });
+  const total = engine.voicedLines({ tags }).length;
   if (total) localStorage.setItem('ryadom:voiced-line-index', String((index + 1) % total));
   await showText(line.text, line.audio, true);
   return line;
@@ -177,6 +177,7 @@ function updateClock() {
   const now = new Date();
   document.querySelector('#clock-time').textContent = now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
   document.querySelector('#clock-date').textContent = now.toLocaleDateString('ja-JP', { month: 'long', day: 'numeric', weekday: 'short' });
+  refreshActivityForTime(now);
 }
 
 function chooseActivity(room, date = new Date()) {
@@ -196,16 +197,27 @@ function chooseActivity(room, date = new Date()) {
 
 function applyPortrait(activity) {
   normalPortrait = activity;
+  app.dataset.activity = activity.soundScene || 'home';
   alekImage.src = activity.src;
   alekImage.alt = activity.alt;
   nowAction.textContent = personalizeText(activity.action);
   ambientAudio.setScene(activity.soundScene || 'home');
 }
 
+function refreshActivityForTime(date = new Date()) {
+  if (!normalPortrait) return;
+  const period = activityPeriodKey(app.dataset.room, date);
+  if (period === currentActivityPeriod) return;
+  applyPortrait(chooseActivity(app.dataset.room, date));
+  currentActivityPeriod = period;
+}
+
 function setRoom(room, persist = true) {
   const bedroom = room === 'bedroom';
   app.dataset.room = bedroom ? 'bedroom' : 'living';
-  applyPortrait(chooseActivity(app.dataset.room));
+  const now = new Date();
+  applyPortrait(chooseActivity(app.dataset.room, now));
+  currentActivityPeriod = activityPeriodKey(app.dataset.room, now);
   document.querySelectorAll('[data-room-button]').forEach(button => {
     button.classList.toggle('is-active', button.dataset.roomButton === app.dataset.room);
   });
@@ -367,11 +379,9 @@ async function handleSubmit(form) {
       await saveCareMeasurement(care.log, now);
     }
     const emotional = care ? null : emotionalSupportFromMessage(note);
-    const response = care || emotional || await chooseIntelligentLine(engine, {
-      room: app.dataset.room,
-      timeOfDay: timeOfDay(),
+    const response = care || emotional || await chooseIntelligentLine(engine, dialogueContext({
       distress: /つら|しんど|痛|怖|不安/.test(note)
-    });
+    }));
     await db.put('messages', { id: makeId('message'), from: 'alek', kind: response.kind || 'dialogue', urgent: Boolean(response.urgent), text: response.text, at: new Date().toISOString() });
     await showText(response.text, response.audio || null, Boolean(response.audio));
     sheetContent.innerHTML = await sayPanel();
@@ -583,7 +593,7 @@ document.querySelector('#next-line').addEventListener('click', () => showNextVoi
 document.querySelector('#voice-button').addEventListener('click', speakCurrentLine);
 async function showQuietLine() {
   stopTyping();
-  const line = await chooseIntelligentLine(engine, { room: app.dataset.room, timeOfDay: timeOfDay(), quiet: true });
+  const line = await chooseIntelligentLine(engine, dialogueContext({ quiet: true }));
   currentLineAudio = line.audio || null;
   if (line.audio) playVoice(line.audio);
   await typeLine(document.querySelector('#quiet-line'), personalizeText(line.text), document.querySelector('.quiet-copy'));

@@ -1,4 +1,4 @@
-const VERSION = 'ryadom-v1.8.19-fresh-ui-assets';
+const VERSION = 'ryadom-v1.8.20-time-aware-dialogue';
 const APP_SHELL = [
   './',
   './index.html',
@@ -8,7 +8,7 @@ const APP_SHELL = [
   './css/splash.css?v=1.0.2',
   './manifest.webmanifest',
   './js/splash.js?v=1.0.0',
-  './js/app.js?v=1.8.7',
+  './js/app.js?v=1.8.8',
   './js/config.js?v=1.8.1',
   './js/personalization.js?v=1.8.1',
   './js/ambient-audio.js?v=1.8.1',
@@ -18,6 +18,7 @@ const APP_SHELL = [
   './js/typewriter.js',
   './js/reasoning.js',
   './js/ryadom-intelligence.js',
+  './js/time-context.js?v=1.0.0',
   './js/symptom-advisor.js?v=1.4.0',
   './js/emotional-support.js?v=1.3.0',
   './js/clinical-triage.js',
