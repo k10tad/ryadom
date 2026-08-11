@@ -24,7 +24,8 @@ const SCENES = {
     { src: 'sound/paper.mp3', volume: .08 },
     { src: 'sound/vibe.mp3', volume: .055 }
   ],
-  bedroom: [{ src: 'sound/heartbeat.mp3', volume: .045, loop: true }],
+  bedroom: [],
+  bedtime: [{ src: 'sound/heartbeat.mp3', volume: .045, loop: true }],
   quiet: []
 };
 
@@ -52,11 +53,13 @@ export class AmbientAudio {
     this.scheduleAmbient(1800);
   }
 
-  setScene(scene) {
+  setScene(scene, { immediate = false } = {}) {
     this.scene = SCENES[scene] ? scene : 'home';
     this.sceneVersion += 1;
     this.stopAmbient();
-    if (this.unlocked) this.scheduleAmbient(between(1600, 3200));
+    if (!this.unlocked) return;
+    if (immediate && SCENES[this.scene]?.length && !document.hidden) this.playAmbient();
+    else this.scheduleAmbient(between(1600, 3200));
   }
 
   scheduleAmbient(delay = 1800) {

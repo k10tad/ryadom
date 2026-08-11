@@ -10,7 +10,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/Ryadom-AppIcon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/Ryadom-AppIcon-180.png">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="css/style-v050.css?v=1.8.19">
+  <link rel="stylesheet" href="css/style-v050.css?v=1.8.20">
   <link rel="stylesheet" href="css/cycle-tracker.css?v=1.6.0">
   <link rel="stylesheet" href="css/splash.css?v=1.0.2">
 </head>
@@ -82,6 +82,11 @@
           <p id="alek-line">おかえり、レイ。今日はどんな一日だった？</p>
           <button class="next-line" id="next-line" type="button" aria-label="次の音声付きの言葉">もう一度、話す</button>
         </article>
+
+        <button class="bedtime-button" id="bedtime-button" type="button" aria-pressed="false">
+          <span class="bedtime-mark" aria-hidden="true"><i></i></span>
+          <span><strong>眠るまで</strong><small id="bedtime-status">心拍と、静かな声</small></span>
+        </button>
 
         <button class="beside-button" id="beside-button" type="button">
           <span class="vital-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
@@ -155,6 +160,6 @@
     </section>
   </main>
   <script src="js/splash.js?v=1.0.0" defer></script>
-  <script type="module" src="js/app.js?v=1.8.8"></script>
+  <script type="module" src="js/app.js?v=1.8.9"></script>
 </body>
 </html>

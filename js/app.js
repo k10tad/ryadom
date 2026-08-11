@@ -1,9 +1,9 @@
 import { db, makeId, openDatabase } from './db.js?v=0.9.0';
 import { migrateLegacyData } from './migration.js';
 import { APP_VERSION } from './config.js?v=1.8.1';
-import { DialogueEngine } from './dialogue-engine.js';
+import { DialogueEngine } from './dialogue-engine.js?v=1.0.1';
 import { typeLine, stopTyping } from './typewriter.js';
-import { chooseIntelligentLine } from './ryadom-intelligence.js';
+import { chooseIntelligentLine } from './ryadom-intelligence.js?v=1.0.1';
 import { evaluateMedication, renderMedicationAssessment } from './medical-service.js';
 import { addMedicationToProfile, getProfileBundle, saveProfile } from './profile-service.js';
 import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=1.4.0';
@@ -14,8 +14,16 @@ import { emotionalSupportFromMessage } from './emotional-support.js?v=1.3.0';
 import { cycleActionLine, deleteCycleRecord, getCycleCarePrompt, saveCycleRecord, saveCycleSettings, saveSelectedBoundary } from './menstrual-service.js?v=1.6.0';
 import { cycleTrackerPanel } from './cycle-panel.js?v=1.6.0';
 import { personalizeElement, personalizeText, setConfiguredName } from './personalization.js?v=1.8.1';
-import { AmbientAudio } from './ambient-audio.js?v=1.8.1';
+import { AmbientAudio } from './ambient-audio.js?v=1.8.2';
 import { activityPeriodKey, buildTimeContext, dialogueTags, timeOfDay } from './time-context.js?v=1.0.0';
+import {
+  BEDROOM_SAFE_LINE_IDS,
+  bedtimeLineDelay,
+  isNightWakeWindow,
+  pickBedtimeLine,
+  pickNightWakeLine,
+  shouldTriggerNightWake
+} from './bedroom-mode.js?v=1.0.0';
 
 const app = document.querySelector('#app');
 const sheet = document.querySelector('#sheet');
@@ -28,6 +36,8 @@ const nowAction = document.querySelector('#now-action');
 const speechFlow = document.querySelector('.speech-flow');
 const musicBoxButton = document.querySelector('#music-box');
 const musicTitle = document.querySelector('#music-title');
+const bedtimeButton = document.querySelector('#bedtime-button');
+const bedtimeStatus = document.querySelector('#bedtime-status');
 
 function syncViewportMetrics() {
   const viewport = window.visualViewport;
@@ -62,9 +72,15 @@ let engine;
 let pendingMedication = null;
 let currentLineAudio = null;
 let activeVoice = null;
+let voiceRequestVersion = 0;
 let normalPortrait = null;
 let currentActivityPeriod = '';
+let bedtimeActive = false;
+let bedtimeSpeechTimer = null;
+let lastBedtimeLineId = '';
+let lastNightWakeLineId = '';
 const CARE_STATE_KEY = 'ryadom:care-conversation-v1';
+const NIGHT_WAKE_ATTEMPT_PREFIX = 'ryadom:night-wake-attempt:';
 
 function getCareState() {
   try { return JSON.parse(localStorage.getItem(CARE_STATE_KEY) || 'null'); } catch { return null; }
@@ -109,13 +125,91 @@ function dialogueContext(context = {}) {
   };
 }
 
+function updateBedtimeButton() {
+  bedtimeButton.setAttribute('aria-pressed', String(bedtimeActive));
+  bedtimeStatus.textContent = bedtimeActive ? '心拍と声を止める' : '心拍と、静かな声';
+}
+
+function clearBedtimeSpeechTimer() {
+  clearTimeout(bedtimeSpeechTimer);
+  bedtimeSpeechTimer = null;
+}
+
+function scheduleBedtimeLine(delay = bedtimeLineDelay()) {
+  clearBedtimeSpeechTimer();
+  if (!bedtimeActive || app.dataset.room !== 'bedroom' || document.hidden) return;
+  bedtimeSpeechTimer = setTimeout(() => speakBedtimeLine(), delay);
+}
+
+async function speakBedtimeLine() {
+  if (!bedtimeActive || app.dataset.room !== 'bedroom') return null;
+  clearBedtimeSpeechTimer();
+  const line = pickBedtimeLine(lastBedtimeLineId);
+  if (!line) return null;
+  lastBedtimeLineId = line.id;
+  await showText(line.text, line.audio, true);
+  scheduleBedtimeLine();
+  return line;
+}
+
+async function startBedtimeMode() {
+  if (app.dataset.room !== 'bedroom') return;
+  bedtimeActive = true;
+  app.classList.add('is-bedtime');
+  updateBedtimeButton();
+  ambientAudio.unlock();
+  ambientAudio.setScene('bedtime', { immediate: true });
+  await speakBedtimeLine();
+}
+
+function stopBedtimeMode({ restoreScene = true } = {}) {
+  if (!bedtimeActive) return;
+  bedtimeActive = false;
+  clearBedtimeSpeechTimer();
+  stopActiveVoice();
+  app.classList.remove('is-bedtime');
+  updateBedtimeButton();
+  if (restoreScene) ambientAudio.setScene(app.dataset.room === 'bedroom' ? 'bedroom' : (app.dataset.activity || 'home'));
+}
+
+function nightWakeAttemptKey(date) {
+  return NIGHT_WAKE_ATTEMPT_PREFIX + buildTimeContext(date).dateKey;
+}
+
+async function maybeShowNightWake(date = new Date()) {
+  if (app.dataset.room !== 'bedroom' || !isNightWakeWindow(date)) return false;
+  const key = nightWakeAttemptKey(date);
+  try {
+    if (sessionStorage.getItem(key)) return false;
+    sessionStorage.setItem(key, 'checked');
+  } catch {}
+  if (!shouldTriggerNightWake(date)) return false;
+  const line = pickNightWakeLine(lastNightWakeLineId);
+  if (!line) return false;
+  lastNightWakeLineId = line.id;
+  await showText(line.text, line.audio, true);
+  return true;
+}
+
+function stopActiveVoice() {
+  voiceRequestVersion += 1;
+  if (activeVoice) {
+    activeVoice.pause();
+    activeVoice.currentTime = 0;
+    activeVoice = null;
+  }
+  ambientAudio.setVoiceActive(false);
+}
+
 function playVoice(source, useFallback = false) {
   if (!source) return;
-  activeVoice?.pause();
+  stopActiveVoice();
+  const requestVersion = voiceRequestVersion;
   const sources = [source];
   if (source.startsWith('voice/')) sources.push(`Voice/${source.slice(6)}`);
   let sourceIndex = 0;
   const fallback = () => {
+    if (requestVersion !== voiceRequestVersion) return;
     sourceIndex += 1;
     if (sourceIndex < sources.length) {
       startAudio();
@@ -136,12 +230,16 @@ function playVoice(source, useFallback = false) {
     speechSynthesis.speak(utterance);
   };
   function startAudio() {
+    if (requestVersion !== voiceRequestVersion) return;
     const audio = new Audio(sources[sourceIndex]);
     activeVoice = audio;
     audio.volume = 1;
     ambientAudio.setVoiceActive(true);
     const restoreSound = () => {
-      if (activeVoice === audio) ambientAudio.setVoiceActive(false);
+      if (activeVoice === audio) {
+        activeVoice = null;
+        ambientAudio.setVoiceActive(false);
+      }
     };
     audio.addEventListener('ended', restoreSound, { once: true });
     audio.addEventListener('error', fallback, { once: true });
@@ -164,10 +262,12 @@ async function showLine(context = {}) {
 }
 
 async function showNextVoicedLine() {
+  if (bedtimeActive) return speakBedtimeLine();
   const index = Number(localStorage.getItem('ryadom:voiced-line-index') || 0);
   const tags = dialogueTags(dialogueContext());
-  const line = engine.pickVoiced(index, { tags });
-  const total = engine.voicedLines({ tags }).length;
+  const allowedIds = app.dataset.room === 'bedroom' ? BEDROOM_SAFE_LINE_IDS : null;
+  const line = engine.pickVoiced(index, { tags, allowedIds });
+  const total = engine.voicedLines({ tags, allowedIds }).length;
   if (total) localStorage.setItem('ryadom:voiced-line-index', String((index + 1) % total));
   await showText(line.text, line.audio, true);
   return line;
@@ -201,7 +301,7 @@ function applyPortrait(activity) {
   alekImage.src = activity.src;
   alekImage.alt = activity.alt;
   nowAction.textContent = personalizeText(activity.action);
-  ambientAudio.setScene(activity.soundScene || 'home');
+  if (!bedtimeActive) ambientAudio.setScene(activity.soundScene || 'home');
 }
 
 function refreshActivityForTime(date = new Date()) {
@@ -214,6 +314,7 @@ function refreshActivityForTime(date = new Date()) {
 
 function setRoom(room, persist = true) {
   const bedroom = room === 'bedroom';
+  if (!bedroom && bedtimeActive) stopBedtimeMode({ restoreScene: false });
   app.dataset.room = bedroom ? 'bedroom' : 'living';
   const now = new Date();
   applyPortrait(chooseActivity(app.dataset.room, now));
@@ -424,8 +525,11 @@ document.addEventListener('click', async event => {
 
   const roomButton = event.target.closest('[data-room-button]');
   if (roomButton) {
-    setRoom(roomButton.dataset.roomButton);
-    await showLine({ room: roomButton.dataset.roomButton });
+    const room = roomButton.dataset.roomButton;
+    if (room === 'bedroom' && bedtimeActive) return;
+    setRoom(room);
+    const nightWakeShown = room === 'bedroom' && await maybeShowNightWake();
+    if (!nightWakeShown) await showLine({ room });
     return;
   }
 
@@ -591,6 +695,10 @@ document.querySelector('#close-sheet').addEventListener('click', closeSheetToHom
 sheet.addEventListener('click', event => { if (event.target === sheet) closeSheetToHome(); });
 document.querySelector('#next-line').addEventListener('click', () => showNextVoicedLine());
 document.querySelector('#voice-button').addEventListener('click', speakCurrentLine);
+bedtimeButton.addEventListener('click', async () => {
+  if (bedtimeActive) stopBedtimeMode();
+  else await startBedtimeMode();
+});
 async function showQuietLine() {
   stopTyping();
   const line = await chooseIntelligentLine(engine, dialogueContext({ quiet: true }));
@@ -600,6 +708,7 @@ async function showQuietLine() {
 }
 
 document.querySelector('#beside-button').addEventListener('click', async () => {
+  if (bedtimeActive) stopBedtimeMode({ restoreScene: false });
   ambientAudio.unlock();
   ambientAudio.setScene('quiet');
   alekImage.src = 'assets/alek/alek-ryadom.jpg';
@@ -623,8 +732,13 @@ document.querySelector('#leave-quiet').addEventListener('click', () => {
 
 document.addEventListener('pointerdown', () => ambientAudio.unlock(), { once: true });
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden) ambientAudio.suspend();
-  else ambientAudio.resume();
+  if (document.hidden) {
+    ambientAudio.suspend();
+    clearBedtimeSpeechTimer();
+  } else {
+    ambientAudio.resume();
+    if (bedtimeActive) scheduleBedtimeLine();
+  }
 });
 
 async function updateWeather(region, force = false) {
@@ -666,7 +780,10 @@ async function start() {
   } else {
     const cycleCare = await getCycleCarePrompt();
     if (cycleCare) await showText(cycleCare.text);
-    else await showLine();
+    else {
+      const nightWakeShown = app.dataset.room === 'bedroom' && await maybeShowNightWake();
+      if (!nightWakeShown) await showLine();
+    }
     updateWeather(profile.region);
   }
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js').catch(() => {});

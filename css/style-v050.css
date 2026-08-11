@@ -219,3 +219,81 @@
 .transfer-actions button { border: 1px solid var(--line); border-radius: 11px; background: rgba(217, 202, 242, .09); color: var(--paper); padding: 10px 8px; font-size: 9px; }
 .transfer-actions button:disabled { opacity: .55; }
 .transfer-status { min-height: 1.5em; margin-top: 8px !important; color: var(--lilac) !important; }
+
+/* Bedroom-only wind-down mode. */
+.room-shade,
+.alek-portrait img,
+.wisteria-fall { transition: background .8s ease, filter .8s ease, opacity .8s ease; }
+
+.bedtime-button {
+  display: none;
+  width: fit-content;
+  min-height: 42px;
+  justify-self: center;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid rgba(217, 202, 242, .28);
+  border-radius: 999px;
+  background: linear-gradient(120deg, rgba(92, 83, 120, .38), rgba(24, 23, 37, .74));
+  color: var(--paper);
+  padding: 7px 14px 7px 10px;
+  box-shadow: 0 9px 28px rgba(0, 0, 0, .22);
+  backdrop-filter: blur(14px);
+}
+.app[data-room="bedroom"] .bedtime-button { display: flex; }
+.bedtime-button > span:last-child { display: grid; gap: 1px; text-align: left; }
+.bedtime-button strong { font: 500 11px Georgia, "Yu Mincho", serif; letter-spacing: .08em; }
+.bedtime-button small { color: var(--muted); font-size: 7px; letter-spacing: .04em; }
+.bedtime-mark {
+  position: relative;
+  width: 27px;
+  height: 27px;
+  flex: 0 0 27px;
+  border: 1px solid rgba(224, 211, 246, .24);
+  border-radius: 50%;
+  background: rgba(217, 202, 242, .07);
+}
+.bedtime-mark::before {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  left: 6px;
+  top: 5px;
+  border: 1.5px solid var(--lilac);
+  border-top-color: transparent;
+  border-radius: 50%;
+  rotate: 28deg;
+  filter: drop-shadow(0 0 4px rgba(217, 202, 242, .32));
+}
+.bedtime-mark i {
+  position: absolute;
+  right: 5px;
+  bottom: 6px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--lilac);
+  box-shadow: 0 0 7px rgba(217, 202, 242, .65);
+}
+.bedtime-button[aria-pressed="true"] {
+  border-color: rgba(223, 210, 244, .54);
+  background: linear-gradient(120deg, rgba(118, 101, 153, .5), rgba(24, 23, 37, .82));
+  box-shadow: 0 9px 30px rgba(0, 0, 0, .3), 0 0 22px rgba(176, 151, 211, .13);
+}
+.bedtime-button[aria-pressed="true"] .bedtime-mark i { animation: bedtimePulse 1.8s ease-in-out infinite; }
+@keyframes bedtimePulse { 50% { opacity: .42; scale: .72; box-shadow: 0 0 13px rgba(217, 202, 242, .8); } }
+
+.app.is-bedtime .room-shade {
+  background:
+    linear-gradient(180deg, rgba(7, 7, 14, .9) 0%, rgba(13, 11, 24, .6) 42%, rgba(5, 5, 11, .95) 100%),
+    linear-gradient(90deg, rgba(34, 26, 50, .32), rgba(35, 30, 58, .18));
+}
+.app.is-bedtime .alek-portrait img { filter: brightness(.7) saturate(.78); }
+.app.is-bedtime .alek-portrait { box-shadow: 0 0 0 7px rgba(188, 166, 220, .035), 0 24px 60px rgba(0, 0, 0, .58); }
+.app.is-bedtime .wisteria-fall { opacity: .26; }
+.app.is-bedtime .speech-flow { text-shadow: 0 2px 16px #000, 0 0 18px rgba(187, 163, 219, .12); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bedtime-button[aria-pressed="true"] .bedtime-mark i { animation: none; }
+}

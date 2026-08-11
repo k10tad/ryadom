@@ -42,6 +42,12 @@ function unconstrained(lines) {
   return lines.filter(line => !(line.tags || []).some(tag => CONSTRAINED_TAGS.has(tag)));
 }
 
+function allowed(lines, allowedIds) {
+  if (!Array.isArray(allowedIds)) return lines;
+  const ids = new Set(allowedIds);
+  return lines.filter(line => ids.has(line.id));
+}
+
 export class DialogueEngine {
   constructor(lines) { this.lines = lines; }
 
@@ -52,20 +58,22 @@ export class DialogueEngine {
     return new DialogueEngine(data.lines || []);
   }
 
-  pick(category = 'everyday', { exclude = [], tags = [] } = {}) {
+  pick(category = 'everyday', { exclude = [], tags = [], allowedIds = null } = {}) {
     const excluded = new Set(exclude);
-    const categoryLines = this.lines.filter(line => line.category === category);
+    const eligibleLines = allowed(this.lines, allowedIds);
+    const categoryLines = eligibleLines.filter(line => line.category === category);
     let pool = bestCompatible(categoryLines.filter(line => !excluded.has(line.id)), tags);
     if (!pool.length && excluded.size) pool = bestCompatible(categoryLines, tags);
-    if (!pool.length) pool = unconstrained(categoryLines);
-    if (!pool.length) pool = unconstrained(this.lines);
+    if (!pool.length) pool = bestCompatible(eligibleLines.filter(line => !excluded.has(line.id)), tags);
+    if (!pool.length && excluded.size) pool = bestCompatible(eligibleLines, tags);
+    if (!pool.length) pool = unconstrained(eligibleLines);
     return pool[Math.floor(Math.random() * pool.length)] || {
       id: 'fallback', category: 'everyday', text: 'うん、ここにいるよ。'
     };
   }
 
-  voicedLines({ tags = [] } = {}) {
-    return this.lines
+  voicedLines({ tags = [], allowedIds = null } = {}) {
+    return allowed(this.lines, allowedIds)
       .filter(line => typeof line.audio === 'string' && line.audio.trim())
       .filter(line => isCompatible(line, tags))
       .sort((a, b) => {
