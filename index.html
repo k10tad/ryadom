@@ -10,7 +10,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/Ryadom-AppIcon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/Ryadom-AppIcon-180.png">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="css/style-v050.css?v=1.8.1">
+  <link rel="stylesheet" href="css/style-v050.css?v=1.8.4">
   <link rel="stylesheet" href="css/cycle-tracker.css?v=1.6.0">
   <link rel="stylesheet" href="css/splash.css?v=1.0.2">
 </head>
@@ -34,7 +34,10 @@
 
     <header class="topbar">
       <div class="brand">
-        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <svg class="otter-guide otter-guide--a" viewBox="0 0 540 540" aria-hidden="true">
+          <defs><filter id="otter-alpha-a" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 .84  0 0 0 0 .76  0 0 0 0 .98  -.75 -.75 -.75 0 2.25"/></filter></defs>
+          <image href="assets/icons/otter-guide-sheet.jpg" x="0" y="0" width="1536" height="1024" filter="url(#otter-alpha-a)"/>
+        </svg>
         <span><strong>Рядом</strong><small>いつも、そばに</small></span>
       </div>
       <div class="clock" aria-label="現在日時">
@@ -113,7 +116,10 @@
     </dialog>
 
     <dialog class="onboarding" id="onboarding" aria-labelledby="onboarding-title">
-      <div class="onboarding-mark" aria-hidden="true"><i></i><i></i><i></i></div>
+      <svg class="otter-guide otter-guide--b" viewBox="485 20 540 540" aria-hidden="true">
+        <defs><filter id="otter-alpha-b" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 .84  0 0 0 0 .76  0 0 0 0 .98  -.75 -.75 -.75 0 2.25"/></filter></defs>
+        <image href="assets/icons/otter-guide-sheet.jpg" x="0" y="0" width="1536" height="1024" filter="url(#otter-alpha-b)"/>
+      </svg>
       <small>ПЕРВАЯ НАСТРОЙКА</small>
       <h2 id="onboarding-title">最初に、君のことを教えて</h2>
       <p>名前と地域、それから今使っている薬と持病を分けて覚える。服用した記録や症状とは混ぜないから安心して。</p>

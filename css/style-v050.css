@@ -1,5 +1,26 @@
 @import url("./style.css?v=1.8.1");
 
+/* Original otter guide artwork: A for the home sign, B for first setup. */
+.otter-guide {
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  overflow: hidden;
+  color: var(--lilac);
+  filter: drop-shadow(0 0 6px rgba(210, 185, 244, .18));
+}
+
+.otter-guide--a {
+  width: 42px;
+  height: 42px;
+}
+
+.otter-guide--b {
+  width: 78px;
+  height: 78px;
+  margin: 0 auto 7px;
+}
+
 /* Keep every sheet control inside the rounded modal on narrow iPhones. */
 .sheet,
 .onboarding {
