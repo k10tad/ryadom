@@ -6,7 +6,7 @@ export const BEDROOM_SAFE_LINE_IDS = Object.freeze([
   'contextual-33'
 ]);
 
-export const BEDTIME_LINES = Object.freeze([
+const CORE_BEDTIME_LINES = Object.freeze([
   {
     id: 'bedtime-still-awake',
     text: 'まだ起きてる？',
@@ -45,6 +45,56 @@ export const BEDTIME_LINES = Object.freeze([
   }
 ]);
 
+const BEDROOM_QUIET_TEXTS = Object.freeze([
+  'まだ眠くない？',
+  'そんなに頑張って目開けなくていいって。',
+  '明日のことは明日考えればいいよ。',
+  'その顔、まだ何か考えてるのバレバレ。',
+  '眠れなくても、横になってるだけでいい。',
+  '寝るって言ってから何分起きてるんだろうな、俺たち。',
+  '部屋、もう少し暗くする？',
+  '水、飲んだ？',
+  '布団ちゃんとかけて。……夜中に蹴飛ばすなよ？',
+  '寒くない？ 手だけ冷えてたりしない？',
+  '今日は何が一番疲れた？',
+  '話したくなったら聞くよ。',
+  '話したくないなら、それでもいい。',
+  '静かな方がいい？　それとも少し話す？',
+  '眠そうな顔してる。',
+  '……そのまま寝てもいいよ。',
+  '俺はもう少し起きてるから、気にしなくていい。',
+  '目閉じたら、たぶん思ってるより早く寝るよ。',
+  '今日の反省会は終了、強制終了。ちなみに俺も終了したところ。',
+  '夜中に人生の結論出すの禁止。',
+  '俺ももう少ししたら寝る。たぶん。',
+  '眠れない夜って、妙に頭だけ元気になるよな。',
+  '考え事が止まらないなら、ひとつだけ聞く。',
+  'そんな顔してても、今寝落ちしたらちゃんと明日笑うからな。',
+  '……別に答えなくても分かるけど。',
+  'こっち来る？ 少し狭くなるけど。',
+  '時計、見なくていいんじゃない？ あいつ無駄にうるさいし。',
+  'もう少しだけ起きててもいい。でも無茶はなし。',
+  '朝になったら、今より少し楽になってるといいな。',
+  '夜中って、どうでもいいことまで大きく見えるよな。'
+]);
+
+const QUIET_ONLY_LINE_NUMBERS = new Set([7, 8, 11, 14, 23, 25]);
+
+export const BEDROOM_QUIET_LINES = Object.freeze(BEDROOM_QUIET_TEXTS.map((text, index) => {
+  const number = index + 1;
+  return Object.freeze({
+    id: `bedroom-quiet-${String(number).padStart(2, '0')}`,
+    text,
+    audio: `voice/alek_bed_line_${String(number).padStart(2, '0')}.mp3`,
+    bedtime: !QUIET_ONLY_LINE_NUMBERS.has(number)
+  });
+}));
+
+export const BEDTIME_LINES = Object.freeze([
+  ...CORE_BEDTIME_LINES,
+  ...BEDROOM_QUIET_LINES.filter(line => line.bedtime)
+]);
+
 export const NIGHT_WAKE_LINES = Object.freeze([
   {
     id: 'night-wake-woke-up',
@@ -75,6 +125,10 @@ function pickWithoutImmediateRepeat(lines, previousId = '', random = Math.random
 
 export function pickBedtimeLine(previousId = '', random = Math.random) {
   return pickWithoutImmediateRepeat(BEDTIME_LINES, previousId, random);
+}
+
+export function pickBedroomQuietLine(previousId = '', random = Math.random) {
+  return pickWithoutImmediateRepeat(BEDROOM_QUIET_LINES, previousId, random);
 }
 
 export function pickNightWakeLine(previousId = '', random = Math.random) {

@@ -1,4 +1,4 @@
-const VERSION = 'ryadom-v1.8.21-bedroom-wind-down';
+const VERSION = 'ryadom-v1.8.22-dialogue-pools';
 const APP_SHELL = [
   './',
   './index.html',
@@ -8,7 +8,7 @@ const APP_SHELL = [
   './css/splash.css?v=1.0.2',
   './manifest.webmanifest',
   './js/splash.js?v=1.0.0',
-  './js/app.js?v=1.8.9',
+  './js/app.js?v=1.8.10',
   './js/config.js?v=1.8.1',
   './js/personalization.js?v=1.8.1',
   './js/ambient-audio.js?v=1.8.2',
@@ -17,9 +17,9 @@ const APP_SHELL = [
   './js/dialogue-engine.js?v=1.0.1',
   './js/typewriter.js',
   './js/reasoning.js',
-  './js/ryadom-intelligence.js?v=1.0.1',
+  './js/ryadom-intelligence.js?v=1.0.2',
   './js/time-context.js?v=1.0.0',
-  './js/bedroom-mode.js?v=1.0.0',
+  './js/bedroom-mode.js?v=1.1.0',
   './js/symptom-advisor.js?v=1.4.0',
   './js/emotional-support.js?v=1.3.0',
   './js/clinical-triage.js',

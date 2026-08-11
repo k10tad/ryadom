@@ -3,7 +3,7 @@ import { migrateLegacyData } from './migration.js';
 import { APP_VERSION } from './config.js?v=1.8.1';
 import { DialogueEngine } from './dialogue-engine.js?v=1.0.1';
 import { typeLine, stopTyping } from './typewriter.js';
-import { chooseIntelligentLine } from './ryadom-intelligence.js?v=1.0.1';
+import { chooseIntelligentLine } from './ryadom-intelligence.js?v=1.0.2';
 import { evaluateMedication, renderMedicationAssessment } from './medical-service.js';
 import { addMedicationToProfile, getProfileBundle, saveProfile } from './profile-service.js';
 import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=1.4.0';
@@ -15,15 +15,15 @@ import { cycleActionLine, deleteCycleRecord, getCycleCarePrompt, saveCycleRecord
 import { cycleTrackerPanel } from './cycle-panel.js?v=1.6.0';
 import { personalizeElement, personalizeText, setConfiguredName } from './personalization.js?v=1.8.1';
 import { AmbientAudio } from './ambient-audio.js?v=1.8.2';
-import { activityPeriodKey, buildTimeContext, dialogueTags, timeOfDay } from './time-context.js?v=1.0.0';
+import { activityPeriodKey, buildTimeContext, timeOfDay } from './time-context.js?v=1.0.0';
 import {
-  BEDROOM_SAFE_LINE_IDS,
   bedtimeLineDelay,
   isNightWakeWindow,
+  pickBedroomQuietLine,
   pickBedtimeLine,
   pickNightWakeLine,
   shouldTriggerNightWake
-} from './bedroom-mode.js?v=1.0.0';
+} from './bedroom-mode.js?v=1.1.0';
 
 const app = document.querySelector('#app');
 const sheet = document.querySelector('#sheet');
@@ -77,7 +77,9 @@ let normalPortrait = null;
 let currentActivityPeriod = '';
 let bedtimeActive = false;
 let bedtimeSpeechTimer = null;
+let bedtimeNextSpeakAt = 0;
 let lastBedtimeLineId = '';
+let lastBedroomQuietLineId = '';
 let lastNightWakeLineId = '';
 const CARE_STATE_KEY = 'ryadom:care-conversation-v1';
 const NIGHT_WAKE_ATTEMPT_PREFIX = 'ryadom:night-wake-attempt:';
@@ -127,7 +129,7 @@ function dialogueContext(context = {}) {
 
 function updateBedtimeButton() {
   bedtimeButton.setAttribute('aria-pressed', String(bedtimeActive));
-  bedtimeStatus.textContent = bedtimeActive ? '離れる。' : 'もう一度耳を当てる。';
+  bedtimeStatus.textContent = bedtimeActive ? '心拍と声を止める' : 'おいで、俺の鼓動わかる？';
 }
 
 function clearBedtimeSpeechTimer() {
@@ -135,19 +137,24 @@ function clearBedtimeSpeechTimer() {
   bedtimeSpeechTimer = null;
 }
 
-function scheduleBedtimeLine(delay = bedtimeLineDelay()) {
+function scheduleBedtimeLine() {
   clearBedtimeSpeechTimer();
-  if (!bedtimeActive || app.dataset.room !== 'bedroom' || document.hidden) return;
-  bedtimeSpeechTimer = setTimeout(() => speakBedtimeLine(), delay);
+  if (!bedtimeActive || app.dataset.room !== 'bedroom') return;
+  if (!bedtimeNextSpeakAt) bedtimeNextSpeakAt = Date.now() + bedtimeLineDelay();
+  if (document.hidden) return;
+  const remaining = Math.max(250, bedtimeNextSpeakAt - Date.now());
+  bedtimeSpeechTimer = setTimeout(() => speakBedtimeLine(), remaining);
 }
 
 async function speakBedtimeLine() {
   if (!bedtimeActive || app.dataset.room !== 'bedroom') return null;
   clearBedtimeSpeechTimer();
+  bedtimeNextSpeakAt = 0;
   const line = pickBedtimeLine(lastBedtimeLineId);
   if (!line) return null;
   lastBedtimeLineId = line.id;
   await showText(line.text, line.audio, true);
+  bedtimeNextSpeakAt = Date.now() + bedtimeLineDelay();
   scheduleBedtimeLine();
   return line;
 }
@@ -166,6 +173,7 @@ function stopBedtimeMode({ restoreScene = true } = {}) {
   if (!bedtimeActive) return;
   bedtimeActive = false;
   clearBedtimeSpeechTimer();
+  bedtimeNextSpeakAt = 0;
   stopActiveVoice();
   app.classList.remove('is-bedtime');
   updateBedtimeButton();
@@ -261,16 +269,9 @@ async function showLine(context = {}) {
   return line;
 }
 
-async function showNextVoicedLine() {
+async function showNextLine() {
   if (bedtimeActive) return speakBedtimeLine();
-  const index = Number(localStorage.getItem('ryadom:voiced-line-index') || 0);
-  const tags = dialogueTags(dialogueContext());
-  const allowedIds = app.dataset.room === 'bedroom' ? BEDROOM_SAFE_LINE_IDS : null;
-  const line = engine.pickVoiced(index, { tags, allowedIds });
-  const total = engine.voicedLines({ tags, allowedIds }).length;
-  if (total) localStorage.setItem('ryadom:voiced-line-index', String((index + 1) % total));
-  await showText(line.text, line.audio, true);
-  return line;
+  return showLine({ manual: true });
 }
 
 function updateClock() {
@@ -693,7 +694,7 @@ function closeSheetToHome() {
 
 document.querySelector('#close-sheet').addEventListener('click', closeSheetToHome);
 sheet.addEventListener('click', event => { if (event.target === sheet) closeSheetToHome(); });
-document.querySelector('#next-line').addEventListener('click', () => showNextVoicedLine());
+document.querySelector('#next-line').addEventListener('click', () => showNextLine());
 document.querySelector('#voice-button').addEventListener('click', speakCurrentLine);
 bedtimeButton.addEventListener('click', async () => {
   if (bedtimeActive) stopBedtimeMode();
@@ -701,10 +702,16 @@ bedtimeButton.addEventListener('click', async () => {
 });
 async function showQuietLine() {
   stopTyping();
-  const line = await chooseIntelligentLine(engine, dialogueContext({ quiet: true }));
+  const inBedroom = app.dataset.room === 'bedroom';
+  const line = inBedroom
+    ? pickBedroomQuietLine(lastBedroomQuietLineId)
+    : await chooseIntelligentLine(engine, dialogueContext({ quiet: true }));
+  if (inBedroom && line) lastBedroomQuietLineId = line.id;
+  if (!line) return null;
   currentLineAudio = line.audio || null;
   if (line.audio) playVoice(line.audio);
   await typeLine(document.querySelector('#quiet-line'), personalizeText(line.text), document.querySelector('.quiet-copy'));
+  return line;
 }
 
 document.querySelector('#beside-button').addEventListener('click', async () => {
