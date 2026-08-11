@@ -60,19 +60,24 @@
 .ryadom-splash-wave-core {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: ryadom-splash-wave-draw 1.7s .38s cubic-bezier(.3, .03, .22, 1) forwards;
+  mix-blend-mode: screen;
+  animation:
+    ryadom-splash-wave-draw 1.7s .38s cubic-bezier(.3, .03, .22, 1) forwards,
+    ryadom-splash-wave-breathe 2.4s 2.08s ease-in-out infinite;
 }
 
 .ryadom-splash-wave-glow {
-  stroke: rgba(194, 159, 255, .72);
-  stroke-width: 24;
-  filter: blur(10px) drop-shadow(0 0 24px rgba(189, 148, 255, .9));
+  stroke: rgba(186, 143, 255, .42);
+  stroke-width: 14;
+  filter: blur(8px) drop-shadow(0 0 18px rgba(176, 126, 255, .6));
 }
 
 .ryadom-splash-wave-core {
-  stroke: rgba(255, 250, 255, .95);
-  stroke-width: 5;
-  filter: drop-shadow(0 0 8px rgba(229, 210, 255, 1));
+  stroke: rgba(248, 238, 255, .84);
+  stroke-width: 2.6;
+  filter:
+    drop-shadow(0 0 4px rgba(236, 217, 255, .78))
+    drop-shadow(0 0 12px rgba(187, 137, 255, .48));
 }
 
 .ryadom-splash-wisteria {
@@ -166,9 +171,14 @@
 }
 
 @keyframes ryadom-splash-wave-draw {
-  0% { stroke-dashoffset: 1; opacity: .18; }
-  16% { opacity: 1; }
-  100% { stroke-dashoffset: 0; opacity: .92; }
+  0% { stroke-dashoffset: 1; opacity: .05; }
+  22% { opacity: .82; }
+  100% { stroke-dashoffset: 0; opacity: .78; }
+}
+
+@keyframes ryadom-splash-wave-breathe {
+  0%, 100% { stroke-opacity: .72; }
+  50% { stroke-opacity: .94; }
 }
 
 @keyframes ryadom-splash-wisteria-in {
