@@ -28,6 +28,20 @@ const speechFlow = document.querySelector('.speech-flow');
 const musicBoxButton = document.querySelector('#music-box');
 const musicTitle = document.querySelector('#music-title');
 
+function syncViewportMetrics() {
+  const viewport = window.visualViewport;
+  const height = Math.round(viewport?.height || window.innerHeight);
+  const offsetTop = Math.round(viewport?.offsetTop || 0);
+  document.documentElement.style.setProperty('--app-viewport-height', `${height}px`);
+  document.documentElement.style.setProperty('--app-viewport-top', `${offsetTop}px`);
+}
+
+syncViewportMetrics();
+window.addEventListener('resize', syncViewportMetrics, { passive: true });
+window.addEventListener('orientationchange', syncViewportMetrics, { passive: true });
+window.visualViewport?.addEventListener('resize', syncViewportMetrics, { passive: true });
+window.visualViewport?.addEventListener('scroll', syncViewportMetrics, { passive: true });
+
 new MutationObserver(() => personalizeElement(sheetContent)).observe(sheetContent, {
   childList: true,
   subtree: true,
@@ -227,11 +241,13 @@ async function openPanel(name) {
   sheetContent.innerHTML = personalizeText(await panelTemplate(name));
   sheet.classList.toggle('is-settings', name === 'settings');
   sheet.classList.toggle('is-chat', name === 'say');
+  syncViewportMetrics();
   if (!sheet.open) sheet.showModal();
   document.querySelectorAll('[data-nav]').forEach(button => {
     button.classList.toggle('is-active', button.dataset.nav === name);
   });
   requestAnimationFrame(() => {
+    syncViewportMetrics();
     const history = document.querySelector('#chat-history');
     if (history) history.scrollTop = history.scrollHeight;
   });

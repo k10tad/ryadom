@@ -1,14 +1,14 @@
-const VERSION = 'ryadom-v1.8.12-otter-high-contrast';
+const VERSION = 'ryadom-v1.8.15-top-aligned-sheets';
 const APP_SHELL = [
   './',
   './index.html',
   './css/style.css?v=1.8.1',
   './css/cycle-tracker.css?v=1.6.0',
-  './css/style-v050.css?v=1.8.12',
+  './css/style-v050.css?v=1.8.15',
   './css/splash.css?v=1.0.2',
   './manifest.webmanifest',
   './js/splash.js?v=1.0.0',
-  './js/app.js?v=1.8.4',
+  './js/app.js?v=1.8.6',
   './js/config.js?v=1.8.1',
   './js/personalization.js?v=1.8.1',
   './js/ambient-audio.js?v=1.8.1',
