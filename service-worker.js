@@ -1,4 +1,4 @@
-const VERSION = 'ryadom-v1.8.25-pain-checkbox';
+const VERSION = 'ryadom-v1.8.26-bedroom-voice-links';
 const APP_SHELL = [
   './',
   './index.html',
@@ -8,7 +8,7 @@ const APP_SHELL = [
   './css/splash.css?v=1.0.2',
   './manifest.webmanifest',
   './js/splash.js?v=1.0.0',
-  './js/app.js?v=1.8.12',
+  './js/app.js?v=1.8.13',
   './js/config.js?v=1.8.1',
   './js/personalization.js?v=1.8.1',
   './js/ambient-audio.js?v=1.8.2',
@@ -17,9 +17,9 @@ const APP_SHELL = [
   './js/dialogue-engine.js?v=1.0.1',
   './js/typewriter.js',
   './js/reasoning.js',
-  './js/ryadom-intelligence.js?v=1.0.2',
+  './js/ryadom-intelligence.js?v=1.0.3',
   './js/time-context.js?v=1.0.0',
-  './js/bedroom-mode.js?v=1.1.0',
+  './js/bedroom-mode.js?v=1.2.0',
   './js/symptom-advisor.js?v=1.4.0',
   './js/emotional-support.js?v=1.3.0',
   './js/clinical-triage.js',
@@ -62,6 +62,9 @@ const APP_SHELL = [
   ,'./voice/Alek.9.mp3'
   ,'./voice/Alek.10.mp3'
   ,'./voice/Alek.11.mp3'
+  ,'./voice/alek_bed_line_02.mp3'
+  ,'./voice/alek_bed_line_04.mp3'
+  ,'./voice/alek_bed_line_06.mp3'
   ,'./music/elmenreich_tsumugiuta.mp3'
   ,'./music/gluck_seireinoodori.mp3'
   ,'./music/grieg_solveigssong.mp3'

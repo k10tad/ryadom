@@ -1,7 +1,7 @@
 import { getMemory, rememberLine } from './memory-service.js';
 import { inferCategories, isCoolingDown } from './reasoning.js';
 import { dialogueTags } from './time-context.js?v=1.0.0';
-import { BEDROOM_SAFE_LINE_IDS } from './bedroom-mode.js?v=1.1.0';
+import { BEDROOM_SAFE_LINE_IDS } from './bedroom-mode.js?v=1.2.0';
 
 function useBedroomDialogueOnly(context) {
   return context.room === 'bedroom'

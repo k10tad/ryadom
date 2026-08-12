@@ -3,7 +3,7 @@ import { migrateLegacyData } from './migration.js';
 import { APP_VERSION } from './config.js?v=1.8.1';
 import { DialogueEngine } from './dialogue-engine.js?v=1.0.1';
 import { typeLine, stopTyping } from './typewriter.js';
-import { chooseIntelligentLine } from './ryadom-intelligence.js?v=1.0.2';
+import { chooseIntelligentLine } from './ryadom-intelligence.js?v=1.0.3';
 import { evaluateMedication, renderMedicationAssessment } from './medical-service.js';
 import { addMedicationToProfile, getProfileBundle, saveProfile } from './profile-service.js';
 import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=1.4.2';
@@ -23,7 +23,7 @@ import {
   pickBedtimeLine,
   pickNightWakeLine,
   shouldTriggerNightWake
-} from './bedroom-mode.js?v=1.1.0';
+} from './bedroom-mode.js?v=1.2.0';
 
 const app = document.querySelector('#app');
 const sheet = document.querySelector('#sheet');
