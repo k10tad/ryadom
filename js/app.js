@@ -1,19 +1,19 @@
 import { db, makeId, openDatabase } from './db.js?v=0.9.0';
 import { migrateLegacyData } from './migration.js';
-import { APP_VERSION } from './config.js?v=1.9.5';
+import { APP_VERSION } from './config.js?v=1.9.6';
 import { DialogueEngine } from './dialogue-engine.js?v=1.0.1';
 import { typeLine, stopTyping } from './typewriter.js';
 import { chooseIntelligentLine } from './ryadom-intelligence.js?v=1.0.3';
 import { evaluateMedication, renderMedicationAssessment } from './medical-service.js';
 import { addMedicationToProfile, getProfileBundle, saveProfile } from './profile-service.js';
-import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=1.9.5';
+import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=1.9.6';
 import { exportBackup, importBackup } from './backup-service.js?v=0.9.0';
 import { clearWeatherCache, getWeather } from './weather-service.js?v=1.0.0';
 import { adviseFromMessage } from './symptom-advisor.js?v=1.4.0';
-import { emotionalSupportFromMessage } from './emotional-support.js?v=1.3.0';
-import { cycleActionLine, deleteCycleRecord, getCycleCarePrompt, saveCycleRecord, saveCycleSettings, saveSelectedBoundary } from './menstrual-service.js?v=1.6.0';
-import { cycleTrackerPanel } from './cycle-panel.js?v=1.6.0';
-import { personalizeElement, personalizeText, setConfiguredName } from './personalization.js?v=1.8.1';
+import { emotionalSupportFromMessage } from './emotional-support.js?v=1.9.6';
+import { cycleActionLine, deleteCycleRecord, getCycleCarePrompt, saveCycleRecord, saveCycleSettings, saveSelectedBoundary } from './menstrual-service.js?v=1.9.6';
+import { cycleTrackerPanel } from './cycle-panel.js?v=1.9.6';
+import { personalizeElement, personalizeText, setConfiguredName } from './personalization.js?v=1.9.6';
 import { AmbientAudio } from './ambient-audio.js?v=1.8.2';
 import { activityPeriodKey, buildTimeContext, timeOfDay } from './time-context.js?v=1.0.0';
 import {
@@ -293,7 +293,7 @@ function chooseActivity(room, date = new Date()) {
   if (weekday && hour >= 8 && hour < 21 && roll < .76) {
     return { src: 'assets/alek/alek-work.jpg', alt: '資料を確認するアレク', action: '論文と格闘中', soundScene: 'work' };
   }
-  return { src: 'assets/alek/alek-home.jpg', alt: 'こちらを見つめるアレク', action: 'レイと居る。', soundScene: 'home' };
+  return { src: 'assets/alek/alek-home.jpg', alt: 'こちらを見つめるアレク', action: '{{user}}と居る。', soundScene: 'home' };
 }
 
 function applyPortrait(activity) {
@@ -801,7 +801,7 @@ document.querySelector('#beside-button').addEventListener('click', async () => {
   ambientAudio.setScene('quiet');
   alekImage.src = 'assets/alek/alek-ryadom.jpg';
   alekImage.alt = '静かにそばにいるアレク';
-  nowAction.textContent = personalizeText('レイのそばにいる');
+  nowAction.textContent = personalizeText('{{user}}のそばにいる');
   app.classList.add('is-quiet');
   document.querySelector('#quiet-mode').setAttribute('aria-hidden', 'false');
   await showQuietLine();

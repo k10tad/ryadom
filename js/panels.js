@@ -101,7 +101,7 @@ function measurementLine(item) {
 
 async function courseView() {
   const overview = await healthOverview();
-  return `<div class="course-view"><section class="summary-card"><small>PERSONAL BASELINE</small><strong>レイの記録から見る平常値</strong><p>${baselineText(overview.baselines)}</p></section>${overview.patterns.length ? `<section class="insight-card"><h3>関連の候補</h3>${overview.patterns.map(text => `<p>${escapeHtml(text)}</p>`).join('')}</section>` : ''}<section class="episode-list">${overview.episodes.length ? overview.episodes.slice(0, 12).map(episode => {
+  return `<div class="course-view"><section class="summary-card"><small>PERSONAL BASELINE</small><strong>{{user}}の記録から見る平常値</strong><p>${baselineText(overview.baselines)}</p></section>${overview.patterns.length ? `<section class="insight-card"><h3>関連の候補</h3>${overview.patterns.map(text => `<p>${escapeHtml(text)}</p>`).join('')}</section>` : ''}<section class="episode-list">${overview.episodes.length ? overview.episodes.slice(0, 12).map(episode => {
     const latest = episode.logs[0];
     const first = episode.logs[episode.logs.length - 1];
     const difference = baselineDifference(latest, overview.baselines);
@@ -120,7 +120,7 @@ function baselineText(base) {
   if (Number.isFinite(base.temperature)) items.push(`体温 ${base.temperature.toFixed(1)}℃`);
   if (Number.isFinite(base.systolic) && Number.isFinite(base.diastolic)) items.push(`血圧 ${Math.round(base.systolic)}/${Math.round(base.diastolic)}mmHg`);
   if (Number.isFinite(base.pulse)) items.push(`脈拍 ${Math.round(base.pulse)}/分`);
-  return items.length ? `直近30件の中央値：${items.join('、')}` : '測定値が増えると、レイ自身の中央値をここに表示します。';
+  return items.length ? `直近30件の中央値：${items.join('、')}` : '測定値が増えると、{{user}}自身の中央値をここに表示します。';
 }
 
 function contextLine(log) {

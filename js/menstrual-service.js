@@ -246,7 +246,7 @@ export async function getCycleCarePrompt({ markShown = true, force = false } = {
   } else if (phase.phase === 'period_tomorrow') {
     lines = [
       '明日あたり予定日だな。鎮痛薬とか温めるもの、必要なら今のうちに手の届くところへ置いとこ。準備したら、あとは休んでいいよ。',
-      'そろそろ予定日だな。必要なものだけ先に揃えとこ。全部きちんとやらなくていい、レイが少し楽になる準備だけで十分。'
+      'そろそろ予定日だな。必要なものだけ先に揃えとこ。全部きちんとやらなくていい、{{user}}が少し楽になる準備だけで十分。'
     ];
   } else if (phase.phase === 'premenstrual' && includesAny(text, ['不安', '落ち込', '情緒', 'イライラ', '寂し', '泣'])) {
     kind = 'pms-emotional';
@@ -276,7 +276,7 @@ export async function getCycleCarePrompt({ markShown = true, force = false } = {
     kind = 'period-fatigue';
     lines = [
       '今日は電池の減りが早い日だな。怠けてるんじゃなくて、身体がちゃんと働いてる。最低限だけ済ませたら、こっち来な。',
-      'だるい日は、普段の速度で動かなくていいよ。今日のレイに合う速さまで落とそ。俺は急かさないから。'
+      'だるい日は、普段の速度で動かなくていいよ。今日の{{user}}に合う速さまで落とそ。俺は急かさないから。'
     ];
   } else if (phase.phase === 'menstrual') {
     kind = phase.predicted ? 'period-predicted' : 'period-active';
@@ -305,11 +305,11 @@ export async function getCycleCarePrompt({ markShown = true, force = false } = {
 export function cycleActionLine(action) {
   const lines = {
     start: ['開始日、記録しといた。今日は無理して平気な顔しなくていいからな。', '始まったんだな。覚えたよ。今日は身体の方を先にしよ。'],
-    end: ['終了日まで記録した。今周期もお疲れさま。少しずつ普段の調子へ戻そ。', '終わった日、つないでおいたよ。次の予測もレイの記録で計算し直すな。'],
-    past: ['前の分も記録した。履歴が増えたぶん、予測も少しレイ向けになったよ。', '過去の周期、覚えた。曖昧なところは無理に埋めなくて大丈夫だからな。'],
+    end: ['終了日まで記録した。今周期もお疲れさま。少しずつ普段の調子へ戻そ。', '終わった日、つないでおいたよ。次の予測も{{user}}の記録で計算し直すな。'],
+    past: ['前の分も記録した。履歴が増えたぶん、予測も少し{{user}}向けになったよ。', '過去の周期、覚えた。曖昧なところは無理に埋めなくて大丈夫だからな。'],
     update: ['日付を直しておいた。身体の記録は、思い出した時に整えれば十分。', '変更したよ。これで次の予測も計算し直してある。'],
     delete: ['その周期記録は外したよ。残ってる履歴だけで予測を組み直しておくな。'],
-    settings: ['PMS期の幅、変えておいた。レイの感覚に合う方で見ていこう。']
+    settings: ['PMS期の幅、変えておいた。{{user}}の感覚に合う方で見ていこう。']
   };
   return pick(lines[action] || ['うん、記録しておいたよ。']);
 }

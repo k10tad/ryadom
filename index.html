@@ -70,7 +70,7 @@
               <span><strong>Скажи</strong><small>アレクに話す</small></span>
             </button>
           </div>
-          <figcaption class="now-pill"><i></i><span>NOW</span><strong id="now-action">レイと居る。</strong></figcaption>
+          <figcaption class="now-pill"><i></i><span>NOW</span><strong id="now-action">{{user}}と居る。</strong></figcaption>
         </figure>
 
       </div>
@@ -79,7 +79,7 @@
 
         <article class="speech-flow" aria-live="polite">
           <div class="speech-label"><span>ALEK</span><button id="voice-button" type="button">VOICE</button></div>
-          <p id="alek-line">おかえり、レイ。今日はどんな一日だった？</p>
+          <p id="alek-line">おかえり、{{user}}。今日はどんな一日だった？</p>
           <button class="next-line" id="next-line" type="button" aria-label="次の言葉">もう一度、話す</button>
         </article>
 
@@ -160,6 +160,6 @@
     </section>
   </main>
   <script src="js/splash.js?v=1.0.0" defer></script>
-  <script type="module" src="js/app.js?v=1.9.5"></script>
+  <script type="module" src="js/app.js?v=1.9.6"></script>
 </body>
 </html>

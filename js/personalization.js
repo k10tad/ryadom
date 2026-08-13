@@ -10,9 +10,7 @@ export function getConfiguredName() {
 
 export function personalizeText(value = '') {
   const name = configuredName || '君';
-  return String(value)
-    .replace(/\{\{\s*name\s*\}\}/g, name)
-    .replace(/レイ/g, name);
+  return String(value).replace(/\{\{\s*user\s*\}\}/g, name);
 }
 
 export function personalizeElement(root) {
