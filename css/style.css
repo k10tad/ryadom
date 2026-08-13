@@ -425,8 +425,8 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 }
 .drug-candidates {
   display: grid;
-  gap: 8px;
-  margin: 12px 0;
+  gap: 7px;
+  margin: 11px 0 13px;
 }
 
 .drug-candidate {
@@ -434,22 +434,107 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 12px 14px;
-  border: 1px solid rgba(104, 86, 139, .22);
-  border-radius: 12px;
-  color: inherit;
-  background: rgba(255, 255, 255, .72);
+  gap: 10px;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 1px solid rgba(217, 202, 242, .18);
+  border-radius: 13px;
+  color: var(--paper);
+  background: linear-gradient(145deg, rgba(217, 202, 242, .10), rgba(255, 255, 255, .025));
   text-align: left;
+  box-shadow: inset 2px 0 0 rgba(185, 159, 218, .55);
+  transition: border-color .16s ease, background .16s ease, transform .08s ease;
 }
 
-.drug-candidate small { color: var(--muted, #746e7e); }
-.drug-candidate:active { transform: translateY(1px); }
+.drug-candidate strong {
+  min-width: 0;
+  color: var(--paper);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.drug-candidate small {
+  flex: 0 0 auto;
+  max-width: 42%;
+  border: 1px solid rgba(217, 202, 242, .16);
+  border-radius: 999px;
+  background: rgba(217, 202, 242, .08);
+  color: var(--lilac);
+  padding: 4px 7px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.drug-candidate:active {
+  border-color: rgba(217, 202, 242, .42);
+  background: rgba(217, 202, 242, .15);
+  transform: scale(.992);
+}
 
 .medical-alert {
   margin: 12px 0;
-  padding: 12px 14px;
+  padding: 10px 12px;
   border-left: 3px solid #a75f73;
   border-radius: 8px;
   background: rgba(167, 95, 115, .09);
+}
+
+/* OTC / product-name search result: keep the information dense on phones. */
+#medical-result .medical-assessment {
+  margin-top: 12px;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+#medical-result .medical-assessment h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+#medical-result .medical-assessment p,
+#medical-result .medical-assessment li,
+#medical-result .medical-assessment summary,
+#medical-result .medical-assessment details {
+  font-size: 10px;
+  line-height: 1.65;
+}
+
+#medical-result .medical-assessment p { margin: 7px 0; }
+#medical-result .medical-assessment ul { margin: 7px 0; padding-left: 18px; }
+#medical-result .medical-assessment li { margin: 4px 0; }
+#medical-result .medical-assessment summary { padding: 5px 0; }
+
+#medical-result .medical-assessment .medical-alert > strong {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 11px;
+}
+
+#medical-result .medical-assessment .profile-chip {
+  font-size: 8px;
+}
+
+#medical-result .drug-candidate {
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+#medical-result .drug-candidate strong { font-size: 10px; }
+#medical-result .drug-candidate small { font-size: 8px; }
+
+#medical-result + .profile-choice,
+.profile-choice {
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+@media (max-width: 390px) {
+  #medical-result .medical-assessment h3 { font-size: 14px; }
+  #medical-result .medical-assessment p,
+  #medical-result .medical-assessment li,
+  #medical-result .medical-assessment summary,
+  #medical-result .medical-assessment details { font-size: 9px; }
+  #medical-result .drug-candidate small { max-width: 39%; }
 }
