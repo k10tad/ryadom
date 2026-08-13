@@ -13,7 +13,7 @@ export async function settingsPanel() {
   return `<section class="settings-intro"><small>PROFILE & AREA</small><p>名前、登録薬、既往歴、天気を確認する地域をここで変更できます。過去の服薬・症状記録は消えません。</p></section>
   <form class="form-grid" data-form="settings">
     <label>名前<input name="name" required value="${escapeHtml(profile.name)}"></label>
-    <label>天気・気圧を表示する地域<input name="region" required value="${escapeHtml(profile.region)}" placeholder="市 または 都道府県></label>
+    <label>天気・気圧を表示する地域<input name="region" required value="${escapeHtml(profile.region)}" placeholder="市 または 都道府県"></label>
     <small class="field-help">市まで入力すると、より正確な気象データを取得できます。</small>
     <label>常時服用している薬・現在使っている薬<textarea name="medications" placeholder="1行に1つ">${escapeHtml(bundle.medications.map(item => item.rawName).join('\n'))}</textarea></label>
     <label>既往歴・診断されている持病<textarea name="conditions" placeholder="症状ではなく診断名を1行に1つ">${escapeHtml(bundle.conditions.map(item => item.rawName).join('\n'))}</textarea></label>
@@ -45,7 +45,7 @@ export async function medicinePanel() {
   const sortedLogs = logs.sort((a, b) => String(b.at).localeCompare(String(a.at))).slice(0, 10);
   return `<section class="current-profile"><small>現在の薬プロフィール</small><div class="profile-chips">${current}</div>${bundle.medications.length ? '<p class="profile-preset-help">薬名を押すと、下の入力欄に入ります。</p>' : ''}</section>
     <form class="form-grid" data-form="medicine">
-      <label>薬の名前<input name="name" required placeholder=""成分名、または商品名" autocomplete="off"></label>
+      <label>薬の名前<input name="name" required placeholder="成分名、または商品名を入力" autocomplete="off"></label>
       <label>用量・規格<input name="dose" placeholder="5mg 1錠 など"></label>
       <label>服用した日時<input type="datetime-local" name="takenAt" value="${localDateTimeValue()}"></label>
       <button class="primary" type="submit">組み合わせを確認</button>

@@ -1,4 +1,4 @@
-const VERSION = 'ryadom-v1.9.4-alek-medication-voice';
+const VERSION = 'ryadom-v1.9.5-medication-placeholder';
 const APP_SHELL = [
   './',
   './index.html',
@@ -8,8 +8,8 @@ const APP_SHELL = [
   './css/splash.css?v=1.0.2',
   './manifest.webmanifest',
   './js/splash.js?v=1.0.0',
-  './js/app.js?v=1.9.4',
-  './js/config.js?v=1.9.4',
+  './js/app.js?v=1.9.5',
+  './js/config.js?v=1.9.5',
   './js/personalization.js?v=1.8.1',
   './js/ambient-audio.js?v=1.8.2',
   './js/db.js?v=0.9.0',
@@ -29,7 +29,7 @@ const APP_SHELL = [
   './js/profile-service.js',
   './js/weather-service.js?v=1.0.0',
   './js/templates.js?v=0.9.0',
-  './js/panels.js?v=1.9.4',
+  './js/panels.js?v=1.9.5',
   './js/cycle-panel.js?v=1.6.0',
   './js/menstrual-service.js?v=1.6.0',
   './js/backup-service.js?v=0.9.0',
