@@ -4,6 +4,23 @@ const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, character =>
   '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
 }[character]));
 
+function alekTone(value = '') {
+  return String(value)
+    .replace(/自己判断で併用しないでください。?/g, '自己判断では一緒に飲まないで。')
+    .replace(/同時に扱わず/g, '一緒には飲まず')
+    .replace(/併用しないでください。?/g, '一緒には飲まないで。')
+    .replace(/服用できません。?/g, 'これは飲めないよ。')
+    .replace(/服用しないでください。?/g, '飲まないで。')
+    .replace(/避けてください。?/g, '避けよう。')
+    .replace(/注意してください。?/g, '気をつけて。')
+    .replace(/確認してください。?/g, '確認しよう。')
+    .replace(/相談してください。?/g, '相談しよう。')
+    .replace(/必要です。?/g, '必要だよ。')
+    .replace(/該当し得ます。?/g, '当てはまることがある。')
+    .replace(/あります。?/g, 'あるよ。')
+    .replace(/です。?/g, 'だよ。');
+}
+
 function componentIds(drug) {
   return new Set([drug.id, ...(drug.components || [])]);
 }
@@ -63,19 +80,19 @@ export async function evaluateMedication(rawName, profileBundle) {
     duplicates: duplicateComponents.map(id => byId.get(id)?.name || id),
     conditionWarnings,
     alek: hasAlerts
-      ? '見逃したくない注意がある。飲む前に内容を確認して。'
+      ? 'ちょっと待って。見逃したくない注意があるから、飲む前に一緒に見ておこう。'
       : '辞書では特定できたよ。箱の用法・用量も一緒に確認してから記録しよう。'
   };
 }
 
 export function renderMedicationAssessment(result) {
   if (result.status === 'ambiguous') {
-    return `<section class="medical-assessment is-ambiguous"><h3>どの商品か選んで</h3><p>「${escapeHtml(result.query)}」には成分の異なる種類があります。</p><div class="drug-candidates">${result.candidates.map(item =>
+    return `<section class="medical-assessment is-ambiguous"><h3>どの商品か選んで</h3><p>「${escapeHtml(result.query)}」は、種類によって中身が違うんだ。</p><div class="drug-candidates">${result.candidates.map(item =>
       `<button type="button" class="drug-candidate" data-select-drug="${escapeHtml(item.name)}"><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.otc?.category || item.name)}</small></button>`
-    ).join('')}</div><p class="medical-note">箱と一致しない場合は、箱にある商品名を省略せず入力してください。</p></section>`;
+    ).join('')}</div><p class="medical-note">同じものがなければ、箱の商品名を省略せずに入れてみて。</p></section>`;
   }
   if (!result.identified) {
-    return `<section class="medical-assessment is-unresolved"><h3>薬を特定できませんでした</h3><p>${escapeHtml(result.query)}</p><p>シリーズ名、末尾の英字、錠・顆粒・カプセルまで確認してください。</p></section>`;
+    return `<section class="medical-assessment is-unresolved"><h3>まだ薬を特定できないな</h3><p>${escapeHtml(result.query)}</p><p>シリーズ名や末尾の英字、それから錠・顆粒・カプセルまで、箱を見ながら確かめよう。</p></section>`;
   }
 
   const drug = result.drug;
@@ -87,10 +104,13 @@ export function renderMedicationAssessment(result) {
     drug.otc?.abusePrevention ? '指定濫用防止医薬品' : ''
   ].filter(Boolean).map(x => `<span class="profile-chip is-unresolved">${escapeHtml(x)}</span>`).join('');
   const alerts = [
-    ...result.duplicates.map(name => `<li><strong>成分重複：</strong>${escapeHtml(name)}が登録薬と重なります。</li>`),
-    ...result.interactions.map(item => `<li><strong>${escapeHtml(item.label)}：</strong>${escapeHtml(item.message)}</li>`),
-    ...result.conditionWarnings.map(item => `<li><strong>登録疾患への注意：</strong>${escapeHtml(item.message)}</li>`)
+    ...result.duplicates.map(name => `<li><strong>${escapeHtml(name)}が重なってる。</strong><br>登録してある薬にも同じ成分が入ってる。これは追加で飲まず、間隔と一日の総量を確認しよう。</li>`),
+    ...result.interactions.map(item => `<li><strong>${escapeHtml(item.label)}：</strong>${escapeHtml(alekTone(item.message))}</li>`),
+    ...result.conditionWarnings.map(item => `<li><strong>持病との相性も確認しよう：</strong>${escapeHtml(alekTone(item.message))}</li>`)
   ];
-  const cautions = (drug.importantWarnings || []).map(item => `<li>${escapeHtml(item)}</li>`).join('');
-  return `<section class="medical-assessment"><h3>${escapeHtml(drug.name)}</h3>${flags ? `<div class="profile-chips">${flags}</div>` : ''}${ingredients}${alerts.length ? `<div class="medical-alert"><strong>確認が必要</strong><ul>${alerts.join('')}</ul></div>` : '<p class="saved-message">登録薬・持病との既知の重大な警告は見つかりませんでした。</p>'}${cautions ? `<details><summary>この薬の主な注意</summary><ul>${cautions}</ul></details>` : ''}<p class="medical-note">辞書の判定は添付文書や薬剤師の確認に代わるものではありません。外箱の成分・用法が表示と一致するか確認してください。</p></section>`;
+  const cautions = (drug.importantWarnings || []).map(item => `<li>${escapeHtml(alekTone(item))}</li>`).join('');
+  const assessment = alerts.length
+    ? `<div class="medical-alert"><strong>ここは一緒に確認しよう</strong><ul>${alerts.join('')}</ul></div>`
+    : '<p class="saved-message">登録してある薬や持病との間に、辞書で分かる大きな注意は見つからなかったよ。</p>';
+  return `<section class="medical-assessment"><h3>${escapeHtml(drug.name)}</h3>${flags ? `<div class="profile-chips">${flags}</div>` : ''}${ingredients}<p class="alek-advice">${escapeHtml(result.alek)}</p>${assessment}${cautions ? `<details class="assessment"><summary>この薬そのものの注意も見ておこう</summary><ul>${cautions}</ul></details>` : ''}<p class="medical-note">ここでの照合は、添付文書や薬剤師の確認に代わるものじゃないよ。最後に、手元の箱と成分・用法が同じか確認しよう。</p></section>`;
 }
