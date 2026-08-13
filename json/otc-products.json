@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-08-13",
+  "notice": "商品名検索用。製品改訂に備え、服用前に現物の外箱・添付文書との一致を確認する。",
+  "items": [
+    {"id":"otc_tylenol_a","name":"タイレノールA","aliases":["タイレノール","Tylenol A"],"components":["acetaminophen"],"ingredientLabels":["アセトアミノフェン"],"otc":{"category":"解熱鎮痛薬","classification":"第2類医薬品"},"importantWarnings":["他のアセトアミノフェン含有薬や総合感冒薬との重複を避けてください。"]},
+    {"id":"otc_caronal_a","name":"カロナールA","aliases":["カロナールA錠","カロナール市販"],"components":["acetaminophen"],"ingredientLabels":["アセトアミノフェン"],"otc":{"category":"解熱鎮痛薬","classification":"第2類医薬品"},"importantWarnings":["処方薬のカロナールを含むアセトアミノフェン製剤との重複に注意してください。"]},
+    {"id":"otc_loxonin_s","name":"ロキソニンS","aliases":["ロキソニン","ロキソニンS錠"],"components":["loxoprofen"],"ingredientLabels":["ロキソプロフェンナトリウム水和物"],"otc":{"category":"解熱鎮痛薬","classification":"第1類医薬品"},"importantWarnings":["他の解熱鎮痛薬・かぜ薬との併用を避け、空腹時を避けてください。"]},
+    {"id":"otc_loxonin_s_plus","name":"ロキソニンSプラス","aliases":["ロキソニンプラス","ロキソニンS PLUS"],"components":["loxoprofen","magnesium_oxide"],"ingredientLabels":["ロキソプロフェンナトリウム水和物","酸化マグネシウム"],"otc":{"category":"解熱鎮痛薬","classification":"第1類医薬品"}},
+    {"id":"otc_loxonin_s_premium","name":"ロキソニンSプレミアム","aliases":["ロキソニンプレミアム"],"components":["loxoprofen"],"ingredientLabels":["ロキソプロフェンナトリウム水和物","アリルイソプロピルアセチル尿素","無水カフェイン","メタケイ酸アルミン酸マグネシウム"],"otc":{"category":"解熱鎮痛薬","classification":"第1類医薬品","drowsiness":true},"importantWarnings":["鎮静成分を含むため服用後は運転しないでください。"]},
+    {"id":"otc_eve_a","name":"イブA錠","aliases":["イブ","イブA","EVE A"],"components":["ibuprofen"],"ingredientLabels":["イブプロフェン","アリルイソプロピルアセチル尿素","無水カフェイン"],"otc":{"category":"解熱鎮痛薬","classification":"指定第2類医薬品","drowsiness":true}},
+    {"id":"otc_eve_a_ex","name":"イブA錠EX","aliases":["イブ","イブEX","EVE A EX"],"components":["ibuprofen"],"ingredientLabels":["イブプロフェン","アリルイソプロピルアセチル尿素","無水カフェイン"],"otc":{"category":"解熱鎮痛薬","classification":"指定第2類医薬品","drowsiness":true}},
+    {"id":"otc_eve_quick","name":"イブクイック頭痛薬","aliases":["イブ","イブクイック"],"components":["ibuprofen","magnesium_oxide"],"ingredientLabels":["イブプロフェン","酸化マグネシウム","アリルイソプロピルアセチル尿素","無水カフェイン"],"otc":{"category":"解熱鎮痛薬","classification":"指定第2類医薬品","drowsiness":true}},
+    {"id":"otc_eve_quick_dx","name":"イブクイック頭痛薬DX","aliases":["イブ","イブクイックDX"],"components":["ibuprofen","magnesium_oxide"],"ingredientLabels":["イブプロフェン","酸化マグネシウム","アリルイソプロピルアセチル尿素","無水カフェイン"],"otc":{"category":"解熱鎮痛薬","classification":"指定第2類医薬品","drowsiness":true}},
+    {"id":"otc_bufferin_a","name":"バファリンA","aliases":["バファリン","BUFFERIN A"],"components":["aspirin_analgesic"],"ingredientLabels":["アスピリン","ダイアルミネート"],"otc":{"category":"解熱鎮痛薬","classification":"指定第2類医薬品"}},
+    {"id":"otc_bufferin_premium","name":"バファリンプレミアム","aliases":["バファリン","バファリンプレミアム"],"components":["ibuprofen","acetaminophen"],"ingredientLabels":["イブプロフェン","アセトアミノフェン","無水カフェイン","アリルイソプロピルアセチル尿素","乾燥水酸化アルミニウムゲル"],"otc":{"category":"解熱鎮痛薬","classification":"指定第2類医薬品","drowsiness":true}},
+    {"id":"otc_bufferin_luna_j","name":"バファリンルナJ","aliases":["バファリン","ルナJ"],"components":["acetaminophen"],"ingredientLabels":["アセトアミノフェン"],"otc":{"category":"解熱鎮痛薬","classification":"第2類医薬品"}},
+    {"id":"otc_ringl_ibuprofen","name":"リングルアイビーα200","aliases":["リングルアイビー","リングルアイビー200"],"components":["ibuprofen"],"ingredientLabels":["イブプロフェン"],"otc":{"category":"解熱鎮痛薬","classification":"指定第2類医薬品"}},
+
+    {"id":"otc_allegra_fx","name":"アレグラFX","aliases":["アレグラ","アレグラFX錠"],"components":["fexofenadine"],"ingredientLabels":["フェキソフェナジン塩酸塩"],"otc":{"category":"アレルギー専用鼻炎薬","classification":"第2類医薬品"}},
+    {"id":"otc_clarityn_ex","name":"クラリチンEX","aliases":["クラリチン","クラリチンEX錠"],"components":["loratadine"],"ingredientLabels":["ロラタジン"],"otc":{"category":"アレルギー専用鼻炎薬","classification":"第2類医薬品"}},
+    {"id":"otc_alesion_20","name":"アレジオン20","aliases":["アレジオン","アレジオン20錠"],"components":["epinastine"],"ingredientLabels":["エピナスチン塩酸塩"],"otc":{"category":"アレルギー専用鼻炎薬","classification":"第2類医薬品","drowsiness":true}},
+    {"id":"otc_contac_z","name":"コンタック鼻炎Z","aliases":["コンタックZ","鼻炎Z"],"components":["cetirizine"],"ingredientLabels":["セチリジン塩酸塩"],"otc":{"category":"アレルギー専用鼻炎薬","classification":"第2類医薬品","drowsiness":true}},
+    {"id":"otc_flunase","name":"フルナーゼ点鼻薬〈季節性アレルギー専用〉","aliases":["フルナーゼ","フルナーゼ点鼻"],"components":["fluticasone_nasal"],"ingredientLabels":["フルチカゾンプロピオン酸エステル"],"otc":{"category":"点鼻薬","classification":"要指導医薬品"}},
+
+    {"id":"otc_mejicon_pro","name":"メジコンせき止め錠Pro","aliases":["メジコン","メジコンPro","メジコンせき止め"],"components":["dextromethorphan"],"ingredientLabels":["デキストロメトルファン臭化水素酸塩水和物"],"otc":{"category":"鎮咳薬","classification":"第2類医薬品","abusePrevention":true}},
+    {"id":"otc_pelack_t","name":"ペラックT錠","aliases":["ペラック","ペラックT"],"components":["tranexamic_acid"],"ingredientLabels":["トラネキサム酸","カンゾウ乾燥エキス","ビタミンB6・B2・C"],"otc":{"category":"口腔咽喉薬","classification":"第3類医薬品"},"importantWarnings":["トラネキサム酸や甘草を含む他の薬との重複に注意してください。"]},
+    {"id":"otc_stona_expectoration","name":"ストナ去たんカプセル","aliases":["ストナ去たん","ストナ去痰"],"ingredientLabels":["L-カルボシステイン","ブロムヘキシン塩酸塩"],"otc":{"category":"去痰薬","classification":"第2類医薬品"}},
+    {"id":"otc_coolone_expectoration","name":"クールワン去たんソフトカプセル","aliases":["クールワン去たん","クールワン去痰"],"ingredientLabels":["L-カルボシステイン","ブロムヘキシン塩酸塩"],"otc":{"category":"去痰薬","classification":"第2類医薬品"}},
+
+    {"id":"otc_pabron_gold_a","name":"パブロンゴールドA〈微粒〉","aliases":["パブロン","パブロンゴールド","パブロンゴールドA"],"components":["acetaminophen","dihydrocodeine","chlorpheniramine"],"ingredientLabels":["アセトアミノフェン","ジヒドロコデインリン酸塩","dl-メチルエフェドリン塩酸塩","クロルフェニラミンマレイン酸塩","無水カフェインほか"],"otc":{"category":"総合感冒薬","classification":"指定第2類医薬品","drowsiness":true,"abusePrevention":true}},
+    {"id":"otc_pabron_s_gold_w","name":"パブロンSゴールドW錠","aliases":["パブロン","パブロンSゴールドW"],"components":["acetaminophen","dihydrocodeine","chlorpheniramine"],"ingredientLabels":["アンブロキソール塩酸塩","L-カルボシステイン","ジヒドロコデインリン酸塩","アセトアミノフェン","クロルフェニラミンマレイン酸塩ほか"],"otc":{"category":"総合感冒薬","classification":"指定第2類医薬品","drowsiness":true,"abusePrevention":true}},
+    {"id":"otc_lulu_a_gold_dx","name":"新ルルAゴールドDXα","aliases":["ルル","新ルルA","ルルゴールド"],"components":["acetaminophen","dihydrocodeine","chlorpheniramine","tranexamic_acid"],"ingredientLabels":["アセトアミノフェン","ジヒドロコデインリン酸塩","クレマスチンフマル酸塩","トラネキサム酸ほか"],"otc":{"category":"総合感冒薬","classification":"指定第2類医薬品","drowsiness":true,"abusePrevention":true}},
+    {"id":"otc_benza_block_l_premium","name":"ベンザブロックLプレミアムDX","aliases":["ベンザブロック","ベンザL","ベンザブロックL"],"components":["ibuprofen","dihydrocodeine","chlorpheniramine"],"ingredientLabels":["イブプロフェン","ジヒドロコデインリン酸塩","d-クロルフェニラミンマレイン酸塩ほか"],"otc":{"category":"総合感冒薬","classification":"指定第2類医薬品","drowsiness":true,"abusePrevention":true}},
+    {"id":"otc_contac_ex","name":"新コンタックかぜEX持続性","aliases":["コンタック","コンタックかぜEX"],"components":["acetaminophen","dextromethorphan","chlorpheniramine"],"ingredientLabels":["アセトアミノフェン","デキストロメトルファン臭化水素酸塩水和物","d-クロルフェニラミンマレイン酸塩ほか"],"otc":{"category":"総合感冒薬","classification":"指定第2類医薬品","drowsiness":true,"abusePrevention":true}},
+
+    {"id":"otc_gaster_10","name":"ガスター10","aliases":["ガスター","ガスター10錠"],"components":["famotidine"],"ingredientLabels":["ファモチジン"],"otc":{"category":"胃腸薬","classification":"第1類医薬品"},"importantWarnings":["服用できる年齢や連用期間に制限があります。薬剤師に確認してください。"]},
+    {"id":"otc_ohta_isan","name":"太田胃散","aliases":["おおたいさん","太田胃散分包"],"ingredientLabels":["制酸成分","健胃生薬","消化酵素"],"otc":{"category":"複合胃腸薬","classification":"第2類医薬品"}},
+    {"id":"otc_cabagin_alpha","name":"キャベジンコーワα","aliases":["キャベジン","キャベジンコーワ"],"ingredientLabels":["メチルメチオニンスルホニウムクロリド","制酸成分","健胃生薬・消化酵素"],"otc":{"category":"複合胃腸薬","classification":"第2類医薬品"}},
+    {"id":"otc_selbelle","name":"セルベール整胃錠","aliases":["セルベール","セルベール錠"],"ingredientLabels":["テプレノン","ソウジュツ乾燥エキス","コウボク乾燥エキス"],"otc":{"category":"胃腸薬","classification":"第2類医薬品"}},
+    {"id":"otc_biofermin_s","name":"新ビオフェルミンS錠","aliases":["ビオフェルミン","新ビオフェルミンS"],"ingredientLabels":["ビフィズス菌","フェーカリス菌","アシドフィルス菌"],"otc":{"category":"整腸薬","classification":"指定医薬部外品"}},
+    {"id":"otc_miyarisan","name":"強ミヤリサン錠","aliases":["ミヤリサン","強ミヤリサン"],"ingredientLabels":["宮入菌（酪酸菌）"],"otc":{"category":"整腸薬","classification":"指定医薬部外品"}},
+    {"id":"otc_seirogan","name":"正露丸","aliases":["せいろがん","ラッパのマークの正露丸"],"ingredientLabels":["木クレオソート","アセンヤク末","オウバク末","カンゾウ末","陳皮末"],"otc":{"category":"止瀉薬","classification":"第2類医薬品"}},
+    {"id":"otc_stoppa_ex","name":"ストッパ下痢止めEX","aliases":["ストッパ","ストッパEX"],"ingredientLabels":["ロートエキス","タンニン酸ベルベリン"],"otc":{"category":"止瀉薬","classification":"第2類医薬品"},"importantWarnings":["緑内障、排尿困難、心疾患がある場合は購入時に相談してください。"]},
+    {"id":"otc_loperamac_satto","name":"ロペラマックサット","aliases":["ロペラマック","ロペラミド市販"],"components":["loperamide"],"ingredientLabels":["ロペラミド塩酸塩"],"otc":{"category":"止瀉薬","classification":"指定第2類医薬品"}},
+
+    {"id":"otc_magnesium_e","name":"酸化マグネシウムE便秘薬","aliases":["酸化マグネシウムE","マグネシウム便秘薬"],"components":["magnesium_oxide"],"ingredientLabels":["酸化マグネシウム"],"otc":{"category":"便秘薬","classification":"第3類医薬品"}},
+    {"id":"otc_colac_ii","name":"コーラックII","aliases":["コーラック","コーラック2"],"ingredientLabels":["ビサコジル","ジオクチルソジウムスルホサクシネート"],"otc":{"category":"便秘薬","classification":"第2類医薬品"}},
+    {"id":"otc_colac_first","name":"コーラックファースト","aliases":["コーラック","コーラックファースト"],"ingredientLabels":["ビサコジル","ジオクチルソジウムスルホサクシネート"],"otc":{"category":"便秘薬","classification":"第2類医薬品"}},
+
+    {"id":"otc_travelmin","name":"トラベルミン","aliases":["トラベルミン大人用"],"components":["travelmin_combination"],"ingredientLabels":["ジフェンヒドラミンサリチル酸塩","ジプロフィリン"],"otc":{"category":"乗物酔い薬","classification":"第2類医薬品","drowsiness":true,"abusePrevention":true}},
+    {"id":"otc_travelmin_r","name":"トラベルミンR","aliases":["トラベルミン","トラベルミンR錠"],"ingredientLabels":["ジフェニドール塩酸塩","スコポラミン臭化水素酸塩水和物","無水カフェインほか"],"otc":{"category":"乗物酔い薬","classification":"第2類医薬品","drowsiness":true}},
+    {"id":"otc_anelon_niscap","name":"アネロン「ニスキャップ」","aliases":["アネロン","ニスキャップ"],"ingredientLabels":["ニプロジン","マレイン酸フェニラミン","アミノ安息香酸エチル","スコポラミン臭化水素酸塩水和物","無水カフェイン"],"otc":{"category":"乗物酔い薬","classification":"第2類医薬品","drowsiness":true}},
+
+    {"id":"otc_loxonin_tape","name":"ロキソニンSテープ","aliases":["ロキソニンテープ市販","ロキソニンSテープ"],"components":["loxoprofen"],"ingredientLabels":["ロキソプロフェンナトリウム水和物"],"otc":{"category":"外用鎮痛消炎薬","classification":"第2類医薬品"}},
+    {"id":"otc_voltaren_ex_tape","name":"ボルタレンEXテープ","aliases":["ボルタレンテープ","ボルタレンEX"],"components":["diclofenac"],"ingredientLabels":["ジクロフェナクナトリウム"],"otc":{"category":"外用鎮痛消炎薬","classification":"第2類医薬品"}},
+
+    {"id":"otc_kakkonto","name":"ツムラ漢方葛根湯エキス顆粒A","aliases":["ツムラ葛根湯","市販の葛根湯","葛根湯"],"components":["kakkonto"],"ingredientLabels":["葛根湯エキス"],"otc":{"category":"漢方製剤","classification":"第2類医薬品"}},
+    {"id":"otc_shoseiryuto","name":"ツムラ漢方小青竜湯エキス顆粒","aliases":["ツムラ小青竜湯","小青竜湯"],"ingredientLabels":["小青竜湯エキス（麻黄・甘草を含む）"],"otc":{"category":"漢方製剤","classification":"第2類医薬品"},"importantWarnings":["他の麻黄・甘草含有製剤との重複に注意してください。"]},
+    {"id":"otc_bakumondoto","name":"ツムラ漢方麦門冬湯エキス顆粒","aliases":["ツムラ麦門冬湯","麦門冬湯"],"ingredientLabels":["麦門冬湯エキス（甘草を含む）"],"otc":{"category":"漢方製剤","classification":"第2類医薬品"}},
+    {"id":"otc_goreisan","name":"ツムラ漢方五苓散料エキス顆粒A","aliases":["ツムラ五苓散","市販の五苓散","五苓散"],"components":["goreisan"],"ingredientLabels":["五苓散エキス"],"otc":{"category":"漢方製剤","classification":"第2類医薬品"}}
+  ]
+}
