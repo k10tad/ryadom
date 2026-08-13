@@ -1,107 +1,96 @@
 import { loadKnowledge, resolveDrug } from './knowledge-service.js';
 
-function escapeHtml(value = '') {
-  return String(value).replace(/[&<>'"]/g, character => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
-  })[character]);
+const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, character => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+}[character]));
+
+function componentIds(drug) {
+  return new Set([drug.id, ...(drug.components || [])]);
 }
 
-export async function evaluateMedication(input, profileBundle = {}) {
-  const resolution = await resolveDrug(input);
+function registeredIds(bundle, byId) {
+  const ids = new Set();
+  for (const entry of bundle.medications || []) {
+    if (!entry.drugId) continue;
+    ids.add(entry.drugId);
+    for (const component of byId.get(entry.drugId)?.components || []) ids.add(component);
+  }
+  return ids;
+}
+
+export async function evaluateMedication(rawName, profileBundle) {
+  const [{ drugs, interactions }, resolution] = await Promise.all([loadKnowledge(), resolveDrug(rawName)]);
+  if (resolution.status === 'ambiguous') {
+    return {
+      identified: false,
+      status: 'ambiguous',
+      query: rawName,
+      candidates: resolution.candidates.slice(0, 16),
+      alek: '同じシリーズでも中身が違うんだ。箱と同じ名前を選んで。ここは俺も勘で決めないよ。'
+    };
+  }
   if (resolution.status !== 'identified') {
     return {
-      status: resolution.status,
       identified: false,
-      candidates: resolution.candidates || [],
-      alek: resolution.status === 'ambiguous'
-        ? 'その名前だと候補がいくつかあるな。規格か成分名、箱に書いてある名前をもう少し教えて。'
-        : 'その薬、まだ特定できない。勝手には決めないから、規格か成分名を見せて。'
+      status: 'unknown',
+      query: rawName,
+      candidates: [],
+      alek: 'その名前では特定できなかった。箱に書かれた正式な商品名をもう一度見せて。'
     };
   }
 
-  const knowledge = await loadKnowledge();
   const drug = resolution.item;
-  const registeredMedicationIds = new Set((profileBundle.medications || [])
-    .filter(item => item.active !== false && item.drugId)
-    .map(item => item.drugId));
-  const registeredConditionIds = new Set((profileBundle.conditions || [])
-    .filter(item => item.active !== false && item.conditionId)
-    .map(item => item.conditionId));
-  const unresolved = [
-    ...(profileBundle.medications || []).filter(item => !item.drugId).map(item => item.rawName),
-    ...(profileBundle.conditions || []).filter(item => !item.conditionId).map(item => item.rawName)
-  ];
+  const byId = new Map((drugs.items || []).map(item => [item.id, item]));
+  const selected = componentIds(drug);
+  const registered = registeredIds(profileBundle, byId);
+  const foundInteractions = (interactions.items || []).filter(rule =>
+    (selected.has(rule.a) && registered.has(rule.b)) || (selected.has(rule.b) && registered.has(rule.a))
+  );
+  const duplicateComponents = [...selected].filter(id => id !== drug.id && registered.has(id));
+  const conditionIds = new Set((profileBundle.conditions || []).map(item => item.conditionId).filter(Boolean));
+  const conditionWarnings = [drug, ...(drug.components || []).map(id => byId.get(id)).filter(Boolean)]
+    .flatMap(item => item.conditionWarnings || [])
+    .filter(warning => conditionIds.has(warning.conditionId));
+  const isRegistered = (profileBundle.medications || []).some(item => item.drugId === drug.id);
 
-  const interactions = (knowledge.interactions.items || []).filter(rule => {
-    if (rule.a !== drug.id && rule.b !== drug.id) return false;
-    const otherId = rule.a === drug.id ? rule.b : rule.a;
-    return registeredMedicationIds.has(otherId);
-  }).map(rule => {
-    const otherId = rule.a === drug.id ? rule.b : rule.a;
-    const other = knowledge.drugs.items.find(item => item.id === otherId);
-    return { ...rule, registeredDrugName: other?.name || otherId };
-  });
-
-  const conditionWarnings = (drug.conditionWarnings || [])
-    .filter(item => registeredConditionIds.has(item.conditionId))
-    .map(item => ({
-      ...item,
-      conditionName: knowledge.conditions.items.find(condition => condition.id === item.conditionId)?.name || item.conditionId
-    }));
-
-  let alek = 'こっちは大丈夫。ただ、この副作用は一応気をつけて。';
-  if (interactions.length) alek = 'その薬、今のやつと組み合わせだけ見とくな。重要な注意がある。';
-  else if (conditionWarnings.length) alek = 'それ、持病との相性ちょっと確認したほうがいい。';
-
+  const hasAlerts = foundInteractions.length || duplicateComponents.length || conditionWarnings.length;
   return {
-    status: 'identified',
     identified: true,
+    status: 'identified',
     drug,
-    isRegistered: registeredMedicationIds.has(drug.id),
-    interactions,
+    isRegistered,
+    interactions: foundInteractions,
+    duplicates: duplicateComponents.map(id => byId.get(id)?.name || id),
     conditionWarnings,
-    adverseEffects: drug.seriousAdverseEffects || drug.importantWarnings || [],
-    alek,
-    unresolved
+    alek: hasAlerts
+      ? '見逃したくない注意がある。飲む前に内容を確認して。'
+      : '辞書では特定できたよ。箱の用法・用量も一緒に確認してから記録しよう。'
   };
 }
 
-function sourceLabel(source) {
-  if (!source) return '情報源未登録';
-  return escapeHtml(source.label || source.url || String(source));
-}
-
 export function renderMedicationAssessment(result) {
+  if (result.status === 'ambiguous') {
+    return `<section class="medical-assessment is-ambiguous"><h3>どの商品か選んで</h3><p>「${escapeHtml(result.query)}」には成分の異なる種類があります。</p><div class="drug-candidates">${result.candidates.map(item =>
+      `<button type="button" class="drug-candidate" data-select-drug="${escapeHtml(item.name)}"><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.otc?.category || item.name)}</small></button>`
+    ).join('')}</div><p class="medical-note">箱と一致しない場合は、箱にある商品名を省略せず入力してください。</p></section>`;
+  }
   if (!result.identified) {
-    const candidates = result.candidates?.length
-      ? `<p class="candidate-note">候補：${result.candidates.map(item => escapeHtml(item.name)).join('、')}</p>`
-      : '';
-    return `<section class="assessment caution"><p class="alek-advice">${escapeHtml(result.alek)}</p>${candidates}</section>`;
+    return `<section class="medical-assessment is-unresolved"><h3>薬を特定できませんでした</h3><p>${escapeHtml(result.query)}</p><p>シリーズ名、末尾の英字、錠・顆粒・カプセルまで確認してください。</p></section>`;
   }
 
-  const blocks = [`<p class="alek-advice">${escapeHtml(result.alek)}</p>`];
-  if (result.interactions.length) {
-    blocks.push(`<section class="assessment danger"><h3>登録薬との併用</h3>${result.interactions.map(item =>
-      `<p><strong>${escapeHtml(item.registeredDrugName)}：${escapeHtml(item.label)}</strong><br>${escapeHtml(item.message)}</p>`
-    ).join('')}</section>`);
-  } else {
-    blocks.push('<section class="assessment ok"><h3>登録薬との併用</h3><p>内部辞書では、登録薬との併用禁忌・重大な注意は見つからなかった。</p></section>');
-  }
-
-  if (result.conditionWarnings.length) {
-    blocks.push(`<section class="assessment caution"><h3>登録している持病</h3>${result.conditionWarnings.map(item =>
-      `<p><strong>${escapeHtml(item.conditionName)}</strong><br>${escapeHtml(item.message)}</p>`
-    ).join('')}</section>`);
-  } else {
-    blocks.push('<section class="assessment ok"><h3>登録している持病</h3><p>内部辞書では、登録疾患に対する禁忌・重要な注意は見つからなかった。</p></section>');
-  }
-
-  blocks.push(`<section class="assessment"><h3>重大な副作用</h3>${result.adverseEffects.length
-    ? `<ul>${result.adverseEffects.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`
-    : '<p>内部辞書に登録された重大な副作用情報はない。</p>'}</section>`);
-  if (result.unresolved.length) {
-    blocks.push(`<p class="scope-note">辞書で未確認の登録項目（${result.unresolved.map(escapeHtml).join('、')}）は今回の照合対象外です。</p>`);
-  }
-  blocks.push(`<p class="source-note">情報源：${sourceLabel(result.drug.source)}<br>最終確認：${escapeHtml(result.drug.lastReviewed || result.drug.reviewedAt || '未登録')}</p>`);
-  return blocks.join('');
+  const drug = result.drug;
+  const ingredients = drug.ingredientLabels?.length
+    ? `<p><strong>主な有効成分：</strong>${drug.ingredientLabels.map(escapeHtml).join('、')}</p>` : '';
+  const flags = [
+    drug.otc?.classification,
+    drug.otc?.drowsiness ? '眠気・運転注意' : '',
+    drug.otc?.abusePrevention ? '指定濫用防止医薬品' : ''
+  ].filter(Boolean).map(x => `<span class="profile-chip is-unresolved">${escapeHtml(x)}</span>`).join('');
+  const alerts = [
+    ...result.duplicates.map(name => `<li><strong>成分重複：</strong>${escapeHtml(name)}が登録薬と重なります。</li>`),
+    ...result.interactions.map(item => `<li><strong>${escapeHtml(item.label)}：</strong>${escapeHtml(item.message)}</li>`),
+    ...result.conditionWarnings.map(item => `<li><strong>登録疾患への注意：</strong>${escapeHtml(item.message)}</li>`)
+  ];
+  const cautions = (drug.importantWarnings || []).map(item => `<li>${escapeHtml(item)}</li>`).join('');
+  return `<section class="medical-assessment"><h3>${escapeHtml(drug.name)}</h3>${flags ? `<div class="profile-chips">${flags}</div>` : ''}${ingredients}${alerts.length ? `<div class="medical-alert"><strong>確認が必要</strong><ul>${alerts.join('')}</ul></div>` : '<p class="saved-message">登録薬・持病との既知の重大な警告は見つかりませんでした。</p>'}${cautions ? `<details><summary>この薬の主な注意</summary><ul>${cautions}</ul></details>` : ''}<p class="medical-note">辞書の判定は添付文書や薬剤師の確認に代わるものではありません。外箱の成分・用法が表示と一致するか確認してください。</p></section>`;
 }

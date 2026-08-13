@@ -45,12 +45,12 @@ export async function medicinePanel() {
   const sortedLogs = logs.sort((a, b) => String(b.at).localeCompare(String(a.at))).slice(0, 10);
   return `<section class="current-profile"><small>現在の薬プロフィール</small><div class="profile-chips">${current}</div>${bundle.medications.length ? '<p class="profile-preset-help">薬名を押すと、下の入力欄に入ります。</p>' : ''}</section>
     <form class="form-grid" data-form="medicine">
-      <label>薬の名前<input name="name" required placeholder="商品名・一般名・成分名"></label>
+      <label>薬の名前<input name="name" required placeholder="イブ、バファリン、パブロンなど" autocomplete="off"></label>
       <label>用量・規格<input name="dose" placeholder="5mg 1錠 など"></label>
       <label>服用した日時<input type="datetime-local" name="takenAt" value="${localDateTimeValue()}"></label>
       <button class="primary" type="submit">組み合わせを確認</button>
     </form>
-    <p class="medical-note">初めての薬は内部辞書と照合し、登録薬との併用、登録疾患への禁忌・重要注意、重大な副作用だけを表示します。</p>
+    <p class="medical-note">シリーズ名だけでも検索できます。種類で成分が異なる場合は、候補から箱と同じ商品名を選んでください。</p>
     <div id="medical-result"></div>
     <section class="log-list"><h3>最近の服用記録</h3>${sortedLogs.length ? sortedLogs.map(item =>
       `<article class="log-item"><small>${dateTimeLabel(item.at)}</small><p>${escapeHtml(item.name)}${item.dose ? ` · ${escapeHtml(item.dose)}` : ''}</p></article>`

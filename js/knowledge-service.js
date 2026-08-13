@@ -17,9 +17,14 @@ export function loadKnowledge({ refresh = false } = {}) {
   if (!knowledgePromise) {
     knowledgePromise = Promise.all([
       loadJson(DATA_PATHS.drugs),
+      loadJson(DATA_PATHS.otcProducts),
       loadJson(DATA_PATHS.conditions),
       loadJson(DATA_PATHS.interactions)
-    ]).then(([drugs, conditions, interactions]) => ({ drugs, conditions, interactions }));
+    ]).then(([drugs, otcProducts, conditions, interactions]) => ({
+      drugs: { ...drugs, items: [...(drugs.items || []), ...(otcProducts.items || [])] },
+      conditions,
+      interactions
+    }));
   }
   return knowledgePromise;
 }
@@ -28,9 +33,10 @@ function resolveName(value, items) {
   const needle = normalizeMedicalName(value);
   if (!needle) return { status: 'unknown', item: null, candidates: [] };
 
-  const exact = items.find(item => [item.name, ...(item.aliases || [])]
+  const exact = items.filter(item => [item.name, ...(item.aliases || [])]
     .some(alias => normalizeMedicalName(alias) === needle));
-  if (exact) return { status: 'identified', item: exact, candidates: [exact] };
+  if (exact.length === 1) return { status: 'identified', item: exact[0], candidates: exact };
+  if (exact.length > 1) return { status: 'ambiguous', item: null, candidates: exact };
 
   const candidates = items.filter(item => [item.name, ...(item.aliases || [])]
     .some(alias => {
