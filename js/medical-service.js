@@ -72,6 +72,7 @@ export async function evaluateMedication(rawName, profileBundle) {
 
   const hasAlerts = foundInteractions.length || duplicateComponents.length || conditionWarnings.length;
   return {
+  
     identified: true,
     status: 'identified',
     drug,
