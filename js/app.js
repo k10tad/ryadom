@@ -300,7 +300,7 @@ function chooseActivity(room, date = new Date()) {
       src: fugue ? 'assets/alek/alek-organ-fugue.jpg' : 'assets/alek/alek-organ.jpg',
       fallbackSrc: 'assets/alek/alek-home.jpg',
       alt: '古い教会でパイプオルガンを弾くアレク',
-      action: fugue ? '外出中　……オルガンを弾いている。' : '外出中　古い教会でオルガンを弾いている',
+      action: fugue ? '……フーガを弾いている。' : '古い教会でオルガンを弾いている',
       soundScene: fugue ? 'organFugue' : 'organMonastery'
     };
   }
@@ -318,7 +318,7 @@ function chooseActivity(room, date = new Date()) {
       src: fugue ? 'assets/alek/alek-organ-fugue.jpg' : 'assets/alek/alek-organ.jpg',
       fallbackSrc: 'assets/alek/alek-home.jpg',
       alt: '古い教会でパイプオルガンを弾くアレク',
-      action: fugue ? '外出中　……オルガンを弾いている。' : '外出中　古い教会でオルガンを弾いている',
+      action: fugue ? '……フーガを弾いている。' : '古い教会でオルガンを弾いている',
       soundScene: fugue ? 'organFugue' : 'organMonastery'
     };
   }
