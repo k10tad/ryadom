@@ -1,4 +1,4 @@
-const VERSION = 'ryadom-v1.9.6-explicit-user-token';
+const VERSION = 'ryadom-v1.9.9-activity-url-preview';
 const APP_SHELL = [
   './',
   './index.html',
@@ -8,17 +8,17 @@ const APP_SHELL = [
   './css/splash.css?v=1.0.2',
   './manifest.webmanifest',
   './js/splash.js?v=1.0.0',
-  './js/app.js?v=1.9.6',
+  './js/app.js?v=1.9.9',
   './js/config.js?v=1.9.6',
   './js/personalization.js?v=1.9.6',
-  './js/ambient-audio.js?v=1.8.2',
+  './js/ambient-audio.js?v=1.9.1',
   './js/db.js?v=0.9.0',
   './js/migration.js',
-  './js/dialogue-engine.js?v=1.0.1',
+  './js/dialogue-engine.js?v=1.1.0',
   './js/typewriter.js',
   './js/reasoning.js',
   './js/ryadom-intelligence.js?v=1.0.3',
-  './js/time-context.js?v=1.0.0',
+  './js/time-context.js?v=1.1.0',
   './js/bedroom-mode.js?v=1.2.0',
   './js/symptom-advisor.js?v=1.4.0',
   './js/emotional-support.js?v=1.9.6',
@@ -72,6 +72,9 @@ const APP_SHELL = [
   ,'./music/schumann_morinoiriguchi.mp3'
   ,'./music/straussII_annenpolka.mp3'
   ,'./music/veldy_hanakarahanahe.mp3'
+  ,'./music/violin_solo.mp3'
+  ,'./music/monastery.mp3'
+  ,'./music/fugueg.mp3'
   ,'./sound/bathtub.mp3'
   ,'./sound/doubleclick.mp3'
   ,'./sound/heartbeat.mp3'

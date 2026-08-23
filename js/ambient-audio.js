@@ -24,6 +24,15 @@ const SCENES = {
     { src: 'sound/paper.mp3', volume: .08 },
     { src: 'sound/vibe.mp3', volume: .055 }
   ],
+  violin: [
+    { src: 'music/violin_solo.mp3', volume: .085, loop: true }
+  ],
+  organMonastery: [
+    { src: 'music/monastery.mp3', volume: .075, loop: true }
+  ],
+  organFugue: [
+    { src: 'music/fugueg.mp3', volume: .07, loop: true }
+  ],
   bedroom: [],
   bedtime: [{ src: 'sound/heartbeat.mp3', volume: .045, loop: true }],
   quiet: []
@@ -45,18 +54,23 @@ export class AmbientAudio {
     this.voiceActive = false;
     this.sceneVersion = 0;
     this.lastAmbientIndex = {};
+    this.playedOnce = new Set();
   }
 
   unlock() {
     if (this.unlocked) return;
     this.unlocked = true;
-    this.scheduleAmbient(1800);
+    if (['violin', 'organMonastery', 'organFugue'].includes(this.scene) && !document.hidden) this.playAmbient();
+    else this.scheduleAmbient(1800);
   }
 
   setScene(scene, { immediate = false } = {}) {
-    this.scene = SCENES[scene] ? scene : 'home';
+    const nextScene = SCENES[scene] ? scene : 'home';
+    if (nextScene !== this.scene) this.playedOnce.delete(nextScene);
+    this.scene = nextScene;
     this.sceneVersion += 1;
     this.stopAmbient();
+    if (['violin', 'organMonastery', 'organFugue'].includes(this.scene) && this.musicEnabled) this.stopMusic();
     if (!this.unlocked) return;
     if (immediate && SCENES[this.scene]?.length && !document.hidden) this.playAmbient();
     else this.scheduleAmbient(between(1600, 3200));
@@ -75,6 +89,9 @@ export class AmbientAudio {
     if (choices.length > 1 && choiceIndex === this.lastAmbientIndex[this.scene]) choiceIndex = (choiceIndex + 1) % choices.length;
     this.lastAmbientIndex[this.scene] = choiceIndex;
     const choice = choices[choiceIndex];
+    const onceKey = `${this.scene}:${choice.src}`;
+    if (choice.once && this.playedOnce.has(onceKey)) return;
+    if (choice.once) this.playedOnce.add(onceKey);
     const sceneAtStart = this.scene;
     const versionAtStart = this.sceneVersion;
     const audio = new Audio(choice.src);
@@ -87,15 +104,18 @@ export class AmbientAudio {
       if (finished) return;
       finished = true;
       if (this.ambient === audio) this.ambient = null;
-      if (this.unlocked && !document.hidden && this.scene === sceneAtStart && this.sceneVersion === versionAtStart) {
+      if (!choice.once && this.unlocked && !document.hidden && this.scene === sceneAtStart && this.sceneVersion === versionAtStart) {
         const delay = sceneAtStart === 'asleep' ? between(28000, 58000) : between(13000, 36000);
         this.scheduleAmbient(delay);
       }
     };
     if (!choice.loop) audio.addEventListener('ended', finish, { once: true });
     audio.addEventListener('error', finish, { once: true });
-    audio.play().catch(finish);
-    if (!choice.loop) {
+    audio.play().catch(() => {
+      if (choice.once) this.playedOnce.delete(onceKey);
+      finish();
+    });
+    if (!choice.loop && !choice.fullTrack) {
       setTimeout(() => {
         if (this.ambient !== audio) return;
         audio.pause();

@@ -3,13 +3,14 @@ const TAG_GROUPS = [
   ['weekday', 'weekend'],
   ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
   ['living', 'bedroom'],
-  ['home', 'work', 'asleep', 'shower']
+  ['home', 'work', 'asleep', 'shower', 'violin', 'organMonastery', 'organFugue']
 ].map(tags => new Set(tags));
 
 const TAG_WEIGHTS = new Map([
   ['sunday', 6], ['monday', 6], ['tuesday', 6], ['wednesday', 6],
   ['thursday', 6], ['friday', 6], ['saturday', 6],
   ['home', 5], ['work', 5], ['asleep', 5], ['shower', 5],
+  ['violin', 7], ['organMonastery', 8], ['organFugue', 10],
   ['lateNight', 4], ['morning', 4], ['day', 4], ['evening', 4], ['night', 4],
   ['weekday', 2], ['weekend', 2],
   ['living', 1], ['bedroom', 1]

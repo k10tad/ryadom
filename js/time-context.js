@@ -33,5 +33,14 @@ export function dialogueTags(context = {}) {
 }
 
 export function activityPeriodKey(room, date = new Date()) {
-  return `${room}:${localDateKey(date)}:${timeOfDay(date)}`;
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  let activitySlot = timeOfDay(date);
+  if (hour === 0 && minute <= 30) activitySlot = 'midnight-music';
+  else if (hour >= 16 && hour < 18) activitySlot = 'late-afternoon';
+  else if (hour >= 18 && hour < 20) activitySlot = 'after-work';
+  else if (hour >= 20 && hour < 22) activitySlot = 'violin-evening';
+  else if (hour >= 22 && hour < 23) activitySlot = 'violin-night';
+  else if (hour === 23) activitySlot = 'late-evening';
+  return `${room}:${localDateKey(date)}:${activitySlot}`;
 }

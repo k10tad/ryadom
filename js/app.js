@@ -1,7 +1,7 @@
 import { db, makeId, openDatabase } from './db.js?v=0.9.0';
 import { migrateLegacyData } from './migration.js';
 import { APP_VERSION } from './config.js?v=1.9.6';
-import { DialogueEngine } from './dialogue-engine.js?v=1.0.1';
+import { DialogueEngine } from './dialogue-engine.js?v=1.1.0';
 import { typeLine, stopTyping } from './typewriter.js';
 import { chooseIntelligentLine } from './ryadom-intelligence.js?v=1.0.3';
 import { evaluateMedication, renderMedicationAssessment } from './medical-service.js';
@@ -14,8 +14,8 @@ import { emotionalSupportFromMessage } from './emotional-support.js?v=1.9.6';
 import { cycleActionLine, deleteCycleRecord, getCycleCarePrompt, saveCycleRecord, saveCycleSettings, saveSelectedBoundary } from './menstrual-service.js?v=1.9.6';
 import { cycleTrackerPanel } from './cycle-panel.js?v=1.9.6';
 import { personalizeElement, personalizeText, setConfiguredName } from './personalization.js?v=1.9.6';
-import { AmbientAudio } from './ambient-audio.js?v=1.8.2';
-import { activityPeriodKey, buildTimeContext, timeOfDay } from './time-context.js?v=1.0.0';
+import { AmbientAudio } from './ambient-audio.js?v=1.9.1';
+import { activityPeriodKey, buildTimeContext, timeOfDay } from './time-context.js?v=1.1.0';
 import {
   bedtimeLineDelay,
   isNightWakeWindow,
@@ -38,6 +38,8 @@ const musicBoxButton = document.querySelector('#music-box');
 const musicTitle = document.querySelector('#music-title');
 const bedtimeButton = document.querySelector('#bedtime-button');
 const bedtimeStatus = document.querySelector('#bedtime-status');
+const previewValue = new URLSearchParams(window.location.search).get('preview');
+const ACTIVITY_PREVIEW = ['violin', 'organ', 'fugue'].includes(previewValue) ? previewValue : '';
 
 function syncViewportMetrics() {
   const viewport = window.visualViewport;
@@ -283,9 +285,53 @@ function updateClock() {
 
 function chooseActivity(room, date = new Date()) {
   if (room === 'bedroom') return { src: 'assets/alek/alek-bed.jpg', alt: '寝室で横になるアレク', action: '一緒に休むところ', soundScene: 'bedroom' };
+  if (ACTIVITY_PREVIEW === 'violin') {
+    return {
+      src: 'assets/alek/alek-violin.jpg',
+      fallbackSrc: 'assets/alek/alek-home.jpg',
+      alt: '自宅で静かにヴァイオリンを弾くアレク',
+      action: 'リビングでヴァイオリンを弾いている',
+      soundScene: 'violin'
+    };
+  }
+  if (ACTIVITY_PREVIEW === 'organ' || ACTIVITY_PREVIEW === 'fugue') {
+    const fugue = ACTIVITY_PREVIEW === 'fugue';
+    return {
+      src: fugue ? 'assets/alek/alek-organ-fugue.jpg' : 'assets/alek/alek-organ.jpg',
+      fallbackSrc: 'assets/alek/alek-home.jpg',
+      alt: '古い教会でパイプオルガンを弾くアレク',
+      action: fugue ? '外出中　……オルガンを弾いている。' : '外出中　古い教会でオルガンを弾いている',
+      soundScene: fugue ? 'organFugue' : 'organMonastery'
+    };
+  }
   const weekday = date.getDay() >= 1 && date.getDay() <= 5;
+  const weekend = !weekday;
   const hour = date.getHours();
+  const minute = date.getMinutes();
   const roll = Math.random();
+  const afterWork = weekday && hour >= 18 && hour < 23;
+  const weekendOrganHours = weekend && hour >= 16 && hour < 23;
+  const organChance = weekendOrganHours ? .13 : (afterWork ? .035 : 0);
+  if (organChance && Math.random() < organChance) {
+    const fugue = Math.random() < .2;
+    return {
+      src: fugue ? 'assets/alek/alek-organ-fugue.jpg' : 'assets/alek/alek-organ.jpg',
+      fallbackSrc: 'assets/alek/alek-home.jpg',
+      alt: '古い教会でパイプオルガンを弾くアレク',
+      action: fugue ? '外出中　……オルガンを弾いている。' : '外出中　古い教会でオルガンを弾いている',
+      soundScene: fugue ? 'organFugue' : 'organMonastery'
+    };
+  }
+  const violinHours = weekday && (hour >= 20 || (hour === 0 && minute <= 30));
+  if (violinHours && Math.random() < .42) {
+    return {
+      src: 'assets/alek/alek-violin.jpg',
+      fallbackSrc: 'assets/alek/alek-home.jpg',
+      alt: '自宅で静かにヴァイオリンを弾くアレク',
+      action: 'リビングでヴァイオリンを弾いている',
+      soundScene: 'violin'
+    };
+  }
   if ((hour < 7 && roll < .34) || (hour >= 7 && hour < 10 && roll < .16)) return { src: 'assets/alek/alek-shower.jpg', alt: '不規則な時間にシャワーを浴びるアレク', action: 'シャワー中', soundScene: 'shower' };
   if (weekday && hour >= 11 && hour < 19 && roll < .38) {
     return { src: 'assets/alek/alek-asleep.jpg', alt: '夜勤明けに眠るアレク', action: '夜勤明けでうたた寝', soundScene: 'asleep' };
@@ -299,6 +345,10 @@ function chooseActivity(room, date = new Date()) {
 function applyPortrait(activity) {
   normalPortrait = activity;
   app.dataset.activity = activity.soundScene || 'home';
+  alekImage.onerror = activity.fallbackSrc ? () => {
+    alekImage.onerror = null;
+    alekImage.src = activity.fallbackSrc;
+  } : null;
   alekImage.src = activity.src;
   alekImage.alt = activity.alt;
   nowAction.textContent = personalizeText(activity.action);
@@ -861,7 +911,7 @@ async function start() {
   setConfiguredName(profile?.name || '');
   updateClock();
   setInterval(updateClock, 30000);
-  setRoom(localStorage.getItem('ryadom:room-v2') || 'living', false);
+  setRoom(ACTIVITY_PREVIEW ? 'living' : (localStorage.getItem('ryadom:room-v2') || 'living'), false);
   if (!profile?.onboardingComplete || !profile.name || !profile.region) {
     alekLine.textContent = '最初に、君のことを少し教えて。';
     onboarding.showModal();
