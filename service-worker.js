@@ -1,4 +1,4 @@
-const VERSION = 'ryadom-v1.10.5-persistent-activity';
+const VERSION = 'ryadom-v1.10.6-no-autoplay';
 const APP_SHELL = [
   './',
   './index.html',
@@ -8,10 +8,10 @@ const APP_SHELL = [
   './css/splash.css?v=1.0.3',
   './manifest.webmanifest',
   './js/splash.js?v=1.0.0',
-  './js/app.js?v=1.10.5',
+  './js/app.js?v=1.10.6',
   './js/config.js?v=1.9.6',
   './js/personalization.js?v=1.9.6',
-  './js/ambient-audio.js?v=1.10.1',
+  './js/ambient-audio.js?v=1.10.2',
   './js/ryadom-activity.js?v=1.0.1',
   './js/db.js?v=0.9.0',
   './js/migration.js',

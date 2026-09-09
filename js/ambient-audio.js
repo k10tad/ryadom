@@ -69,10 +69,7 @@ export class AmbientAudio {
     this.unlocked = true;
     this.isPriming = true;
     this.configureBackgroundPlayback();
-    Promise.all([
-      this.primePlayer(this.ambient, 'sound/paper.mp3'),
-      this.primePlayer(this.music, TRACKS[0].src)
-    ]).finally(() => {
+    this.primePlayer(this.ambient, 'sound/paper.mp3').finally(() => {
       this.isPriming = false;
       if (this.musicEnabled) this.playNextTrack();
       if (RECITAL_SCENES.has(this.scene) && !document.hidden) {

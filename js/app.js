@@ -14,7 +14,7 @@ import { emotionalSupportFromMessage } from './emotional-support.js?v=1.9.6';
 import { cycleActionLine, deleteCycleRecord, getCycleCarePrompt, saveCycleRecord, saveCycleSettings, saveSelectedBoundary } from './menstrual-service.js?v=1.9.6';
 import { cycleTrackerPanel } from './cycle-panel.js?v=1.9.6';
 import { personalizeElement, personalizeText, setConfiguredName } from './personalization.js?v=1.9.6';
-import { AmbientAudio } from './ambient-audio.js?v=1.10.1';
+import { AmbientAudio } from './ambient-audio.js?v=1.10.2';
 import { RyadomActivity } from './ryadom-activity.js?v=1.0.1';
 import { buildTimeContext, timeOfDay } from './time-context.js?v=1.1.0';
 import {
