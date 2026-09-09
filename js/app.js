@@ -569,12 +569,12 @@ function speakCurrentLine() {
 
 function weatherAdvisory(weather) {
   const notices = [];
-  if (Number.isFinite(weather.uvIndex) && weather.uvIndex >= 8) notices.push('紫外線、かなり強いよ。外に出るなら肌を守るもの持っていこ。');
-  else if (Number.isFinite(weather.uvIndex) && weather.uvIndex >= 6) notices.push('紫外線は強め。長く外にいるなら少し気にしてね。');
-  if (Number.isFinite(weather.pm25) && weather.pm25 >= 35) notices.push('PM2.5が高めだね。目や喉が気になるなら、外出は無理しないで。');
+  if (Number.isFinite(weather.uvIndex) && weather.uvIndex >= 8) notices.push('紫外線がかなり強いよ。外では肌を守ってね。');
+  else if (Number.isFinite(weather.uvIndex) && weather.uvIndex >= 6) notices.push('紫外線は強め。長く外にいるなら気にしてね。');
+  if (Number.isFinite(weather.pm25) && weather.pm25 >= 35) notices.push('PM2.5が高め。目や喉が気になるなら、無理しないで。');
   else if (Number.isFinite(weather.pm25) && weather.pm25 >= 15) notices.push('PM2.5が少し高め。帰ったら顔を洗っとこ。');
-  if (weather.trend?.delta <= -2) notices.push('気圧、下がってる。頭が変だと思ったら早めに休も。');
-  return notices.slice(0, 2).join('　');
+  if (weather.trend?.delta <= -2) notices.push('気圧が下がってる。頭が変なら早めに休も。');
+  return notices[0] || '';
 }
 
 async function copyVisitReport(button) {
@@ -922,8 +922,6 @@ async function updateWeather(region, force = false) {
   const location = document.querySelector('#weather-location');
   const condition = document.querySelector('#weather-condition');
   const temperature = document.querySelector('#weather-temperature');
-  const pressure = document.querySelector('#weather-pressure');
-  const air = document.querySelector('#weather-air');
   const advisory = document.querySelector('#weather-advisory');
   if (!region) return;
   location.textContent = region;
@@ -931,14 +929,12 @@ async function updateWeather(region, force = false) {
   try {
     const weather = await getWeather(region, force);
     location.textContent = weather.location || region;
-    condition.textContent = `${weather.weather}・体感 ${Math.round(weather.apparentTemperature)}°`;
     temperature.textContent = `${Math.round(weather.temperature)}°`;
     const delta = weather.trend.delta;
     const deltaText = delta === null ? '' : ` ${delta > 0 ? '+' : ''}${delta} / 3h`;
-    pressure.textContent = `気圧 ${Math.round(weather.pressure)} hPa・${weather.trend.label}${deltaText}`;
     const uvText = Number.isFinite(weather.uvIndex) ? `UV ${weather.uvIndex.toFixed(0)}` : 'UV --';
     const pmText = Number.isFinite(weather.pm25) ? `PM2.5 ${weather.pm25.toFixed(0)}μg/m³` : 'PM2.5 --';
-    air.textContent = `${uvText} ・ ${pmText}`;
+    condition.textContent = `${weather.weather} ・ 体感 ${Math.round(weather.apparentTemperature)}° ・ 気圧 ${Math.round(weather.pressure)}hPa${deltaText} ・ ${uvText} ・ ${pmText}`;
     const note = weatherAdvisory(weather);
     advisory.textContent = note;
     advisory.hidden = !note;
@@ -946,8 +942,6 @@ async function updateWeather(region, force = false) {
   } catch (error) {
     condition.textContent = error.message;
     temperature.textContent = '--°';
-    pressure.textContent = '設定から地域を確認';
-    air.textContent = 'UV -- ・PM2.5 --';
     advisory.hidden = true;
   }
 }

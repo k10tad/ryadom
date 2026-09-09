@@ -1,14 +1,14 @@
-const VERSION = 'ryadom-v1.10.0-weather-air-and-report-copy';
+const VERSION = 'ryadom-v1.10.1-compact-weather-and-copy';
 const APP_SHELL = [
   './',
   './index.html',
-  './css/style.css?v=1.10.0',
+  './css/style.css?v=1.10.1',
   './css/cycle-tracker.css?v=1.6.0',
-  './css/style-v050.css?v=1.10.0',
+  './css/style-v050.css?v=1.10.1',
   './css/splash.css?v=1.0.2',
   './manifest.webmanifest',
   './js/splash.js?v=1.0.0',
-  './js/app.js?v=1.10.0',
+  './js/app.js?v=1.10.1',
   './js/config.js?v=1.9.6',
   './js/personalization.js?v=1.9.6',
   './js/ambient-audio.js?v=1.9.1',
