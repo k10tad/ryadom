@@ -102,7 +102,10 @@ export class RyadomActivity {
   }
 
   refresh(date = new Date()) {
-    if (this.room !== 'living') return BEDROOM_ACTIVITY;
+    if (this.room !== 'living') {
+      this.onChange(BEDROOM_ACTIVITY);
+      return BEDROOM_ACTIVITY;
+    }
     if (this.preview) {
       const activity = { ...PREVIEWS[this.preview], until: null, preview: true };
       this.current = activity;
