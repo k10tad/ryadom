@@ -15,7 +15,7 @@ import { cycleActionLine, deleteCycleRecord, getCycleCarePrompt, saveCycleRecord
 import { cycleTrackerPanel } from './cycle-panel.js?v=1.9.6';
 import { personalizeElement, personalizeText, setConfiguredName } from './personalization.js?v=1.9.6';
 import { AmbientAudio } from './ambient-audio.js?v=1.10.2';
-import { RyadomActivity } from './ryadom-activity.js?v=1.0.1';
+import { RyadomActivity } from './ryadom-activity.js?v=1.0.3';
 import { buildTimeContext, timeOfDay } from './time-context.js?v=1.1.0';
 import {
   bedtimeLineDelay,
@@ -306,7 +306,7 @@ function leaveQuietMode({ restoreActivity = false } = {}) {
   ambientAudio.stopMusic();
   app.classList.remove('is-quiet');
   document.querySelector('#quiet-mode').setAttribute('aria-hidden', 'true');
-  if (restoreActivity) activityController.refresh();
+  if (restoreActivity) activityController.setRoom(app.dataset.room || 'living');
 }
 
 function setRoom(room, persist = true) {
