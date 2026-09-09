@@ -1,4 +1,4 @@
-const VERSION = 'ryadom-v1.10.6-no-autoplay';
+const VERSION = 'ryadom-v1.10.7-quiet-room-fix';
 const APP_SHELL = [
   './',
   './index.html',
@@ -8,7 +8,7 @@ const APP_SHELL = [
   './css/splash.css?v=1.0.3',
   './manifest.webmanifest',
   './js/splash.js?v=1.0.0',
-  './js/app.js?v=1.10.6',
+  './js/app.js?v=1.10.7',
   './js/config.js?v=1.9.6',
   './js/personalization.js?v=1.9.6',
   './js/ambient-audio.js?v=1.10.2',

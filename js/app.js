@@ -301,9 +301,18 @@ const activityController = new RyadomActivity({
   onChange: activity => applyPortrait(activity)
 });
 
+function leaveQuietMode({ restoreActivity = false } = {}) {
+  if (!app.classList.contains('is-quiet')) return;
+  ambientAudio.stopMusic();
+  app.classList.remove('is-quiet');
+  document.querySelector('#quiet-mode').setAttribute('aria-hidden', 'true');
+  if (restoreActivity) activityController.refresh();
+}
+
 function setRoom(room, persist = true) {
   const bedroom = room === 'bedroom';
   if (!bedroom && bedtimeActive) stopBedtimeMode({ restoreScene: false });
+  leaveQuietMode();
   app.dataset.room = bedroom ? 'bedroom' : 'living';
   activityController.setRoom(app.dataset.room);
   document.querySelectorAll('[data-room-button]').forEach(button => {
@@ -837,10 +846,7 @@ musicBoxButton.addEventListener('click', event => {
   ambientAudio.toggleMusic();
 });
 document.querySelector('#leave-quiet').addEventListener('click', () => {
-  ambientAudio.stopMusic();
-  app.classList.remove('is-quiet');
-  document.querySelector('#quiet-mode').setAttribute('aria-hidden', 'true');
-  activityController.refresh();
+  leaveQuietMode({ restoreActivity: true });
 });
 
 document.addEventListener('pointerdown', () => ambientAudio.unlock(), { once: true });
