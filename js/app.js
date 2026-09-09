@@ -8,7 +8,7 @@ import { evaluateMedication, renderMedicationAssessment } from './medical-servic
 import { addMedicationToProfile, getProfileBundle, saveProfile } from './profile-service.js';
 import { conditionPanel, medicinePanel, rhythmPanel, sayPanel, settingsPanel } from './panels.js?v=1.9.6';
 import { exportBackup, importBackup } from './backup-service.js?v=0.9.0';
-import { clearWeatherCache, getWeather } from './weather-service.js?v=1.0.0';
+import { clearWeatherCache, getWeather } from './weather-service.js?v=1.1.0';
 import { adviseFromMessage } from './symptom-advisor.js?v=1.4.0';
 import { emotionalSupportFromMessage } from './emotional-support.js?v=1.9.6';
 import { cycleActionLine, deleteCycleRecord, getCycleCarePrompt, saveCycleRecord, saveCycleSettings, saveSelectedBoundary } from './menstrual-service.js?v=1.9.6';
@@ -567,7 +567,46 @@ function speakCurrentLine() {
   playVoice(source, true);
 }
 
+function weatherAdvisory(weather) {
+  const notices = [];
+  if (Number.isFinite(weather.uvIndex) && weather.uvIndex >= 8) notices.push('紫外線、かなり強いよ。外に出るなら肌を守るもの持っていこ。');
+  else if (Number.isFinite(weather.uvIndex) && weather.uvIndex >= 6) notices.push('紫外線は強め。長く外にいるなら少し気にしてね。');
+  if (Number.isFinite(weather.pm25) && weather.pm25 >= 35) notices.push('PM2.5が高めだね。目や喉が気になるなら、外出は無理しないで。');
+  else if (Number.isFinite(weather.pm25) && weather.pm25 >= 15) notices.push('PM2.5が少し高め。帰ったら顔を洗っとこ。');
+  if (weather.trend?.delta <= -2) notices.push('気圧、下がってる。頭が変だと思ったら早めに休も。');
+  return notices.slice(0, 2).join('　');
+}
+
+async function copyVisitReport(button) {
+  const report = document.querySelector('#visit-report');
+  if (!report) return;
+  const text = report.innerText.trim();
+  const original = button.textContent;
+  try {
+    if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(text);
+    else {
+      const area = document.createElement('textarea');
+      area.value = text;
+      area.style.cssText = 'position:fixed;opacity:0;pointer-events:none;';
+      document.body.append(area);
+      area.select();
+      const copied = document.execCommand('copy');
+      area.remove();
+      if (!copied) throw new Error('copy failed');
+    }
+    button.textContent = 'コピーしたよ';
+  } catch {
+    button.textContent = 'コピーできなかった';
+  }
+  setTimeout(() => { button.textContent = original; }, 1800);
+}
+
 document.addEventListener('click', async event => {
+  const reportCopy = event.target.closest('[data-copy-report]');
+  if (reportCopy) {
+    await copyVisitReport(reportCopy);
+    return;
+  }
   const editMessage = event.target.closest('[data-edit-message]');
   if (editMessage) {
     sheetContent.innerHTML = await sayPanel({ editId: editMessage.dataset.editMessage });
@@ -884,6 +923,8 @@ async function updateWeather(region, force = false) {
   const condition = document.querySelector('#weather-condition');
   const temperature = document.querySelector('#weather-temperature');
   const pressure = document.querySelector('#weather-pressure');
+  const air = document.querySelector('#weather-air');
+  const advisory = document.querySelector('#weather-advisory');
   if (!region) return;
   location.textContent = region;
   condition.textContent = '天気を確認中';
@@ -895,11 +936,19 @@ async function updateWeather(region, force = false) {
     const delta = weather.trend.delta;
     const deltaText = delta === null ? '' : ` ${delta > 0 ? '+' : ''}${delta} / 3h`;
     pressure.textContent = `気圧 ${Math.round(weather.pressure)} hPa・${weather.trend.label}${deltaText}`;
+    const uvText = Number.isFinite(weather.uvIndex) ? `UV ${weather.uvIndex.toFixed(0)}` : 'UV --';
+    const pmText = Number.isFinite(weather.pm25) ? `PM2.5 ${weather.pm25.toFixed(0)}μg/m³` : 'PM2.5 --';
+    air.textContent = `${uvText} ・ ${pmText}`;
+    const note = weatherAdvisory(weather);
+    advisory.textContent = note;
+    advisory.hidden = !note;
     document.querySelector('#weather-strip').classList.toggle('is-falling', delta !== null && delta <= -2);
   } catch (error) {
     condition.textContent = error.message;
     temperature.textContent = '--°';
     pressure.textContent = '設定から地域を確認';
+    air.textContent = 'UV -- ・PM2.5 --';
+    advisory.hidden = true;
   }
 }
 

@@ -1,14 +1,14 @@
-const VERSION = 'ryadom-v1.9.9-activity-url-preview';
+const VERSION = 'ryadom-v1.10.0-weather-air-and-report-copy';
 const APP_SHELL = [
   './',
   './index.html',
-  './css/style.css?v=1.9.4',
+  './css/style.css?v=1.10.0',
   './css/cycle-tracker.css?v=1.6.0',
-  './css/style-v050.css?v=1.9.4',
+  './css/style-v050.css?v=1.10.0',
   './css/splash.css?v=1.0.2',
   './manifest.webmanifest',
   './js/splash.js?v=1.0.0',
-  './js/app.js?v=1.9.9',
+  './js/app.js?v=1.10.0',
   './js/config.js?v=1.9.6',
   './js/personalization.js?v=1.9.6',
   './js/ambient-audio.js?v=1.9.1',
@@ -27,7 +27,7 @@ const APP_SHELL = [
   './js/medical-service.js',
   './js/memory-service.js',
   './js/profile-service.js',
-  './js/weather-service.js?v=1.0.0',
+  './js/weather-service.js?v=1.1.0',
   './js/templates.js?v=0.9.0',
   './js/panels.js?v=1.9.6',
   './js/cycle-panel.js?v=1.9.6',

@@ -10,7 +10,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/Ryadom-AppIcon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/Ryadom-AppIcon-180.png">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="css/style-v050.css?v=1.9.4">
+  <link rel="stylesheet" href="css/style-v050.css?v=1.10.0">
   <link rel="stylesheet" href="css/cycle-tracker.css?v=1.6.0">
   <link rel="stylesheet" href="css/splash.css?v=1.0.2">
 </head>
@@ -53,7 +53,8 @@
 
     <button class="weather-strip" id="weather-strip" type="button" data-open="settings" aria-label="地域と天気の設定を開く">
       <span><small id="weather-location">地域を設定</small><strong id="weather-condition">天気を読み込み中</strong></span>
-      <span><strong id="weather-temperature">--°</strong><small id="weather-pressure">気圧 -- hPa</small></span>
+      <span class="weather-metrics"><strong id="weather-temperature">--°</strong><small id="weather-pressure">気圧 -- hPa</small><small id="weather-air">UV -- ・PM2.5 --</small></span>
+      <small class="weather-advisory" id="weather-advisory" hidden></small>
     </button>
 
     <section class="home" id="home-view">
@@ -160,6 +161,6 @@
     </section>
   </main>
   <script src="js/splash.js?v=1.0.0" defer></script>
-  <script type="module" src="js/app.js?v=1.9.9"></script>
+  <script type="module" src="js/app.js?v=1.10.0"></script>
 </body>
 </html>

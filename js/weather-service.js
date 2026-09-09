@@ -56,12 +56,20 @@ export async function getWeather(region, force = false) {
   const url = new URL('https://api.open-meteo.com/v1/forecast');
   url.search = new URLSearchParams({
     latitude: String(place.latitude), longitude: String(place.longitude), timezone: 'auto',
-    current: 'temperature_2m,apparent_temperature,weather_code,pressure_msl',
+    current: 'temperature_2m,apparent_temperature,weather_code,pressure_msl,uv_index',
     hourly: 'pressure_msl', past_hours: '4', forecast_hours: '4'
   });
-  const response = await fetch(url);
+  const airUrl = new URL('https://air-quality-api.open-meteo.com/v1/air-quality');
+  airUrl.search = new URLSearchParams({
+    latitude: String(place.latitude), longitude: String(place.longitude), timezone: 'auto',
+    current: 'pm2_5,us_aqi'
+  });
+  const [response, airResponse] = await Promise.all([fetch(url), fetch(airUrl).catch(() => null)]);
   if (!response.ok) throw new Error('天気を取得できなかったよ。');
-  const json = await response.json();
+  const [json, airJson] = await Promise.all([
+    response.json(),
+    airResponse?.ok ? airResponse.json().catch(() => null) : null
+  ]);
   const current = json.current || {};
   const trend = pressureTrend(json.hourly?.time, json.hourly?.pressure_msl, current.time, current.pressure_msl);
   const data = {
@@ -69,6 +77,9 @@ export async function getWeather(region, force = false) {
     temperature: current.temperature_2m,
     apparentTemperature: current.apparent_temperature,
     pressure: current.pressure_msl,
+    uvIndex: Number.isFinite(Number(current.uv_index)) ? Number(current.uv_index) : null,
+    pm25: Number.isFinite(Number(airJson?.current?.pm2_5)) ? Number(airJson.current.pm2_5) : null,
+    airQualityIndex: Number.isFinite(Number(airJson?.current?.us_aqi)) ? Number(airJson.current.us_aqi) : null,
     weather: WEATHER_LABELS[current.weather_code] || '天気不明',
     trend,
     updatedAt: current.time
