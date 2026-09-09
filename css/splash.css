@@ -144,22 +144,33 @@
 .ryadom-splash-skip {
   position: absolute;
   z-index: 4;
-  right: max(17px, env(safe-area-inset-right));
-  bottom: max(14px, env(safe-area-inset-bottom));
-  border: 0;
-  background: transparent;
-  color: rgba(230, 216, 243, .58);
-  padding: 10px 7px;
+  left: 50%;
+  top: 69%;
+  transform: translateX(-50%);
+  min-width: 88px;
+  min-height: 42px;
+  border: 1px solid rgba(222, 201, 250, .32);
+  border-radius: 999px;
+  background: rgba(20, 13, 43, .24);
+  color: rgba(239, 226, 255, .8);
+  padding: 10px 18px;
   font-family: "Segoe UI", system-ui, sans-serif;
   font-size: 10px;
   font-weight: 400;
   letter-spacing: .12em;
+  text-align: center;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, .2);
   opacity: 0;
   animation: ryadom-splash-skip-in .55s .72s ease-out forwards;
 }
 
+.ryadom-splash-skip:active {
+  background: rgba(218, 194, 250, .19);
+  transform: translateX(-50%) scale(.97);
+}
+
 .ryadom-splash-skip:focus-visible {
-  outline: 1px solid rgba(230, 216, 243, .72);
+  outline: 1px solid rgba(247, 239, 255, .92);
   outline-offset: 2px;
   border-radius: 999px;
 }
@@ -239,6 +250,10 @@
 
   .ryadom-splash-copy {
     bottom: 13%;
+  }
+
+  .ryadom-splash-skip {
+    top: 65%;
   }
 }
 

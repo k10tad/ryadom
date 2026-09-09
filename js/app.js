@@ -14,7 +14,7 @@ import { emotionalSupportFromMessage } from './emotional-support.js?v=1.9.6';
 import { cycleActionLine, deleteCycleRecord, getCycleCarePrompt, saveCycleRecord, saveCycleSettings, saveSelectedBoundary } from './menstrual-service.js?v=1.9.6';
 import { cycleTrackerPanel } from './cycle-panel.js?v=1.9.6';
 import { personalizeElement, personalizeText, setConfiguredName } from './personalization.js?v=1.9.6';
-import { AmbientAudio } from './ambient-audio.js?v=1.9.1';
+import { AmbientAudio } from './ambient-audio.js?v=1.10.1';
 import { activityPeriodKey, buildTimeContext, timeOfDay } from './time-context.js?v=1.1.0';
 import {
   bedtimeLineDelay,
@@ -310,10 +310,10 @@ function chooseActivity(room, date = new Date()) {
   const minute = date.getMinutes();
   const roll = Math.random();
   const afterWork = weekday && hour >= 18 && hour < 23;
-  const weekendOrganHours = weekend && hour >= 16 && hour < 23;
-  const organChance = weekendOrganHours ? .13 : (afterWork ? .035 : 0);
+  const weekendOrganHours = weekend && hour >= 15 && hour < 23;
+  const organChance = weekendOrganHours ? .38 : (afterWork ? .18 : 0);
   if (organChance && Math.random() < organChance) {
-    const fugue = Math.random() < .2;
+    const fugue = Math.random() < .12;
     return {
       src: fugue ? 'assets/alek/alek-organ-fugue.jpg' : 'assets/alek/alek-organ.jpg',
       fallbackSrc: 'assets/alek/alek-home.jpg',
@@ -323,7 +323,7 @@ function chooseActivity(room, date = new Date()) {
     };
   }
   const violinHours = weekday && (hour >= 20 || (hour === 0 && minute <= 30));
-  if (violinHours && Math.random() < .42) {
+  if (violinHours && Math.random() < .68) {
     return {
       src: 'assets/alek/alek-violin.jpg',
       fallbackSrc: 'assets/alek/alek-home.jpg',
@@ -910,7 +910,6 @@ document.querySelector('#leave-quiet').addEventListener('click', () => {
 document.addEventListener('pointerdown', () => ambientAudio.unlock(), { once: true });
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) {
-    ambientAudio.suspend();
     clearBedtimeSpeechTimer();
   } else {
     ambientAudio.resume();
