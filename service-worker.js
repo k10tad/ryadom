@@ -1,4 +1,4 @@
-const VERSION = 'ryadom-v1.10.14-existing-activities-only';
+const VERSION = 'ryadom-v1.10.15-tonight-fugue';
 const APP_SHELL = [
   './',
   './index.html',
@@ -8,11 +8,11 @@ const APP_SHELL = [
   './css/splash.css?v=1.0.3',
   './manifest.webmanifest',
   './js/splash.js?v=1.0.0',
-  './js/app.js?v=1.10.14',
+  './js/app.js?v=1.10.15',
   './js/config.js?v=1.9.6',
   './js/personalization.js?v=1.9.6',
   './js/ambient-audio.js?v=1.10.3',
-  './js/ryadom-activity.js?v=1.0.7',
+  './js/ryadom-activity.js?v=1.0.8',
   './js/db.js?v=0.9.0',
   './js/migration.js',
   './js/dialogue-engine.js?v=1.1.0',

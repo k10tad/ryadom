@@ -1,6 +1,8 @@
 const STORAGE_KEY = 'ryadom:current-activity:v1';
 const WORK_CYCLE_KEY = 'ryadom:work-cycle:v1';
 const MINUTE = 60 * 1000;
+const TONIGHT_FUGUE_START = Date.parse('2026-09-27T23:00:00+09:00');
+const TONIGHT_FUGUE_END = Date.parse('2026-09-28T03:00:00+09:00');
 
 const ACTIVITIES = {
   home: { id: 'home', src: 'assets/alek/alek-home.jpg', alt: 'こちらを見つめるアレク', action: '{{user}}と居る。', soundScene: 'home', duration: [45, 95] },
@@ -191,7 +193,11 @@ export class RyadomActivity {
   scheduleChange(until) {
     clearTimeout(this.changeTimer);
     if (this.preview || this.room !== 'living') return;
-    this.changeTimer = setTimeout(() => this.refresh(), Math.max(1000, until - Date.now()));
+    const now = Date.now();
+    let nextChange = until;
+    if (now < TONIGHT_FUGUE_START) nextChange = Math.min(nextChange, TONIGHT_FUGUE_START);
+    else if (now < TONIGHT_FUGUE_END) nextChange = Math.min(nextChange, TONIGHT_FUGUE_END);
+    this.changeTimer = setTimeout(() => this.refresh(), Math.max(1000, nextChange - now));
   }
 
   setCurrent(id, { until = null, persist = true } = {}) {
@@ -224,6 +230,16 @@ export class RyadomActivity {
       this.current = activity;
       this.onChange(activity);
       return activity;
+    }
+
+    const now = date.getTime();
+    if (now >= TONIGHT_FUGUE_START && now < TONIGHT_FUGUE_END) {
+      if (this.current?.id === 'fugue' && this.current.until === TONIGHT_FUGUE_END) {
+        this.scheduleChange(TONIGHT_FUGUE_END);
+        this.onChange(this.current);
+        return this.current;
+      }
+      return this.setCurrent('fugue', { until: TONIGHT_FUGUE_END });
     }
 
     const saved = this.readSaved();

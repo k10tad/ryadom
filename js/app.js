@@ -15,7 +15,7 @@ import { cycleActionLine, deleteCycleRecord, getCycleCarePrompt, saveCycleRecord
 import { cycleTrackerPanel } from './cycle-panel.js?v=1.9.6';
 import { personalizeElement, personalizeText, setConfiguredName } from './personalization.js?v=1.9.6';
 import { AmbientAudio } from './ambient-audio.js?v=1.10.3';
-import { RyadomActivity } from './ryadom-activity.js?v=1.0.7';
+import { RyadomActivity } from './ryadom-activity.js?v=1.0.8';
 import { buildTimeContext, timeOfDay } from './time-context.js?v=1.1.0';
 import {
   bedtimeLineDelay,
