@@ -1,18 +1,21 @@
-const VERSION = 'ryadom-v1.10.15-tonight-fugue';
+const VERSION = 'ryadom-v1.11.5-notebook-button';
 const APP_SHELL = [
   './',
   './index.html',
-  './css/style.css?v=1.10.1',
+  './css/style.css?v=1.11.1',
   './css/cycle-tracker.css?v=1.6.0',
-  './css/style-v050.css?v=1.10.1',
+  './css/style-v050.css?v=1.11.1',
+  './css/notebook.css?v=1.1.1',
   './css/splash.css?v=1.0.3',
   './manifest.webmanifest',
   './js/splash.js?v=1.0.0',
-  './js/app.js?v=1.10.15',
+  './js/app.js?v=1.11.1',
+  './js/notebook.js?v=1.1.1',
   './js/config.js?v=1.9.6',
   './js/personalization.js?v=1.9.6',
-  './js/ambient-audio.js?v=1.10.3',
-  './js/ryadom-activity.js?v=1.0.8',
+  './js/ambient-audio.js?v=1.10.4',
+  './js/ryadom-activity.js?v=1.1.0',
+  './js/sanctum-mode.js?v=1.0.0',
   './js/db.js?v=0.9.0',
   './js/migration.js',
   './js/dialogue-engine.js?v=1.1.0',
@@ -48,6 +51,9 @@ const APP_SHELL = [
   './assets/alek/alek-ryadom.jpg',
   './assets/backgrounds/living.jpg',
   './assets/backgrounds/bedroom.jpg',
+  './assets/backgrounds/sanctum.jpg',
+  './assets/alek/alek-sanctum.jpg',
+  './assets/fonts/Pacifico-Regular.ttf',
   './assets/icons/icon.jpg',
   './assets/icons/otter-a.png',
   './assets/icons/otter-b.png',
@@ -76,6 +82,7 @@ const APP_SHELL = [
   ,'./music/violin_solo.mp3'
   ,'./music/monastery.mp3'
   ,'./music/fugueg.mp3'
+  ,'./music/ravel_pavane.mp3'
   ,'./sound/bathtub.mp3'
   ,'./sound/doubleclick.mp3'
   ,'./sound/heartbeat.mp3'

@@ -14,8 +14,8 @@ import { emotionalSupportFromMessage } from './emotional-support.js?v=1.9.6';
 import { cycleActionLine, deleteCycleRecord, getCycleCarePrompt, saveCycleRecord, saveCycleSettings, saveSelectedBoundary } from './menstrual-service.js?v=1.9.6';
 import { cycleTrackerPanel } from './cycle-panel.js?v=1.9.6';
 import { personalizeElement, personalizeText, setConfiguredName } from './personalization.js?v=1.9.6';
-import { AmbientAudio } from './ambient-audio.js?v=1.10.3';
-import { RyadomActivity } from './ryadom-activity.js?v=1.0.8';
+import { AmbientAudio } from './ambient-audio.js?v=1.10.4';
+import { RyadomActivity } from './ryadom-activity.js?v=1.1.0';
 import { buildTimeContext, timeOfDay } from './time-context.js?v=1.1.0';
 import {
   bedtimeLineDelay,
@@ -25,6 +25,7 @@ import {
   pickNightWakeLine,
   shouldTriggerNightWake
 } from './bedroom-mode.js?v=1.2.0';
+import { pickSanctumLine } from './sanctum-mode.js?v=1.0.0';
 
 const app = document.querySelector('#app');
 const sheet = document.querySelector('#sheet');
@@ -83,6 +84,7 @@ let bedtimeNextSpeakAt = 0;
 let lastBedtimeLineId = '';
 let lastBedroomQuietLineId = '';
 let lastNightWakeLineId = '';
+let lastSanctumLineId = '';
 const CARE_STATE_KEY = 'ryadom:care-conversation-v1';
 const NIGHT_WAKE_ATTEMPT_PREFIX = 'ryadom:night-wake-attempt:';
 
@@ -266,6 +268,14 @@ async function showText(text, audio = null, autoplay = false) {
 }
 
 async function showLine(context = {}) {
+  const ordinarySanctumContext = app.dataset.room === 'sanctum'
+    && !['medication', 'symptom', 'level', 'distress', 'cycle', 'warning'].some(key => context[key] !== undefined);
+  if (ordinarySanctumContext) {
+    const line = pickSanctumLine(lastSanctumLineId);
+    lastSanctumLineId = line.id;
+    await showText(line.text);
+    return line;
+  }
   const line = await chooseIntelligentLine(engine, dialogueContext(context));
   await showText(line.text, line.audio, true);
   return line;
@@ -292,7 +302,10 @@ function applyPortrait(activity) {
   alekImage.src = activity.src;
   alekImage.alt = activity.alt;
   nowAction.textContent = personalizeText(activity.action);
-  if (!bedtimeActive) ambientAudio.setScene(activity.soundScene || 'home');
+  if (!bedtimeActive) {
+    const scene = activity.soundScene || 'home';
+    ambientAudio.setScene(scene, { immediate: scene === 'sanctum' });
+  }
 }
 
 const activityController = new RyadomActivity({
@@ -309,15 +322,17 @@ function leaveQuietMode({ restoreActivity = false } = {}) {
 }
 
 function setRoom(room, persist = true) {
-  const bedroom = room === 'bedroom';
+  const nextRoom = ['living', 'bedroom', 'sanctum'].includes(room) ? room : 'living';
+  const bedroom = nextRoom === 'bedroom';
   if (!bedroom && bedtimeActive) stopBedtimeMode({ restoreScene: false });
   leaveQuietMode();
-  app.dataset.room = bedroom ? 'bedroom' : 'living';
+  app.dataset.room = nextRoom;
   activityController.setRoom(app.dataset.room);
   document.querySelectorAll('[data-room-button]').forEach(button => {
     button.classList.toggle('is-active', button.dataset.roomButton === app.dataset.room);
   });
   if (persist) localStorage.setItem('ryadom:room-v2', app.dataset.room);
+  window.dispatchEvent(new CustomEvent('ryadom:room-change', { detail: { room: app.dataset.room } }));
 }
 
 async function panelTemplate(name) {

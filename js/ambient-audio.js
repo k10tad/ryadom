@@ -27,13 +27,14 @@ const SCENES = {
   violin: [{ src: 'music/violin_solo.mp3', volume: .085, loop: true }],
   organMonastery: [{ src: 'music/monastery.mp3', volume: .075, loop: true }],
   organFugue: [{ src: 'music/fugueg.mp3', volume: .07, loop: true }],
+  sanctum: [{ src: 'music/ravel_pavane.mp3', volume: .04, loop: true }],
   bedroom: [],
   bedtime: [{ src: 'sound/heartbeat.mp3', volume: .045, loop: true }],
   quiet: []
 };
 
 const between = (min, max) => Math.round(min + Math.random() * (max - min));
-const RECITAL_SCENES = new Set(['violin', 'organMonastery', 'organFugue']);
+const RECITAL_SCENES = new Set(['violin', 'organMonastery', 'organFugue', 'sanctum']);
 
 export class AmbientAudio {
   constructor({ onTrackChange } = {}) {
@@ -183,7 +184,13 @@ export class AmbientAudio {
       finish();
     });
     if (choice.loop) {
-      const titles = { violin: 'ヴァイオリン', organMonastery: 'パイプオルガン', organFugue: 'フーガ', bedtime: '眠るまで' };
+      const titles = {
+        violin: 'ヴァイオリン',
+        organMonastery: 'パイプオルガン',
+        organFugue: 'フーガ',
+        sanctum: 'ラヴェル · 亡き王女のためのパヴァーヌ',
+        bedtime: '眠るまで'
+      };
       this.updateMediaSession(titles[this.scene] || 'Рядом');
     }
     if (!choice.loop && !choice.fullTrack) {

@@ -10,9 +10,10 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/Ryadom-AppIcon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/Ryadom-AppIcon-180.png">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="css/style-v050.css?v=1.10.1">
+  <link rel="stylesheet" href="css/style-v050.css?v=1.11.1">
   <link rel="stylesheet" href="css/cycle-tracker.css?v=1.6.0">
   <link rel="stylesheet" href="css/splash.css?v=1.0.3">
+  <link rel="stylesheet" href="css/notebook.css?v=1.1.1">
 </head>
 <body class="splash-active">
   <section class="ryadom-splash" id="ryadom-splash" aria-label="Рядом 起動画面">
@@ -49,6 +50,7 @@
     <section class="room-tabs" aria-label="部屋の切り替え">
       <button class="is-active" type="button" data-room-button="living">Living</button>
       <button type="button" data-room-button="bedroom">Bedroom</button>
+      <button type="button" data-room-button="sanctum">Sanctum</button>
     </section>
 
     <button class="weather-strip" id="weather-strip" type="button" data-open="settings" aria-label="地域と天気の設定を開く">
@@ -63,13 +65,17 @@
         <figure class="alek-portrait">
           <img id="alek-image" src="assets/alek/alek-home.jpg" alt="こちらを見つめるアレク">
           <div class="portrait-tools" aria-label="ホーム機能">
-            <button type="button" data-open="rhythm">
+            <button class="room-tool" type="button" data-open="rhythm">
               <span class="tool-mark rhythm-mark" aria-hidden="true"><i></i><i></i><i></i></span>
               <span><strong>Ритм</strong><small>周期と服薬予定</small></span>
             </button>
-            <button type="button" data-open="say">
+            <button class="room-tool" type="button" data-open="say">
               <span class="tool-mark say-mark" aria-hidden="true">···</span>
               <span><strong>Скажи</strong><small>アレクに話す</small></span>
+            </button>
+            <button class="sanctum-notebook-button" type="button" data-notebook-open>
+              <span class="tool-mark notebook-mark" aria-hidden="true">＋</span>
+              <span><strong>Тетрадь</strong><small>メモとアルバム</small></span>
             </button>
           </div>
           <figcaption class="now-pill"><i></i><span>NOW</span><strong id="now-action">{{user}}と居る。</strong></figcaption>
@@ -149,6 +155,56 @@
       </form>
     </dialog>
 
+    <dialog class="notebook-dialog" id="notebook-dialog" aria-labelledby="notebook-title">
+      <div class="notebook-shell">
+        <header class="notebook-header">
+          <div>
+            <small lang="ru">SANCTUM · ЛИЧНЫЕ ЗАПИСИ</small>
+            <h2 id="notebook-title" lang="ru">Тетрадь</h2>
+          </div>
+          <button class="notebook-close" type="button" data-notebook-close aria-label="手帳を閉じる">×</button>
+        </header>
+
+        <nav class="notebook-tabs" aria-label="手帳の種類">
+          <button class="is-active" type="button" data-notebook-tab="notes" lang="ru">Заметки<small>メモ</small></button>
+          <button type="button" data-notebook-tab="photos" lang="ru">Фотодневник<small>写真日記</small></button>
+        </nav>
+
+        <div class="notebook-book" data-notebook-book>
+          <section class="notebook-page is-active" data-notebook-page="notes" aria-label="メモのページ">
+            <div class="notebook-deck" data-notebook-deck="notes"></div>
+          </section>
+          <section class="notebook-page" data-notebook-page="photos" aria-label="写真日記のページ" hidden>
+            <div class="notebook-deck" data-notebook-deck="photos"></div>
+          </section>
+        </div>
+
+        <footer class="notebook-footer">
+          <div class="notebook-pager" aria-label="ページ送り">
+            <button type="button" data-notebook-prev aria-label="前のページ">‹</button>
+            <output data-notebook-count>0 / 0</output>
+            <button type="button" data-notebook-next aria-label="次のページ">›</button>
+          </div>
+          <button class="notebook-add" type="button" data-notebook-add aria-label="新しい記録" title="新しい記録">＋</button>
+        </footer>
+
+        <section class="notebook-composer" data-notebook-composer hidden aria-label="新しい記録">
+          <form data-notebook-form>
+            <header>
+              <div><small lang="ru" data-notebook-form-kicker>НОВАЯ ЗАПИСЬ</small><h3 data-notebook-form-title>メモを残す</h3></div>
+              <button type="button" data-notebook-cancel aria-label="キャンセル">×</button>
+            </header>
+            <label>タイトル<input name="title" type="text" maxlength="80" placeholder="このページの題名" required></label>
+            <label class="notebook-note-field">内容<textarea name="text" rows="7" maxlength="1200" placeholder="残しておきたいこと"></textarea></label>
+            <label class="notebook-photo-field" hidden>写真<input name="photo" type="file" accept="image/*"></label>
+            <label class="notebook-photo-field" hidden>内容<textarea name="caption" rows="4" maxlength="1200" placeholder="この日のことを残しておく"></textarea></label>
+            <div class="notebook-photo-preview" data-notebook-photo-preview hidden></div>
+            <button class="notebook-save" type="submit" data-notebook-save>このページを残す</button>
+          </form>
+        </section>
+      </div>
+    </dialog>
+
     <section class="quiet-mode" id="quiet-mode" aria-hidden="true">
       <button class="music-box" id="music-box" type="button" aria-pressed="false" aria-label="オルゴールを再生">
         <span class="music-box-mark" aria-hidden="true"><i></i></span>
@@ -162,6 +218,7 @@
     </section>
   </main>
   <script src="js/splash.js?v=1.0.0" defer></script>
-  <script type="module" src="js/app.js?v=1.10.15"></script>
+  <script type="module" src="js/notebook.js?v=1.1.1"></script>
+  <script type="module" src="js/app.js?v=1.11.1"></script>
 </body>
 </html>

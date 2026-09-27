@@ -15,6 +15,14 @@ const ACTIVITIES = {
 };
 
 const BEDROOM_ACTIVITY = { id: 'bedroom', src: 'assets/alek/alek-bed.jpg', alt: '寝室で横になるアレク', action: '一緒に休むところ', soundScene: 'bedroom' };
+const SANCTUM_ACTIVITY = {
+  id: 'sanctum',
+  src: 'assets/alek/alek-sanctum.jpg',
+  fallbackSrc: 'assets/alek/alek-home.jpg',
+  alt: '書斎で手帳を開くアレク',
+  action: '書斎で記録を整理している',
+  soundScene: 'sanctum'
+};
 const PREVIEWS = { violin: ACTIVITIES.violin, organ: ACTIVITIES.organ, fugue: ACTIVITIES.fugue };
 
 const add = (pool, name, weight) => {
@@ -211,19 +219,27 @@ export class RyadomActivity {
   }
 
   setRoom(room) {
-    this.room = room === 'bedroom' ? 'bedroom' : 'living';
+    this.room = ['living', 'bedroom', 'sanctum'].includes(room) ? room : 'living';
     clearTimeout(this.changeTimer);
     if (this.room === 'bedroom') {
       this.onChange(BEDROOM_ACTIVITY);
       return BEDROOM_ACTIVITY;
     }
+    if (this.room === 'sanctum') {
+      this.onChange(SANCTUM_ACTIVITY);
+      return SANCTUM_ACTIVITY;
+    }
     return this.refresh();
   }
 
   refresh(date = new Date()) {
-    if (this.room !== 'living') {
+    if (this.room === 'bedroom') {
       this.onChange(BEDROOM_ACTIVITY);
       return BEDROOM_ACTIVITY;
+    }
+    if (this.room === 'sanctum') {
+      this.onChange(SANCTUM_ACTIVITY);
+      return SANCTUM_ACTIVITY;
     }
     if (this.preview) {
       const activity = { ...PREVIEWS[this.preview], until: null, preview: true };

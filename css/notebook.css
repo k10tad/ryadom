@@ -1,0 +1,249 @@
+@font-face {
+  font-family: "Ryadom Pacifico";
+  src: url("../assets/fonts/Pacifico-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+.notebook-dialog {
+  width: min(720px, calc(100vw - 20px));
+  height: min(820px, calc(100dvh - 24px));
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  overflow: hidden;
+  border: 1px solid rgba(222, 211, 240, .28);
+  border-radius: 25px;
+  background: #b7aec8;
+  color: #312c3c;
+  padding: 0;
+  box-shadow: 0 35px 100px rgba(0, 0, 0, .72);
+}
+
+.notebook-dialog::backdrop {
+  background: rgba(7, 7, 12, .78);
+  backdrop-filter: blur(9px);
+}
+
+.notebook-dialog[open] { animation: notebookAppear .28s ease both; }
+
+.notebook-shell {
+  position: relative;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  overflow: hidden;
+  padding: max(17px, env(safe-area-inset-top)) 18px max(16px, env(safe-area-inset-bottom));
+  background:
+    radial-gradient(circle at 12% 7%, rgba(247,242,252,.38), transparent 29%),
+    linear-gradient(145deg, #d4cce1, #a99dbc 62%, #9185a5);
+}
+
+.notebook-shell::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  pointer-events: none;
+  border: 1px solid rgba(73, 63, 91, .18);
+  border-radius: 20px;
+  box-shadow: inset 0 0 34px rgba(50, 42, 63, .12);
+}
+
+.notebook-header,
+.notebook-tabs,
+.notebook-book,
+.notebook-footer { position: relative; z-index: 1; }
+
+.notebook-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 2px 4px 10px; }
+.notebook-header > div { min-width: 0; }
+.notebook-header small { color: #70677f; font: 8px/1.4 system-ui, sans-serif; letter-spacing: .16em; }
+.notebook-header h2 {
+  margin: 2px 0 0;
+  color: #4a405a;
+  font: 400 27px/1.15 "Ryadom Pacifico", cursive;
+  letter-spacing: .025em;
+}
+.notebook-close,
+.notebook-composer header button {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(70, 61, 85, .2);
+  border-radius: 50%;
+  background: rgba(255,255,255,.26);
+  color: #51475f;
+  font-size: 22px;
+}
+
+.notebook-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  padding: 4px;
+  border: 1px solid rgba(76, 66, 91, .17);
+  border-radius: 15px;
+  background: rgba(82, 67, 101, .14);
+}
+.notebook-tabs button {
+  border: 0;
+  border-radius: 11px;
+  background: transparent;
+  color: #746c7f;
+  padding: 7px 8px 6px;
+  font: 400 17px/1.15 "Ryadom Pacifico", cursive;
+}
+.notebook-tabs button small { display: block; margin-top: 2px; font: 8px/1.2 system-ui, sans-serif; letter-spacing: .08em; }
+.notebook-tabs button.is-active { background: rgba(244,239,248,.82); color: #463c55; box-shadow: 0 5px 16px rgba(54, 45, 67, .15); }
+
+.notebook-book {
+  min-height: 0;
+  margin-top: 12px;
+  perspective: 1100px;
+}
+.notebook-page,
+.notebook-deck { height: 100%; min-height: 0; }
+.notebook-page[hidden] { display: none; }
+.notebook-deck { position: relative; }
+
+.notebook-entry,
+.notebook-empty {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  border: 1px solid rgba(86, 73, 101, .18);
+  border-radius: 6px 16px 16px 6px;
+  background:
+    linear-gradient(90deg, rgba(108,91,126,.09), transparent 25px),
+    repeating-linear-gradient(0deg, transparent 0 29px, rgba(109,92,127,.09) 29px 30px),
+    #f4f0f7;
+  padding: 23px 24px 25px 34px;
+  box-shadow: 0 15px 36px rgba(63, 51, 75, .17), inset 5px 0 11px rgba(72, 58, 84, .06);
+  backface-visibility: hidden;
+  transform-origin: left center;
+}
+.notebook-entry::before,
+.notebook-empty::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid rgba(143, 90, 110, .19);
+}
+.notebook-entry.is-turning-next { animation: pageTurnNext .33s ease both; }
+.notebook-entry.is-turning-prev { animation: pageTurnPrev .33s ease both; }
+.notebook-entry-date { color: #7c7189; font: 9px/1.4 system-ui, sans-serif; letter-spacing: .1em; }
+.notebook-entry-title { margin: 12px 0 0; color: #44394f; font-size: 20px; font-weight: 500; line-height: 1.45; overflow-wrap: anywhere; }
+.notebook-entry-body { margin: 14px 0 28px; color: #36303e; font-size: 14px; line-height: 2.1; white-space: pre-wrap; overflow-wrap: anywhere; }
+.notebook-photo { display: block; width: 100%; max-height: 48vh; margin: 4px 0 17px; border-radius: 5px; object-fit: contain; background: #d4cedd; box-shadow: 0 8px 22px rgba(49,41,59,.14); }
+.notebook-caption { margin: 0 0 25px; color: #3b3444; font-size: 13px; line-height: 1.8; white-space: pre-wrap; overflow-wrap: anywhere; }
+.notebook-margin {
+  margin: 22px 4px 4px auto;
+  max-width: 88%;
+  color: #65546e;
+  transform: rotate(-1deg);
+  font-family: "YuKyokasho", "Yu Kyokasho", "Klee One", cursive;
+}
+.notebook-margin small { display: block; margin-bottom: 5px; color: #8b7d96; font: 400 14px/1.2 "Ryadom Pacifico", cursive; }
+.notebook-margin p { margin: 0; font-size: 13px; line-height: 1.75; white-space: pre-wrap; }
+.notebook-signature {
+  margin-top: 8px;
+  color: #685b80;
+  text-align: right;
+  font: 400 18px/1.2 "Ryadom Pacifico", cursive;
+  transform: rotate(-4deg);
+}
+.notebook-entry-actions { display: flex; justify-content: flex-end; gap: 4px; margin: 22px 0 0; }
+.notebook-edit,
+.notebook-delete { border: 0; background: transparent; color: #897d93; padding: 7px 8px; font-size: 10px; }
+.notebook-delete { color: #a092a8; }
+.notebook-empty { display: grid; place-items: center; text-align: center; }
+.notebook-empty div { max-width: 250px; }
+.notebook-empty strong { display: block; color: #5a4d68; font: 400 21px/1.3 "Ryadom Pacifico", cursive; }
+.notebook-empty p { margin: 8px 0 0; color: #817589; font-size: 11px; line-height: 1.7; }
+
+.notebook-footer { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 12px 2px 0; }
+.notebook-pager { display: flex; align-items: center; gap: 9px; }
+.notebook-pager button,
+.notebook-add {
+  border: 1px solid rgba(76, 65, 91, .22);
+  background: rgba(250,248,252,.5);
+  color: #4f445c;
+}
+.notebook-pager button { width: 36px; height: 34px; border-radius: 12px; font-size: 20px; }
+.notebook-pager button:disabled { opacity: .3; }
+.notebook-pager output { min-width: 45px; color: #6f647b; font: 10px/1 system-ui, sans-serif; text-align: center; }
+.notebook-add { width: 48px; height: 48px; border-radius: 50%; font-size: 26px; box-shadow: 0 8px 20px rgba(61,49,74,.15); }
+
+.notebook-composer {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  overflow: auto;
+  padding: max(24px, env(safe-area-inset-top)) 20px max(24px, env(safe-area-inset-bottom));
+  background: rgba(35, 30, 44, .72);
+  backdrop-filter: blur(9px);
+}
+.notebook-composer[hidden] { display: none; }
+.notebook-note-field[hidden],
+.notebook-photo-field[hidden],
+.notebook-photo-preview[hidden] { display: none !important; }
+.notebook-composer form {
+  width: min(100%, 520px);
+  margin: 0 auto;
+  border: 1px solid rgba(87,74,102,.22);
+  border-radius: 19px;
+  background: #f2eef5;
+  padding: 18px;
+  box-shadow: 0 25px 70px rgba(0,0,0,.35);
+}
+.notebook-composer header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 15px; }
+.notebook-composer header small { color: #8a7c94; font: 8px/1.3 system-ui, sans-serif; letter-spacing: .15em; }
+.notebook-composer h3 { margin: 3px 0 0; color: #44394f; font-size: 17px; font-weight: 500; }
+.notebook-composer label { display: grid; gap: 7px; margin-top: 12px; color: #62576d; font-size: 10px; }
+.notebook-composer textarea,
+.notebook-composer input[type="text"],
+.notebook-composer input[type="file"] {
+  width: 100%;
+  border: 1px solid rgba(84,71,98,.2);
+  border-radius: 12px;
+  background: rgba(255,255,255,.62);
+  color: #332c3b;
+  padding: 11px;
+  resize: vertical;
+}
+.notebook-photo-preview { min-height: 130px; margin-top: 12px; border-radius: 12px; background: center / contain no-repeat #d8d1df; }
+.notebook-save { width: 100%; margin-top: 16px; border: 0; border-radius: 13px; background: linear-gradient(135deg, #776789, #554762); color: #fff; padding: 12px; }
+
+@keyframes notebookAppear { from { opacity: 0; transform: translateY(12px) scale(.985); } }
+@keyframes pageTurnNext { 45% { transform: rotateY(-18deg) translateX(-8px); opacity: .35; } }
+@keyframes pageTurnPrev { 45% { transform: rotateY(16deg) translateX(8px); opacity: .35; } }
+
+@media (max-width: 520px) {
+  .notebook-dialog { width: calc(100vw - 12px); height: calc(100dvh - 12px); border-radius: 20px; }
+  .notebook-shell { padding-inline: 12px; }
+  .notebook-header { padding-inline: 3px; }
+  .notebook-header h2 { font-size: 24px; }
+  .notebook-tabs button { font-size: 15px; }
+  .notebook-entry,
+  .notebook-empty { padding: 20px 16px 22px 27px; }
+  .notebook-entry::before,
+  .notebook-empty::before { left: 12px; }
+  .notebook-entry-body { margin-top: 15px; font-size: 13px; line-height: 1.9; }
+  .notebook-margin { max-width: 94%; }
+  .notebook-composer { padding-inline: 12px; }
+}
+
+@media (max-height: 650px) {
+  .notebook-header { padding-bottom: 5px; }
+  .notebook-header h2 { font-size: 21px; }
+  .notebook-header small { display: none; }
+  .notebook-book { margin-top: 8px; }
+  .notebook-footer { padding-top: 8px; }
+  .notebook-add { width: 42px; height: 42px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .notebook-dialog[open],
+  .notebook-entry.is-turning-next,
+  .notebook-entry.is-turning-prev { animation: none; }
+}

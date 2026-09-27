@@ -37,6 +37,9 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
   transition: opacity .35s ease, background-image .45s ease;
 }
 .app[data-room="bedroom"] .room-background { background-image: url("../assets/backgrounds/bedroom.jpg"); }
+.app[data-room="sanctum"] .room-background {
+  background-image: url("../assets/backgrounds/sanctum.jpg"), url("../assets/backgrounds/living.jpg");
+}
 .room-shade {
   z-index: -1;
   background:
@@ -104,6 +107,18 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .alek-portrait img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 46%; transition: opacity .25s ease; }
 .portrait-tools { position: absolute; z-index: 3; top: 12px; left: 10px; right: 10px; display: flex; justify-content: space-between; gap: 8px; }
 .portrait-tools button { min-width: 0; display: flex; align-items: center; gap: 7px; border: 1px solid rgba(229, 217, 247, .2); border-radius: 11px; background: rgba(24, 22, 36, .76); padding: 7px 10px; text-align: left; box-shadow: 0 8px 24px rgba(0, 0, 0, .18); backdrop-filter: blur(16px); }
+.sanctum-notebook-button { display: none !important; }
+.app[data-room="sanctum"] .portrait-tools { justify-content: center; }
+.app[data-room="sanctum"] .portrait-tools .room-tool { display: none; }
+.app[data-room="sanctum"] .portrait-tools .sanctum-notebook-button {
+  display: flex !important;
+  width: auto;
+  max-width: calc(100% - 20px);
+  flex: 0 1 auto;
+  justify-content: center;
+  padding-inline: 14px;
+}
+.notebook-mark { font: 18px/1 Georgia, serif; }
 .portrait-tools button > span:last-child { min-width: 0; display: grid; }
 .portrait-tools strong { font: 12px Georgia, serif; font-weight: 500; letter-spacing: .04em; }
 .portrait-tools small { overflow: hidden; color: var(--muted); font-size: 7px; text-overflow: ellipsis; white-space: nowrap; }
