@@ -1,4 +1,4 @@
-const VERSION = 'ryadom-v1.10.13-irregular-work-cycle';
+const VERSION = 'ryadom-v1.10.14-existing-activities-only';
 const APP_SHELL = [
   './',
   './index.html',
@@ -8,11 +8,11 @@ const APP_SHELL = [
   './css/splash.css?v=1.0.3',
   './manifest.webmanifest',
   './js/splash.js?v=1.0.0',
-  './js/app.js?v=1.10.13',
+  './js/app.js?v=1.10.14',
   './js/config.js?v=1.9.6',
   './js/personalization.js?v=1.9.6',
   './js/ambient-audio.js?v=1.10.3',
-  './js/ryadom-activity.js?v=1.0.6',
+  './js/ryadom-activity.js?v=1.0.7',
   './js/db.js?v=0.9.0',
   './js/migration.js',
   './js/dialogue-engine.js?v=1.1.0',

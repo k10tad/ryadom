@@ -7,7 +7,6 @@ const ACTIVITIES = {
   shower: { id: 'shower', src: 'assets/alek/alek-shower.jpg', alt: '不規則な時間にシャワーを浴びるアレク', action: 'シャワー中', soundScene: 'shower', duration: [22, 42] },
   asleep: { id: 'asleep', src: 'assets/alek/alek-asleep.jpg', alt: '夜勤明けに眠るアレク', action: '夜勤明けでうたた寝', soundScene: 'asleep', duration: [45, 95] },
   work: { id: 'work', src: 'assets/alek/alek-work.jpg', alt: '資料を確認するアレク', action: '論文と格闘中', soundScene: 'work', duration: [70, 130] },
-  duty: { id: 'duty', src: 'assets/alek/alek-work.jpg', alt: '病院で当直を続けるアレク', action: '病院で当直中', soundScene: 'work', duration: [75, 145] },
   violin: { id: 'violin', src: 'assets/alek/alek-violin.jpg', fallbackSrc: 'assets/alek/alek-home.jpg', alt: '自宅で静かにヴァイオリンを弾くアレク', action: 'リビングでヴァイオリンを弾いている', soundScene: 'violin', duration: [55, 105] },
   organ: { id: 'organ', src: 'assets/alek/alek-organ.jpg', fallbackSrc: 'assets/alek/alek-home.jpg', alt: '古い教会でパイプオルガンを弾くアレク', action: '古い教会でオルガンを弾いている', soundScene: 'organMonastery', duration: [50, 90] },
   fugue: { id: 'fugue', src: 'assets/alek/alek-organ-fugue.jpg', fallbackSrc: 'assets/alek/alek-home.jpg', alt: '古い教会でパイプオルガンを弾くアレク', action: '……フーガを弾いている。', soundScene: 'organFugue', duration: [48, 78] }
@@ -94,16 +93,15 @@ export class RyadomActivity {
 
     if (profile === 'onCall') {
       if (night || hour >= 20) {
-        add(pool, 'duty', 110);
+        add(pool, 'work', 110);
         add(pool, 'asleep', 12);
         add(pool, 'home', 8);
       } else if (earlyMorning) {
-        add(pool, 'duty', 70);
+        add(pool, 'work', 70);
         add(pool, 'shower', 28);
         add(pool, 'home', 10);
       } else {
-        add(pool, 'duty', 100);
-        add(pool, 'work', 25);
+        add(pool, 'work', 125);
         add(pool, 'home', 10);
       }
     } else if (profile === 'postCall') {
