@@ -118,7 +118,13 @@ export class AmbientAudio {
 
   setScene(scene, { immediate = false } = {}) {
     const nextScene = SCENES[scene] ? scene : 'home';
-    if (nextScene !== this.scene) this.playedOnce.delete(nextScene);
+    if (nextScene === this.scene) {
+      if (!this.unlocked || this.ambientActive || this.ambientTimer) return;
+      if (immediate && SCENES[this.scene]?.length && !document.hidden) this.playAmbient();
+      else this.scheduleAmbient(between(1600, 3200));
+      return;
+    }
+    this.playedOnce.delete(nextScene);
     this.scene = nextScene;
     this.sceneVersion += 1;
     this.stopAmbient();

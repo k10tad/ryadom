@@ -47,11 +47,11 @@ export class RyadomActivity {
     const pool = [];
 
     if (!weekday && hour >= 15 && hour < 23) {
-      add(pool, 'organ', 34);
-      add(pool, 'fugue', 4);
+      add(pool, 'organ', 36);
+      add(pool, 'fugue', 18);
     } else if (weekday && hour >= 18 && hour < 23) {
-      add(pool, 'organ', 16);
-      add(pool, 'fugue', 2);
+      add(pool, 'organ', 24);
+      add(pool, 'fugue', 12);
     }
 
     if (weekday && (hour >= 20 || (hour === 0 && date.getMinutes() <= 30))) add(pool, 'violin', 55);
